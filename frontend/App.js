@@ -11,9 +11,11 @@ const App = () => {
     const fetchData = async () => {
       try {
         // Replace with the IP address and port of your Flask server
-        const response = await fetch('http://10.27.82.129:5000/');
-        const jsonData = await response.json();
-        console.log("data ",jsonData)
+        const response = await fetch('http://130.229.191.216:5001/');
+        const text = await response.text(); // Read response as text first
+        console.log("Raw response: ", text);
+        const jsonData = JSON.parse(text); // Then try to parse it as JSON
+        console.log("Parsed data: ", jsonData);
         setData(jsonData.message);
       } catch (error) {
         console.error('Error fetching data:', error);

@@ -1,5 +1,7 @@
 from flask_restful import Resource
+from flask import jsonify
 
 class Welcome(Resource):
     def get(self):
-        return "Start Page"
+        data = {'message': 'Start Page!'}
+        return jsonify(data)

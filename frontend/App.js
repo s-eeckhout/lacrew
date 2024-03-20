@@ -11,7 +11,7 @@ const App = () => {
     const fetchData = async () => {
       try {
         // Replace with the IP address and port of your Flask server
-        const response = await fetch('http://130.229.191.216:5001/');
+        const response = await fetch('https://backend-lacrew-761adfcfe00d.herokuapp.com/');
         const text = await response.text(); // Read response as text first
         console.log("Raw response: ", text);
         const jsonData = JSON.parse(text); // Then try to parse it as JSON

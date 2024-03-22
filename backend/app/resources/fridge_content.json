@@ -6,7 +6,8 @@
         "expiration_time": 14,
         "quantity": 1,
         "category": "Dairy",
-        "link": "https://iconscout.com/icon/milk-54"
+        "link": "https://iconscout.com/icon/milk-54",
+        "percentage_left": 100
     },
     {
         "id": 2,
@@ -15,7 +16,8 @@
         "expiration_time": 5,
         "quantity": 3,
         "category": "Meat",
-        "link": "https://iconscout.com/3d-illustration/grocery-basket-5293484"
+        "link": "https://iconscout.com/3d-illustration/grocery-basket-5293484",
+        "percentage_left": 100
     },
     {
         "id": 3,
@@ -24,7 +26,8 @@
         "expiration_time": 30,
         "quantity": 2,
         "category": "Dairy",
-        "link": "https://iconscout.com/3d-illustration/grocery-basket-5293484"
+        "link": "https://iconscout.com/3d-illustration/grocery-basket-5293484",
+        "percentage_left": 75
     },
     {
         "id": 4,
@@ -33,6 +36,7 @@
         "expiration_time": 15,
         "quantity": 6,
         "category": "Vegtable",
-        "link": "https://iconscout.com/3d-illustration/onion-7034913"
+        "link": "https://iconscout.com/3d-illustration/onion-7034913",
+        "percentage_left": 100
     }
 ]

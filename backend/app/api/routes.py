@@ -9,5 +9,4 @@ api = Api(api_bp)
 
 api.add_resource(HelloWorld, '/helloworld')
 api.add_resource(Welcome, '/')
-api.add_resource(FridgeItem, '/fridge-items')
-api.add_resource(FridgeItem, '/delete-fridge-item/<string:name>', endpoint='delete_fridge_item')
+api.add_resource(FridgeItem, '/fridge-items', '/fridge-items/<string:name>')

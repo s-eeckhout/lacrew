@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Milk",
+        "day_added": "2024-03-22",
+        "expiration_time": 14,
+        "quantity": 1,
+        "category": "Dairy",
+        "link": "https://iconscout.com/icon/milk-54"
+    },
+    {
+        "id": 2,
+        "name": "Minced Meat",
+        "day_added": "2024-03-18",
+        "expiration_time": 5,
+        "quantity": 3,
+        "category": "Meat",
+        "link": "https://iconscout.com/3d-illustration/grocery-basket-5293484"
+    },
+    {
+        "id": 3,
+        "name": "Butter",
+        "day_added": "2024-03-12",
+        "expiration_time": 30,
+        "quantity": 2,
+        "category": "Dairy",
+        "link": "https://iconscout.com/3d-illustration/grocery-basket-5293484"
+    },
+    {
+        "id": 4,
+        "name": "Onion",
+        "day_added": "2024-03-16",
+        "expiration_time": 15,
+        "quantity": 6,
+        "category": "Vegtable",
+        "link": "https://iconscout.com/3d-illustration/onion-7034913"
+    }
+]

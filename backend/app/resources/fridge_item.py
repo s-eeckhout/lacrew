@@ -12,6 +12,9 @@ http://127.0.0.1:5001/fridge-items
 post with CURL: 
 curl -X POST -H "Content-Type: application/json" -d '{"name":"Minced Meat","day_added":"2024-03-18","expiration_time":5,"quantity":3,"category":"Meat"}' http://localhost:5001/fridge-items
 
+update with CURL:
+curl -X PATCH -H "Content-Type: application/json" -d '{"percentage_left": 75}' http://localhost:5001/fridge-items/Butter
+
 delete with CURL:
 curl -X DELETE http://localhost:5001/fridge-item/Minced%20Meat
 '''

@@ -1,21 +1,23 @@
-// App.js in your React Native project
+import React, { useState, useEffect, createContext } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import BottomTabNavigator from './navigation/BottomTabNavigator';
+import {endpoint} from 'utils/endpoint'
+import { enableScreens } from 'react-native-screens';
+enableScreens(false);
 
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+export const DataContext = createContext({}); // This will hold our data
 
-const App = () => {
+
+export default function App() {
   const [data, setData] = useState('');
 
   useEffect(() => {
-    // Function to fetch data from the Flask API
     const fetchData = async () => {
       try {
-        // Replace with the IP address and port of your Flask server
-        const response = await fetch('https://backend-lacrew-761adfcfe00d.herokuapp.com/');
-        const text = await response.text(); // Read response as text first
-        console.log("Raw response: ", text);
-        const jsonData = JSON.parse(text); // Then try to parse it as JSON
-        console.log("Parsed data: ", jsonData);
+        console.log("ENDPOINT ", endpoint)
+        const response = await fetch(endpoint);
+        const text = await response.text();
+        const jsonData = JSON.parse(text);
         setData(jsonData.message);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -27,10 +29,10 @@ const App = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>{data}</Text>
-    </View>
+    <DataContext.Provider value={data}>
+      <NavigationContainer>
+        <BottomTabNavigator />
+      </NavigationContainer>
+    </DataContext.Provider>
   );
-};
-
-export default App;
+}

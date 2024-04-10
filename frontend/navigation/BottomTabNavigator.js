@@ -1,77 +1,76 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image, View } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import FridgeContentScreen from '../screens/FridgeContentScreen';
 import MatchmakingScreen from '../screens/MatchmakingScreen';
 import UserSettingsScreen from '../screens/UserSettingsScreen';
 import CameraScreen from '../screens/CameraScreen';
 
-import { View, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
     return (
-    <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-        tabBarActiveTintColor: '#2e78b7',
-        tabBarShowLabel: false,
-        }}
-    >
-        <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-            tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size} />
-            ),
-        }}
-        />
-        <Tab.Screen
-        name="FridgeContent"
-        component={FridgeContentScreen}
-        options={{
-            tabBarIcon: ({ color, size }) => (
-            <Icon name="list" color={color} size={size} />
-            ),
-        }}
-        />
-        <Tab.Screen
-        name="AddItem"
-        component={CameraScreen}
-        options={{
-            tabBarIcon: ({ color, size }) => (
-            <Icon name="plus" color={color} size={size} />
-            ),
-            tabBarButton: (props) => (
-            // Placeholder for the camera button
-            <View {...props} style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ color: props.color }}>Camera</Text>
-            </View>
-            ),
-        }}
-        />
-        <Tab.Screen
-        name="Matchmaking"
-        component={MatchmakingScreen}
-        options={{
-            tabBarIcon: ({ color, size }) => (
-            <Icon name="heart" color={color} size={size} />
-            ),
-        }}
-        />
-        <Tab.Screen
-        name="Settings"
-        component={UserSettingsScreen}
-        options={{
-            tabBarIcon: ({ color, size }) => (
-            <Icon name="cog" color={color} size={size} />
-            ),
-        }}
-        />
-    </Tab.Navigator>
+        <Tab.Navigator
+            initialRouteName="Home"
+            tabBarOptions={{
+                style: {
+                    borderTopWidth: 0, // Remove top border
+                    elevation: 0, // Remove shadow on Android
+                },
+                showLabel: false,
+            }}
+        >
+            <Tab.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Image source={require('../assets/Home.png')} style={{ width: size, height: size, tintColor: color }} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="FridgeContent"
+                component={FridgeContentScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Image source={require('../assets/List.png')} style={{ width: size, height: size, tintColor: color }} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="AddItem"
+                component={CameraScreen}
+                options={{
+                    tabBarIcon: ({ focused, color, size }) => (
+                        <View style={{ position: 'absolute', top: -20, alignItems: 'center' }}>
+                            <View style={{ backgroundColor: '#fff', borderRadius: 30, padding: 5 }}>
+                                <Image source={require('../assets/Plus.png')} style={{ width: size, height: size, tintColor: color }} />
+                            </View>
+                            <View style={{ position: 'absolute', bottom: -5, width: 50, height: 10, backgroundColor: '#2e78b7', borderRadius: 5 }} />
+                        </View>
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Matchmaking"
+                component={MatchmakingScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Image source={require('../assets/Cards.png')} style={{ width: size, height: size, tintColor: color }} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Settings"
+                component={UserSettingsScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Image source={require('../assets/Profile.png')} style={{ width: size, height: size, tintColor: color }} />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
     );
 }

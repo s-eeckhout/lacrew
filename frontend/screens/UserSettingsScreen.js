@@ -1,61 +1,93 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { DataContext } from '../App'; // Import the DataContext if you are using it
-import {endpoint} from 'utils/endpoint'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
+import { Image } from "expo-image";
 
+const BlueHeader = () => {
+  return (
+    <Image
+      style={styles.BlueHeader}
+      contentFit="cover"
+      source={require("../assets/BlueHeader.png")}
+    />
+  );
+};
 
-const ScreenTemplate = ({ navigation }) => {
-  // Use DataContext if you are passing the API data through context
-  // const data = useContext(DataContext);
-
-  // Local state for API data if you're fetching it in the component
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Update the URL with your API's URL
-        const response = await fetch(endpoint);
-        const json = await response.json();
-        setData(json);
-      } catch (error) {
-        setError('Failed to fetch data.');
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+const UserSettings = () => {
   return (
     <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : error ? (
-        <Text>{error}</Text>
-      ) : (
-        // Render your screen's content with the fetched data
-        <Text style={styles.text}>{data.message ? data.message : 'No data fetched'}</Text>
-      )}
+      <BlueHeader />
+      <Text style={styles.headerText}>User Settings</Text>
+      <View style={styles.section}>
+        <SettingItem title="Food Restrictions/Intolerances" />
+        <SettingItem title="Settings" />
+        <SettingItem title="Support" lastItem />
+      </View>
     </View>
   );
 };
 
+const SettingItem = ({ title, lastItem }) => {
+  return (
+    <View style={[styles.settingItem, lastItem && { borderBottomWidth: 0 }]}>
+      <Text style={styles.settingText}>{title}</Text>
+      <Image
+        style={styles.arrowIcon}
+        contentFit="cover"
+        source={require("../assets/chevronright.png")}
+      />
+    </View>
+  );
+};
+
+
 const styles = StyleSheet.create({
+  BlueHeader: {
+    top: -50, 
+    height: 152,
+    width: 390,
+    overflow: "hidden",
+  },
+  headerText: {
+    fontWeight: "700",
+    top: -110, 
+    left: 20, 
+    color: "white",
+    fontFamily: FontFamily.asapSemiBold,
+    fontSize: FontSize.size_3xl,
+  },
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: Color.colorWhite,
+  },
+  section: {
+    marginTop: -70,
+    width: 350,
+    left:20,
+    backgroundColor: 'white',
+    borderRadius: Border.br_xl,
+    padding: Padding.p_base,
+    // justifyContent: 'center', // Center vertically
+    // alignItems: 'center', // Added to center items horizontally
+  },
+  settingItem: {
+    flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: Color.colorGainsboro,
   },
-  text: {
-    fontSize: 20,
+  settingText: {
+    fontFamily: FontFamily.asapRegular,
+    fontSize: FontSize.size_sm,
+    color: Color.colorDarkslategray,
   },
-  // Add more styles here as needed
+  arrowIcon: {
+    width: 10, // Adjust size as needed
+    height: 10, // Adjust size as needed
+    marginRight: 10,
+  },
 });
 
-export default ScreenTemplate;
+export default UserSettings;

@@ -161,3 +161,4 @@ cython_debug/
 
 # .DS_Store: Mac file system artifact
 .DS_Store
+node_modules

@@ -160,10 +160,13 @@ const Home = () => {
 
 
       {/* RECIPE IDEAS CONTENT */}
-      <View style={[styles.RecipesParent, styles.HeaderPosition]}>
+      <ScrollView horizontal>  
+      {/* <View style={[styles.RecipessParent, styles.HeadersPosition]}> */}
+      <View style={[styles.container, styles.RecipesParent]}>
         <Recipe recipe={Recipe1} />
         <Recipe recipe={Recipe2} />
       </View>
+      </ScrollView>
     </View>
   );
 };
@@ -410,14 +413,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   RecipesParent: {
-    top: 451,
+    // top: 451,
+    marginTop: 340,
     padding: Padding.p_3xs,
     flexDirection: "row",
-    width: 390,
+    // width: 390,
+    // left: 0,
+    // zIndex: 0
+    // position: "absolute",
   },
   container: {
     flex: 1,
-    backgroundColor: Color.colorWhite,
+    // zIndex:0
+    // backgroundColor: Color.colorWhite,
     // padding: Padding.p_3xs,
   },
   item: {

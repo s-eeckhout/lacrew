@@ -19,7 +19,7 @@ const TAGS = [
   { label: 'All', colors: ['#7375c0', '#00a3ff'], selected: true },
   { label: 'Vegetables', colors: ['#7375c0', '#00a3ff'], selected: false },
   { label: 'Fruit', colors: ['#7375c0', '#00a3ff'], selected: false },
-  { label: 'Dairy', colors: ['#7375c0', '#00a3ff'], selected: false },
+  { label: 'Dairy', colors: ['#7375c0', '#00a3ff'], selected: true },
   { label: 'Meat', colors: ['#7375c0', '#00a3ff'], selected: false },
   { label: 'Pasta', colors: ['#7375c0', '#00a3ff'], selected: false },
   { label: 'Herbs & Spices', colors: ['#7375c0', '#00a3ff'], selected: false },
@@ -29,13 +29,13 @@ const TAGS = [
 
 const Tag = ({ label, colors, selected, onPress }) => {
   const containerStyles = {
-    backgroundColor: selected ? colors[0] : 'white',
+    // backgroundColor: selected ? colors[0] : 'white',
     borderWidth: selected ? 0 : 1, // Add border if not selected
     borderColor: selected ? 'white' : colors[0], // Border color same as gradient color
     paddingHorizontal: Padding.p_xs,
     borderRadius: Border.br_xl,
     height: 32,
-    marginHorizontal: Padding.p_xs,
+    marginHorizontal: 5,
     flexDirection: "row",
     alignItems: "center",
   };
@@ -49,22 +49,22 @@ const Tag = ({ label, colors, selected, onPress }) => {
 
   return (
     <>
-    {/* <Pressable onPress={onPress}> */}
+    <Pressable onPress={onPress}>
       {selected ? (
         <LinearGradient
-          style={[containerStyles, styles.tagSpaceBlock]}
+          style={[containerStyles]}
           locations={[0, 1]}
           colors={colors}
         >
           <Text style={labelStyles}>{label}</Text>
         </LinearGradient>
       ) : (
-        <View style={[containerStyles, styles.tagSpaceBlock]}>
+        <View style={[containerStyles]}>
           <Text style={labelStyles}>{label}</Text>
         </View>
       )}
-    {/* </Pressable> */}
-    {/* // TODO: If I make it pressable (eg the item will toggle on or off, only meat appears in the middle?*/}
+    </Pressable>
+    {/* // TODO: Make toggle on/off for 'selected' that it only shows those categories*/}
     </>
   );
 };
@@ -97,8 +97,8 @@ const GroceriesList = () => {
       <BlueHeader />
       <Text style={styles.headerText}>Fridge Content</Text>
       
+      <ScrollView horizontal>
       <View style={styles.tagsContainer}>
-      {/* <ScrollView horizontal > */}
         {tags.map((tag, index) => (
           <Tag
             key={index}
@@ -108,9 +108,8 @@ const GroceriesList = () => {
             onPress={() => handleTagPress(index)}
           />
         ))}
-        {/* </ScrollView> */}
       </View>
-      {/* // TODO: If I do the scrollview, the tags all dissapear */}
+      </ScrollView>
       
       
       <ScrollView>
@@ -123,114 +122,53 @@ const GroceriesList = () => {
       ))}
       </ScrollView>
 
-      <View style={styles.buttonsContainer}>
-        {/* Buttons content */}
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
-    // Header styles
-  },
   BlueHeader: {
-    top: -50, 
+    marginTop: -50, 
     height: 152,
     width: 390,
     overflow: "hidden",
   },
   headerText: {
     fontWeight: "700",
-    // position: "absolute",
-    top: -110, // Adjust this value as per your requirement
-    left: 20, // Adjust this value as per your requirement
+    marginTop: -60, 
+    left: 20, 
     color: "white",
     fontFamily: FontFamily.asapSemiBold,
     fontSize: FontSize.size_3xl,
   },
-  vectorIcon: {
-        top: -340,
-        left: -111,
-        width: 661,
-        height: 459,
-        position: "absolute",
-      },
   container: {
     flex: 1,
-    backgroundColor: Color.colorWhite,
-    // padding: Padding.p_3xs,
   },
   item: {
     top: -2,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
     backgroundColor: Color.colorWhite,
     borderRadius: Border.br_base,
     paddingHorizontal: Padding.p_base,
-    paddingVertical: Padding.p_sm,
-    shadowColor: Color.colorBlack,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  itemContent: {
-    flex: 1,
+    paddingVertical: Padding.p_3xs,
   },
   itemName: {
     fontFamily: FontFamily.asapRegular,
     fontSize: FontSize.calloutBold_size,
-  },
-  progressBarContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  progressBar: {
-    height: 8,
-    backgroundColor: Color.colorGainsboro,
-    borderRadius: Border.br_45xl,
-    marginRight: 8,
   },
   days: {
     fontFamily: FontFamily.asapRegular,
     fontSize: FontSize.size_sm,
     color: Color.labelColorLightPrimary,
   },
-  progressIndicator: {
-    width: 20, // Adjust width as needed
-    height: 20, // Adjust height as needed
-    backgroundColor: Color.colorDarkorange,
-    borderRadius: Border.br_45xl,
-  },
   tagsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
+    marginBottom:-25,
   },
-  buttonsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 20,
-  },
-  tagSpaceBlock: {
-    paddingVertical: 0,
-    paddingHorizontal: Padding.p_xs,
-    borderRadius: Border.br_xl,
-    height: 32,
-    marginTop: -100,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  tag: {
-        backgroundColor: Color.gradient,
-      },
-  // Additional styles for tags and buttons can be added here
-    label: {
+  label: {
     fontFamily: FontFamily.sFPro,
     fontSize: FontSize.size_mini,
     color: Color.colorWhite,

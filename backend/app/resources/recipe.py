@@ -1,18 +1,17 @@
 import json
 from flask_restful import Resource
 from flask import jsonify
+from app.utils.data_helper import load_recipes
 
 path = 'backend/app/recipes/recipes.json'
 class RecipeList(Resource):
     def get(self):
-        with open(path, 'r') as read_file:
-            data = json.load(read_file)
+        data = load_recipes()
         return data
 
 class RecipeById(Resource):
     def get(self, recipe_id):
-        with open(path, 'r') as read_file:
-            data = json.load(read_file)
+        data = load_recipes()    
         recipe_key = f"recipe_{recipe_id}"
         recipe = data.get(recipe_key)
         if recipe:
@@ -21,8 +20,7 @@ class RecipeById(Resource):
 
 class RecipeByIngredient(Resource):
     def get(self, ingredient):
-        with open(path, 'r') as read_file:
-            data = json.load(read_file)
+        data = load_recipes()
         matching_recipes = []
         for recipe in data.values():
             print(recipe)

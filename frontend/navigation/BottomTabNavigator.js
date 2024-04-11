@@ -4,6 +4,7 @@ import { Image, View } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import FridgeContentScreen from '../screens/FridgeContentScreen';
 import MatchmakingScreen from '../screens/MatchmakingScreen';
+import RecipeListScreen from '../screens/RecipeListScreen';
 import UserSettingsScreen from '../screens/UserSettingsScreen';
 import CameraScreen from '../screens/CameraScreen';
 
@@ -57,8 +58,8 @@ export default function BottomTabNavigator() {
                 }}
             />
             <Tab.Screen
-                name="Matchmaking"
-                component={MatchmakingScreen}
+                name="RecipeList"
+                component={RecipeListScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Image source={require('../assets/Cards.png')} style={{ width: size, height: size, tintColor: color }} />

@@ -20,6 +20,9 @@ export default function BottomTabNavigator() {
                 },
                 showLabel: false,
             }}
+            screenOptions={{
+                headerShown: false, // This will apply to all screens within this navigator
+            }}
         >
             <Tab.Screen
                 name="Home"

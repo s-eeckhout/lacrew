@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { DataContext } from '../App'; // Import the DataContext if you are using it
 import {endpoint} from 'utils/endpoint'
 import * as Progress from 'react-native-progress';
-import FridgeContentScreen from '../screens/FridgeContentScreen';
 
 
 const GroceriesList = () => {
@@ -121,7 +120,7 @@ const Home = () => {
         source={require("../assets/OrangeHeader.png")}
       />
       <Text style={styles.headerText}>Did you eat something {"\n"}lately?</Text>
-      <TouchableOpacity onPress={handlePress(FridgeContentScreen)}>
+      <TouchableOpacity onPress={() => handlePress('FridgeContentScreen')}>
         <Image
           style={styles.iconEdit}
           contentFit="cover"
@@ -147,7 +146,7 @@ const Home = () => {
           Recipes with Carrot {/* // TODO Change for top of stack of FridgeItems */}
         </Text>
 
-        <TouchableOpacity onPress={handlePress(FridgeContentScreen)}>
+        <TouchableOpacity onPress={() => handlePress('FridgeContentScreen')}>
         <Image
           style={styles.arrowsarrowRightIcon}
           contentFit="cover"

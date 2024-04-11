@@ -8,6 +8,7 @@ import {endpoint} from 'utils/endpoint'
 import * as Progress from 'react-native-progress';
 import FridgeContentScreen from '../screens/FridgeContentScreen';
 
+import React, { useEffect, useState } from 'react';
 
 const GroceriesList = () => {
   const groceries = [

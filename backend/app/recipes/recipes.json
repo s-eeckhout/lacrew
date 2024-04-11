@@ -5,7 +5,7 @@
     "recipe_description" : "Pasta with tomato sauce",
     "level" : "easy",
     "from" : "Italy",
-    "indegredients" : ["pasta", "tomato", "onion", "garlic", "olive oil"],
+    "ingredients" : ["pasta", "tomato", "onion", "garlic", "olive oil"],
     "preparation" : "Boil the pasta, fry the onion and garlic, add the tomato and cook for 10 minutes, add the pasta and mix",
     "image" : "./imgs/pasta.jpg",
     "time" : 20
@@ -16,7 +16,7 @@
         "recipe_description" : "Burger with fries",
         "level" : "easy",
         "from" : "USA",
-        "indegredients" : ["beef", "bread", "lettuce", "tomato", "onion", "cheese", "potato"],
+        "ingredients" : ["beef", "bread", "lettuce", "tomato", "onion", "cheese", "potato"],
         "preparation" : "Cook the beef, fry the potato, put the beef in the bread with the lettuce, tomato, onion and cheese, serve with the fries",
         "image" : "./imgs/burger.jpg",
         "time" : 30
@@ -27,7 +27,7 @@
         "recipe_description" : "Sushi with soy sauce",
         "level" : "medium",
         "from" : "Japan",
-        "indegredients" : ["rice", "fish", "seaweed", "soy sauce", "wasabi", "ginger"],
+        "ingredients" : ["rice", "fish", "seaweed", "soy sauce", "wasabi", "ginger"],
         "preparation" : "Cook the rice, cut the fish, put the rice in the seaweed, add the fish, roll it, cut it, serve with the soy sauce, wasabi and ginger",
         "image" : "./imgs/sushi.jpg",
         "time" : 40
@@ -38,7 +38,7 @@
         "recipe_description" : "Paella with seafood",
         "level" : "hard",
         "from" : "Spain",
-        "indegredients" : ["rice", "seafood", "onion", "pepper", "tomato", "garlic", "olive oil"],
+        "ingredients" : ["rice", "seafood", "onion", "pepper", "tomato", "garlic", "olive oil"],
         "preparation" : "Fry the onion, pepper and garlic, add the tomato, add the rice, add the seafood, cook for 20 minutes",
         "image" : "./imgs/paella.jpg",
         "time" : 60
@@ -49,7 +49,7 @@
         "recipe_description" : "Tacos with guacamole",
         "level" : "medium",
         "from" : "Mexico",
-        "indegredients" : ["beef", "tortilla", "lettuce", "tomato", "onion", "cheese", "avocado"],
+        "ingredients" : ["beef", "tortilla", "lettuce", "tomato", "onion", "cheese", "avocado"],
         "preparation" : "Cook the beef, fry the tortilla, put the beef in the tortilla with the lettuce, tomato, onion, cheese and avocado",
         "image" : "./imgs/tacos.jpg",
         "time" : 30
@@ -60,7 +60,7 @@
         "recipe_description" : "Ramen with egg",
         "level" : "medium",
         "from" : "Japan",
-        "indegredients" : ["noodles", "egg", "soy sauce", "miso", "onion", "garlic", "ginger"],
+        "ingredients" : ["noodles", "egg", "soy sauce", "miso", "onion", "garlic", "ginger"],
         "preparation" : "Cook the noodles, fry the onion, garlic and ginger, add the soy sauce and miso, add the noodles, add the egg",
         "image" : "./imgs/ramen.jpg",
         "time" : 30
@@ -71,7 +71,7 @@
         "recipe_description" : "Couscous with vegetables",
         "level" : "easy",
         "from" : "Morocco",
-        "indegredients" : ["couscous", "vegetables", "onion", "garlic", "olive oil"],
+        "ingredients" : ["couscous", "vegetables", "onion", "garlic", "olive oil"],
         "preparation" : "Cook the couscous, fry the onion and garlic, add the vegetables, cook for 10 minutes",
         "image" : "./imgs/couscous.jpg",
         "time" : 30
@@ -82,7 +82,7 @@
         "recipe_description" : "Pancakes with syrup",
         "level" : "easy",
         "from" : "USA",
-        "indegredients" : ["flour", "milk", "egg", "sugar", "butter", "syrup"],
+        "ingredients" : ["flour", "milk", "egg", "sugar", "butter", "syrup"],
         "preparation" : "Mix the flour, milk, egg and sugar, fry the pancakes, serve with the butter and syrup",
         "image" : "./imgs/pancakes.jpg",
         "time" : 20
@@ -93,7 +93,7 @@
         "recipe_description" : "Curry with rice",
         "level" : "medium",
         "from" : "India",
-        "indegredients" : ["rice", "chicken", "onion", "garlic", "ginger", "curry", "coconut milk"],
+        "ingredients" : ["rice", "chicken", "onion", "garlic", "ginger", "curry", "coconut milk"],
         "preparation" : "Cook the rice, fry the onion, garlic and ginger, add the chicken, add the curry and coconut milk, cook for 20 minutes",
         "image" : "./imgs/curry.jpg",
         "time" : 40
@@ -104,7 +104,7 @@
         "recipe_description" : "Goulash with bread",
         "level" : "hard",
         "from" : "Hungary",
-        "indegredients" : ["beef", "onion", "pepper", "tomato", "paprika", "potato", "bread"],
+        "ingredients" : ["beef", "onion", "pepper", "tomato", "paprika", "potato", "bread"],
         "preparation" : "Cook the beef, fry the onion, pepper and tomato, add the paprika, add the potato, cook for 30 minutes",
         "image" : "./imgs/goulash.jpg",
         "time" : 60

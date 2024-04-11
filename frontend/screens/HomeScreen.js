@@ -303,9 +303,9 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   OrangeHeader: {
-    height: 152,
+    height: 170,
     width: "100%",
-    top: 0,
+    top: -20,
     overflow: "hidden",
   },
   title: {

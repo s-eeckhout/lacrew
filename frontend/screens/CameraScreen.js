@@ -1,12 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator , Pressable} from 'react-native';
-import { DataContext } from '../App'; // Import the DataContext if you are using it
-import {endpoint} from 'utils/endpoint'
+import React, { useState, useEffect, useContext } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Pressable,
+} from "react-native";
+import { DataContext } from "../App"; // Import the DataContext if you are using it
+import { endpoint } from "utils/endpoint";
 import { Padding, Border, FontFamily, Color, FontSize } from "../GlobalStyles";
 
 // TODO: Styling
 
-const FloatingSheet = () => {
+const FloatingSheet = ({ navigation }) => {
   return (
     <View style={styles.floatingsheet}>
       <View style={styles.titleDesc}>
@@ -15,22 +21,21 @@ const FloatingSheet = () => {
           style={styles.desc}
         >{`How do you want to add your groceries to the list? `}</Text>
       </View>
-      
+
       <View style={styles.buttonAction}>
         <Pressable
           style={[styles.button, styles.iconFlexBox]}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("Camera");
+          }}
         >
           <View style={[styles.icon, styles.iconFlexBox]}>
             <Text style={[styles.sfSymbol, styles.titleFlexBox]}>􀈠</Text>
-            
           </View>
           <Text style={[styles.label, styles.labelTypo]}>Scan Receipt</Text>
         </Pressable>
         <Text style={[styles.secAction, styles.labelTypo]}>Add Manually</Text>
       </View>
-      
-
     </View>
   );
 };

@@ -2,12 +2,17 @@ import json
 from flask_restful import Resource
 from flask import jsonify
 
+from app.utils.data_helper import load_recipes
+
+
 class Recipe(Resource):
     def get(self, id=None):
         name = 'recipe_' + str(id)
         #get recipes from recipes folder by id(eg. id=1 get Pasta recipe)
-        read_file = open('/Users/wangziyi/Desktop/KTH study/lacrew/lacrew/backend/app/recipes/recipes.json', 'r')
-        data = json.load(read_file)
+        #read_file = open('backend/app/recipes/recipes.json', 'r')
+        #data = json.load(read_file)
+        
+        data = load_recipes()
         for recipe_key, recipe_value in data.items():
             if recipe_key == name:
                 return jsonify(recipe_value)

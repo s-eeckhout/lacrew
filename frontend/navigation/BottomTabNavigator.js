@@ -28,6 +28,7 @@ export default function BottomTabNavigator() {
                     tabBarIcon: ({ color, size }) => (
                         <Image source={require('../assets/Home.png')} style={{ width: size, height: size, tintColor: color }} />
                     ),
+                headerShown: false, // Hide the header
                 }}
             />
             <Tab.Screen
@@ -37,6 +38,7 @@ export default function BottomTabNavigator() {
                     tabBarIcon: ({ color, size }) => (
                         <Image source={require('../assets/List.png')} style={{ width: size, height: size, tintColor: color }} />
                     ),
+                headerShown: false, // Hide the header
                 }}
             />
             <Tab.Screen
@@ -51,6 +53,7 @@ export default function BottomTabNavigator() {
                             <View style={{ position: 'absolute', bottom: -5, width: 50, height: 10, backgroundColor: '#2e78b7', borderRadius: 5 }} />
                         </View>
                     ),
+                headerShown: false, // Hide the header
                 }}
             />
             <Tab.Screen
@@ -60,6 +63,7 @@ export default function BottomTabNavigator() {
                     tabBarIcon: ({ color, size }) => (
                         <Image source={require('../assets/Cards.png')} style={{ width: size, height: size, tintColor: color }} />
                     ),
+                headerShown: false, // Hide the header
                 }}
             />
             <Tab.Screen
@@ -69,6 +73,7 @@ export default function BottomTabNavigator() {
                     tabBarIcon: ({ color, size }) => (
                         <Image source={require('../assets/Profile.png')} style={{ width: size, height: size, tintColor: color }} />
                     ),
+                headerShown: false, // Hide the header
                 }}
             />
         </Tab.Navigator>

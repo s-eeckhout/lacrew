@@ -135,7 +135,7 @@ const Home = () => {
         <Text style={styles.headerText}>
           Did you eat something {"\n"}lately?
         </Text>
-        <TouchableOpacity onPress={() => handlePress("FridgeContentScreen")}>
+        <TouchableOpacity onPress={() => handlePress("FridgeContent")}>
           <Image
             style={styles.iconEdit}
             contentFit="cover"
@@ -160,8 +160,7 @@ const Home = () => {
           Recipes with Carrot{" "}
           {/* // TODO Change for top of stack of FridgeItems */}
         </Text>
-
-        <TouchableOpacity onPress={() => handlePress("FridgeContentScreen")}>
+        <TouchableOpacity onPress={() => handlePress("FridgeContent")}>
           <Image
             style={styles.arrowsarrowRightIcon}
             contentFit="cover"

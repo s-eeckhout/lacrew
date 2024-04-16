@@ -12,6 +12,7 @@ import GroceryItemScreen from './GroceryItemScreen';
 import { useNavigation } from '@react-navigation/native';
 
 
+
 const Stack = createStackNavigator();
 
 function MyStack() {
@@ -37,7 +38,7 @@ const TAGS = [
   { label: "All", colors: ["#7375c0", "#00a3ff"], selected: true },
   { label: "Vegetables", colors: ["#7375c0", "#00a3ff"], selected: false },
   { label: "Fruit", colors: ["#7375c0", "#00a3ff"], selected: false },
-  { label: "Dairy", colors: ["#7375c0", "#00a3ff"], selected: true },
+  { label: "Dairy", colors: ["#7375c0", "#00a3ff"], selected: false },
   { label: "Meat", colors: ["#7375c0", "#00a3ff"], selected: false },
   { label: "Pasta", colors: ["#7375c0", "#00a3ff"], selected: false },
   { label: "Herbs & Spices", colors: ["#7375c0", "#00a3ff"], selected: false },
@@ -91,6 +92,7 @@ const GroceriesList = () => {
   const navigation = useNavigation(); // This line should be inside your component  
   const [tags, setTags] = useState(TAGS);
   const [fridgeItems, setFridgeItems] = useState([])
+  // State to hold the slider value
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,7 +111,7 @@ const GroceriesList = () => {
 
     fetchData();
   }, []);
-  
+
   const handlePressItem = (item) => {
     const daysUntilExpiration = calculateDaysUntilExpiration(item);
     const formattedItem = {
@@ -141,6 +143,7 @@ const GroceriesList = () => {
   // Map over each item, calculate the days until expiration, and store the result in a new array
   const daysUntilExpirationArray = fridgeItems ? fridgeItems.map(calculateDaysUntilExpiration) : [];
 
+  // Handle the pressing of tags
   const handleTagPress = (index) => {
     const updatedTags = tags.map((tag, i) => ({
       ...tag,
@@ -148,6 +151,18 @@ const GroceriesList = () => {
     }));
     setTags(updatedTags);
   };
+  // Function to get the filtered items based on selected tags
+  const getFilteredItems = () => {
+    const selectedTags = tags.filter(t => t.selected).map(t => t.label);
+    if (selectedTags.includes("All")) {
+        return fridgeItems;
+    }
+    return fridgeItems.filter(item =>
+        selectedTags.includes(item.category)
+    );
+   };
+  // Get the filtered items to display
+  const displayItems = getFilteredItems();
 
   return (
     <View style={styles.container}>
@@ -169,7 +184,7 @@ const GroceriesList = () => {
       </ScrollView>
 
       <ScrollView>
-      {fridgeItems.map((item, index) => {
+      {displayItems.map((item, index) => {
         const progress = item.percentage_left / 100;
         console.log(`Progress for ${item.name}:`, progress);
         return (

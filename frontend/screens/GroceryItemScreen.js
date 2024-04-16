@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import Slider from 'react-native-slider';
+//import Slider from 'react-native-slider';
 import * as Progress from 'react-native-progress';
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import Slider from '@react-native-community/slider';
+import { endpoint } from '../utils/endpoint';
 
 
 
@@ -12,8 +14,29 @@ const GroceryItem = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { item } = route.params; // Get the passed item data
+  const [sliderValue, setSliderValue] = useState(item.completed)
 
-  const [value, setValue] = useState(0.2); // Initial value for the slider
+  const updateBackend = async (newValue) => {
+    const response = await fetch(endpoint+`fridge-items/${item.name}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ percentage_left: newValue })
+    });
+
+    if (response.ok) {
+      console.log('Update successful');
+    } else {
+      console.error('Failed to update');
+    }
+  };
+
+  const handleValueChangeComplete = (newValue) => {
+    setSliderValue(newValue);
+    updateBackend(newValue);
+  };
+
 
   // Custom Back Button component
   const BackButton = () => {
@@ -24,11 +47,9 @@ const GroceryItem = () => {
     );
   };
 
-  //const item = groceries.find(item => item.name === 'Milk 🥛');
 
-  const handleValueChange = newValue => {
-    setValue(newValue);
-  };
+
+
 
   return (
     <View style={styles.container}>
@@ -37,14 +58,19 @@ const GroceryItem = () => {
 
       <Text style={[styles.text, styles.textLayout]}> Leftover Amount </Text>
       <View style={styles.sliderLayout}>
-        <Slider
-        trackStyle={customStyles3.track}
-        thumbStyle={customStyles3.thumb}
-        minimumTrackTintColor='#eecba8'
-          // style={styles.slider}
-          value={value}
-          onValueChange={handleValueChange}
+      <Slider
+          style={{ width: 300, height: 40 }}
+          minimumValue={0}
+          maximumValue={100}
+          step={25}
+          value={sliderValue}
+          onValueChange={newValue => setSliderValue(newValue)}
+          onSlidingComplete={handleValueChangeComplete}
+          minimumTrackTintColor="#7375c0"
+          maximumTrackTintColor="#00a3ff"
+          thumbTintColor="#7375c0"
         />
+        <Text style={styles.sliderValueText}>{`${sliderValue}%`}</Text>
         </View>
 
 

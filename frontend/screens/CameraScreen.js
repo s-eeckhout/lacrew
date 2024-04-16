@@ -24,7 +24,7 @@ const FloatingSheet = ({ navigation }) => {
 
       <View style={styles.buttonAction}>
         <Pressable
-          style={[styles.button, styles.iconFlexBox]}
+          style={[styles.scanButton, styles.iconFlexBox]}
           onPress={() => {
             navigation.navigate("Camera");
           }}
@@ -32,9 +32,11 @@ const FloatingSheet = ({ navigation }) => {
           <View style={[styles.icon, styles.iconFlexBox]}>
             <Text style={[styles.sfSymbol, styles.titleFlexBox]}>􀈠</Text>
           </View>
-          <Text style={[styles.label, styles.labelTypo]}>Scan Receipt</Text>
+          <Text style={[styles.label, styles.labelTypo, styles.scanButtonText]}>
+            Scan Receipt
+          </Text>
         </Pressable>
-        <Text style={[styles.secAction, styles.labelTypo]}>Add Manually</Text>
+        <Text style={[styles.secAction, styles.labelTypo2]}>Add Manually</Text>
       </View>
     </View>
   );
@@ -58,6 +60,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 0,
   },
+  labelTypo2: {
+    fontFamily: FontFamily.asapBold,
+    fontWeight: "bold",
+    fontSize: FontSize.size_lg,
+    lineHeight: 22,
+    textAlign: "center",
+    letterSpacing: 0,
+    color: Color.colorDarkorange,
+  },
   title: {
     fontSize: FontSize.title1Bold_size,
     lineHeight: 34,
@@ -69,14 +80,15 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   desc: {
-    fontSize: FontSize.subheadlineRegular_size,
+    fontSize: FontSize.size_base,
     lineHeight: 20,
-    marginTop: 4,
+    marginTop: 40,
+    width: "50%",
     fontFamily: FontFamily.asapRegular,
     textAlign: "center",
     color: Color.labelColorLightPrimary,
     letterSpacing: 0,
-    alignSelf: "stretch",
+    alignSelf: "center",
   },
   titleDesc: {
     zIndex: 0,
@@ -115,16 +127,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: Color.systemBackgroundLightPrimary,
   },
-  button: {
-    borderRadius: Border.br_sm,
-    backgroundColor: Color.defaultSystemOrangeLight,
-    paddingHorizontal: Padding.p_xl,
-    paddingVertical: Padding.p_sm,
-    alignSelf: "stretch",
-  },
   secAction: {
-    color: Color.defaultSystemBlueLight,
-    marginTop: 16,
+    color: "rgb(68, 163, 248)",
+    marginTop: 100,
   },
   buttonAction: {
     zIndex: 2,
@@ -151,6 +156,19 @@ const styles = StyleSheet.create({
     paddingBottom: Padding.p_11xl,
     alignItems: "center",
     width: "100%",
+  },
+  scanButton: {
+    position: "absolute",
+    alignSelf: "center",
+    backgroundColor: "rgb(68, 163, 248)",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
+  scanButtonText: {
+    color: "white",
+    fontSize: 25,
+    fontWeight: "bold",
   },
 });
 

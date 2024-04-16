@@ -1,12 +1,13 @@
 // import { Asap_400Regular , Asap_500Medium , Asap_600SemiBold , Asap_400Regular_Italic } from "@expo-google-fonts/asap";
 
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 import {
   Asap_400Regular,
   Asap_500Medium,
   Asap_600SemiBold,
   Asap_400Regular_Italic,
-} from '@expo-google-fonts/asap';
+  Asap_700Bold,
+} from "@expo-google-fonts/asap";
 
 export const loadFonts = async () => {
   await useFonts({
@@ -14,19 +15,19 @@ export const loadFonts = async () => {
     Asap_500Medium,
     Asap_600SemiBold,
     Asap_400Regular_Italic,
+    Asap_700Bold,
   });
 };
 
-// TODO: Fix fonts?? 
-
+// TODO: Fix fonts??
 
 /* fonts */
 export const FontFamily = {
   asapMedium: "Asap_500Medium",
   asapItalic: "Asap_400Regular_Italic",
-  asapBold: "Asap-Bold",
   asapRegular: "Asap_400Regular",
   asapSemiBold: "Asap_600SemiBold",
+  asapBold: "Asap_700Bold",
 };
 /* font sizes */
 export const FontSize = {

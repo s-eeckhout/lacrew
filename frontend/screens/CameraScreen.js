@@ -16,10 +16,8 @@ const FloatingSheet = ({ navigation }) => {
   return (
     <View style={styles.floatingsheet}>
       <View style={styles.titleDesc}>
-        <Text style={[styles.title, styles.titleFlexBox]}>Add Groceries</Text>
-        <Text
-          style={styles.desc}
-        >{`How do you want to add your groceries to the list? `}</Text>
+      <Text style={styles.title}>Add groceries</Text>
+        <Text style={styles.desc}>{`How do you want to add your groceries to the list? `}</Text>
       </View>
 
       <View style={styles.buttonAction}>
@@ -70,20 +68,15 @@ const styles = StyleSheet.create({
     color: Color.colorDarkorange,
   },
   title: {
-    fontSize: FontSize.title1Bold_size,
-    lineHeight: 34,
-    fontWeight: "700",
-    fontFamily: FontFamily.asapBold,
-    color: Color.labelColorLightPrimary,
-    textAlign: "center",
-    letterSpacing: 0,
-    alignSelf: "stretch",
+    fontSize: FontSize.size_3xl,
+    marginTop: 60,
+    fontWeight: "bold"
   },
   desc: {
     fontSize: FontSize.size_base,
     lineHeight: 20,
-    marginTop: 40,
-    width: "50%",
+    marginTop: 10,
+    width: "60%",
     fontFamily: FontFamily.asapRegular,
     textAlign: "center",
     color: Color.labelColorLightPrimary,
@@ -91,7 +84,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   titleDesc: {
-    zIndex: 0,
     alignSelf: "stretch",
     alignItems: "center",
   },
@@ -134,7 +126,6 @@ const styles = StyleSheet.create({
   buttonAction: {
     zIndex: 2,
     justifyContent: "center",
-    marginTop: 24,
     alignSelf: "stretch",
     alignItems: "center",
   },
@@ -152,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.systemBackgroundLightPrimary,
     flex: 1,
     paddingHorizontal: Padding.p_13xl,
-    paddingTop: Padding.p_21xl,
+    paddingTop: 20,
     paddingBottom: Padding.p_11xl,
     alignItems: "center",
     width: "100%",

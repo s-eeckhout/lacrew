@@ -5,15 +5,18 @@ import {
   TouchableOpacity,
   StyleSheet,
   CameraRoll,
+  Modal,
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
+import { endpoint } from "../utils/endpoint";
 
 const AddCameraScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  const [modalVisible, setModalVisible] = useState(false);
   const cameraRef = useRef(null);
 
   const handleCameraType = () => {
@@ -27,7 +30,7 @@ const AddCameraScreen = ({ navigation }) => {
   const takePicture = async () => {
     if (cameraRef.current) {
       const { uri } = await cameraRef.current.takePictureAsync();
-      savePictureToGallery(uri);
+      setModalVisible(true);
     }
   };
 
@@ -59,47 +62,13 @@ const AddCameraScreen = ({ navigation }) => {
     return <Text>No access to camera</Text>;
   }
 
-  const handleGoBack = () => {
-    navigation.navigate("AddItem");
+  const handleGoHome = () => {
+    setModalVisible(false);
+    navigation.navigate("Home");
   };
 
-  const CustomHeader = ({ title }) => {
-    const styles = StyleSheet.create({
-      header: {
-        zIndex: -5,
-        position: "absolute",
-        top: 50,
-        flexDirection: "row",
-        alignItems: "center",
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        backgroundColor: "transparent",
-      },
-      TouchableOpacity: {
-        zIndex: 10,
-      },
-      title: {
-        fontSize: 18,
-        fontWeight: "bold",
-        marginLeft: 16,
-        color: "white",
-      },
-    });
-
-    return (
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPressIn={handleGoBack}
-          style={styles.TouchableOpacity}
-          // hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
-        >
-          <View style={{ padding: 5 }}>
-            <Ionicons name="arrow-back" size={24} color="white" />
-          </View>
-        </TouchableOpacity>
-        <Text style={styles.title}>{title}</Text>
-      </View>
-    );
+  const handleCloseModal = () => {
+    setModalVisible(false);
   };
 
   // Custom Back Button component
@@ -143,9 +112,28 @@ const AddCameraScreen = ({ navigation }) => {
           <View style={styles.verticalOverlay} />
         </View>
       </Camera>
-      <TouchableOpacity style={styles.scanButton} onPress={handleGoBack}>
+      <TouchableOpacity style={styles.scanButton} onPress={handleScan}>
         <Text style={styles.scanButtonText}>Scan</Text>
       </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={handleCloseModal}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              The receipt has been sent to the system. Our platform will analyze
+              it and add the items in your fridge as soon as it has completed
+              the interpretation of the picture.
+            </Text>
+            <TouchableOpacity style={styles.button} onPress={handleGoHome}>
+              <Text style={styles.buttonText}>Home</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -230,6 +218,47 @@ const styles = StyleSheet.create({
     // Adjust size as needed
     width: 25,
     height: 25,
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
+  },
+  modalView: {
+    width: "80%",
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    backgroundColor: "#2196F3",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

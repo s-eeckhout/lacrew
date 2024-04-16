@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useContext, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 //import Slider from 'react-native-slider';
-import * as Progress from 'react-native-progress';
+import * as Progress from "react-native-progress";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
-import { useRoute } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import Slider from '@react-native-community/slider';
-import { endpoint } from '../utils/endpoint';
-
-
+import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import Slider from "@react-native-community/slider";
+import { endpoint } from "../utils/endpoint";
+import { DataContext } from "../App";
 
 const GroceryItem = () => {
+  // const context = useContext(DataContext)
   const navigation = useNavigation();
   const route = useRoute();
   const { item } = route.params; // Get the passed item data
-  const [sliderValue, setSliderValue] = useState(item.completed)
+  const [sliderValue, setSliderValue] = useState(item.completed);
 
   const updateBackend = async (newValue) => {
-    const response = await fetch(endpoint+`fridge-items/${item.name}`, {
-      method: 'PATCH',
+    const response = await fetch(endpoint + `fridge-items/${item.name}`, {
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ percentage_left: newValue })
+      body: JSON.stringify({ percentage_left: newValue }),
     });
 
     if (response.ok) {
-      console.log('Update successful');
+      console.log("Update successful");
     } else {
-      console.error('Failed to update');
+      console.error("Failed to update");
     }
   };
 
@@ -37,19 +37,20 @@ const GroceryItem = () => {
     updateBackend(newValue);
   };
 
-
   // Custom Back Button component
   const BackButton = () => {
     return (
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <Image source={require('../assets/iconBack.png')} style={styles.backImage} />
+      <TouchableOpacity
+        onPress={() => navigation.navigate("FridgeContent")}
+        style={styles.backButton}
+      >
+        <Image
+          source={require("../assets/iconBack.png")}
+          style={styles.backImage}
+        />
       </TouchableOpacity>
     );
   };
-
-
-
-
 
   return (
     <View style={styles.container}>
@@ -58,29 +59,31 @@ const GroceryItem = () => {
 
       <Text style={[styles.text, styles.textLayout]}> Leftover Amount </Text>
       <View style={styles.sliderLayout}>
-      <Slider
+        <Slider
           style={{ width: 300, height: 40 }}
           minimumValue={0}
           maximumValue={100}
           step={25}
           value={sliderValue}
-          onValueChange={newValue => setSliderValue(newValue)}
+          onValueChange={(newValue) => setSliderValue(newValue)}
           onSlidingComplete={handleValueChangeComplete}
           minimumTrackTintColor="#7375c0"
           maximumTrackTintColor="#00a3ff"
           thumbTintColor="#7375c0"
         />
         <Text style={styles.sliderValueText}>{`${sliderValue}%`}</Text>
-        </View>
+      </View>
 
-
-        <Text style={[styles.text, styles.textLayoutExpiration]}> Expiration Date </Text>
-        {/* <View style={styles.sliderLayout}> */}
-        <View style={styles.progressLayout}>
-        <Progress.Bar 
-          progress={item.completed / 100} 
-          width={300} 
-          color='#eb6e1b'
+      <Text style={[styles.text, styles.textLayoutExpiration]}>
+        {" "}
+        Expiration Date{" "}
+      </Text>
+      {/* <View style={styles.sliderLayout}> */}
+      <View style={styles.progressLayout}>
+        <Progress.Bar
+          progress={item.completed / 100}
+          width={300}
+          color="#eb6e1b"
         />
         {/* </View> */}
         {/* <Text>Value: {value}</Text> */}
@@ -91,27 +94,27 @@ const GroceryItem = () => {
 
 const styles = StyleSheet.create({
   headerText: {
-    fontWeight: '700',
+    fontWeight: "700",
     marginTop: 30,
     left: 20,
-    color: 'black',
+    color: "black",
     // textAlign: 'left',
     fontSize: 20,
   },
   sliderLayout: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     top: 40,
   },
-  progressLayout:{
-    justifyContent: 'center',
-    alignItems: 'center',
-    top: 80
+  progressLayout: {
+    justifyContent: "center",
+    alignItems: "center",
+    top: 80,
   },
   text: {
     fontFamily: FontFamily.sFPro,
     fontSize: FontSize.size_mini,
-    color: 'black', // Text color based on selected state
+    color: "black", // Text color based on selected state
     textAlign: "left",
   },
   textLayout: {
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     // Adjust style as needed
-    position: 'absolute',
+    position: "absolute",
     top: 50, // Adjust top as necessary
     left: 10, // Adjust left as necessary
     zIndex: 10, // Ensure button is clickable over other elements
@@ -142,15 +145,15 @@ var customStyles3 = StyleSheet.create({
   track: {
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#d0d0d0',
-    width: 300
+    backgroundColor: "#d0d0d0",
+    width: 300,
   },
   thumb: {
     width: 10,
     height: 30,
     borderRadius: 5,
-    backgroundColor: '#eb6e1b',
-  }
+    backgroundColor: "#eb6e1b",
+  },
 });
 
 export default GroceryItem;

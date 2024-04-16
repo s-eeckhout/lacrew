@@ -102,6 +102,24 @@ const AddCameraScreen = ({ navigation }) => {
     );
   };
 
+  // Custom Back Button component
+  const BackButton = () => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.backButton}
+      >
+        <Ionicons name="arrow-back" size={24} color="white" />
+        <Text style={[styles.title, { color: "white" }]}>go Back</Text>
+
+        {/* <Image
+          source={require("../assets/iconBack.png")}
+          style={styles.backImage}
+        /> */}
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Camera
@@ -114,7 +132,8 @@ const AddCameraScreen = ({ navigation }) => {
         flashMode="auto"
       >
         <View style={styles.overlay}>
-          <CustomHeader title={"Go back"}></CustomHeader>
+          <BackButton />
+          {/* <CustomHeader title={"Go back"}></CustomHeader> */}
           <View style={styles.verticalOverlay} />
           <View style={styles.overlayRow}>
             <View style={styles.horizontalOverlay} />
@@ -195,6 +214,22 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 25,
     fontWeight: "bold",
+  },
+  backButton: {
+    // Adjust style as needed
+    position: "absolute",
+    display: "flex",
+    flexDirection: "row",
+    gap: "5",
+    alignItems: "center",
+    top: 50, // Adjust top as necessary
+    left: 10, // Adjust left as necessary
+    zIndex: 10, // Ensure button is clickable over other elements
+  },
+  backImage: {
+    // Adjust size as needed
+    width: 25,
+    height: 25,
   },
 });
 

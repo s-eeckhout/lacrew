@@ -9,6 +9,7 @@ import RecipeListScreen from "../screens/RecipeListScreen";
 import UserSettingsScreen from "../screens/UserSettingsScreen";
 import CameraScreen from "../screens/CameraScreen";
 import AddCameraScreen from "../screens/AddCameraScreen";
+import GroceryItemScreen from "../screens/GroceryItemScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ export default function BottomTabNavigator() {
       />
       {/* Add down here all the othe paths for screens that are not rendered as icons in the navbar */}
       <Stack.Screen name="Camera" component={AddCameraScreen} />
+      <Stack.Screen name="GroceryItemScreen" component={GroceryItemScreen} />
     </Stack.Navigator>
   );
 }

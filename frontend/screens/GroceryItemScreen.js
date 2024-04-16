@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Slider from 'react-native-slider';
 import * as Progress from 'react-native-progress';
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
+import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+
+
 
 const GroceryItem = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { item } = route.params; // Get the passed item data
+
   const [value, setValue] = useState(0.2); // Initial value for the slider
 
-  const groceries = [
-    { name: 'Salad 🥗', days: '02 days', completed: 20 },
-    { name: 'Milk 🥛', days: '04 days', completed: 40 },
-    { name: 'Carrot 🥕', days: '05 days', completed: 60 },
-    { name: 'Avocado 🥑', days: '7 days', completed: 80 },
-    { name: 'Corn 🌽', days: '7 days', completed: 30 },
-    { name: 'Bacon 🥓', days: '7 days', completed: 50 },
-    { name: 'Beans 🍲', days: '7 days', completed: 70 },
-    { name: 'Eggplant 🍆', days: '10 days', completed: 90 },
-    { name: 'Bread 🍞', days: '30 days', completed: 10 },
-  ];
+  // Custom Back Button component
+  const BackButton = () => {
+    return (
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Image source={require('../assets/iconBack.png')} style={styles.backImage} />
+      </TouchableOpacity>
+    );
+  };
 
-  const item = groceries.find(item => item.name === 'Milk 🥛');
+  //const item = groceries.find(item => item.name === 'Milk 🥛');
 
   const handleValueChange = newValue => {
     setValue(newValue);
@@ -27,6 +32,7 @@ const GroceryItem = () => {
 
   return (
     <View style={styles.container}>
+      <BackButton />
       <Text style={styles.headerText}>{item.name}</Text>
 
       <Text style={[styles.text, styles.textLayout]}> Leftover Amount </Text>
@@ -91,6 +97,18 @@ const styles = StyleSheet.create({
     top: 60,
     left: 43,
     textAlign: "left",
+  },
+  backButton: {
+    // Adjust style as needed
+    position: 'absolute',
+    top: 50, // Adjust top as necessary
+    left: 10, // Adjust left as necessary
+    zIndex: 10, // Ensure button is clickable over other elements
+  },
+  backImage: {
+    // Adjust size as needed
+    width: 25,
+    height: 25,
   },
 });
 

@@ -1,4 +1,5 @@
-import * as React from "react";
+//import * as React from "react";
+import React, { useState, useEffect } from 'react';
 import { Image } from "expo-image";
 import {
   StyleSheet,
@@ -20,21 +21,60 @@ const GroceriesList = () => {
     { name: "Carrot 🥕", days: "05 days", completed: 60 },
     { name: "Avocado 🥑", days: "7 days", completed: 80 },
   ];
+  const [fridgeItems, setFridgeItems] = useState([])
+  
+  //Fetch Data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Update the URL with your API's URL
+        const response = await fetch(endpoint+"fridge-items");
+        const json = await response.json();
+        setFridgeItems(json);
+      } catch (error) {
+        setError('Failed to fetch data.');
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //Calculate the days till expiration
+    // Get today's date (with time set to 00:00:00 for accurate day difference calculation)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    // Function to calculate days until expiration for an item
+    function calculateDaysUntilExpiration(item) {
+      const dayAdded = new Date(item.day_added);
+      const expirationDate = new Date(dayAdded);
+      expirationDate.setDate(dayAdded.getDate() + item.expiration_time);
+      
+      const differenceInTime = expirationDate.getTime() - today.getTime();
+      const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+      
+      return Math.round(differenceInDays);
+    }
+    
+    // Map over each item, calculate the days until expiration, and store the result in a new array
+    const daysUntilExpirationArray = fridgeItems ? fridgeItems.map(calculateDaysUntilExpiration) : [];
 
   return (
     <View style={styles.container}>
       <ScrollView>
-        {groceries.map((item, index) => (
+        {fridgeItems.map((item, index) => (
           <View key={index} style={styles.item}>
             <Text style={styles.itemName}>{item.name}</Text>
             <Progress.Bar
-              progress={item.completed / 100}
+              progress={item.percentage_left / 100}
               width={200}
               color="#e69138"
               borderWidth="0"
               unfilledColor="#fce5cd"
             />
-            <Text style={styles.days}>{item.days}</Text>
+            <Text style={styles.days}>{daysUntilExpirationArray[index] + " days"}</Text>
           </View>
         ))}
       </ScrollView>

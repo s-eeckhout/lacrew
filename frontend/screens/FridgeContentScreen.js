@@ -1,9 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from 'react';
+
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 import { Image } from "expo-image";
 import * as Progress from "react-native-progress";
 import { LinearGradient } from "expo-linear-gradient";
+import { endpoint } from '../utils/endpoint';
+import { createStackNavigator } from '@react-navigation/stack';
+import FridgeContentScreen from './FridgeContentScreen';
+import GroceryItemScreen from './GroceryItemScreen';
+import { useNavigation } from '@react-navigation/native';
+
+
+const Stack = createStackNavigator();
+
+function MyStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="FridgeContentScreen" component={FridgeContentScreen} />
+      <Stack.Screen name="GroceryItemScreen" component={GroceryItemScreen} />
+    </Stack.Navigator>
+  );
+}
 
 const BlueHeader = () => {
   return (
@@ -70,7 +88,58 @@ const Tag = ({ label, colors, selected, onPress }) => {
 };
 
 const GroceriesList = () => {
+  const navigation = useNavigation(); // This line should be inside your component  
   const [tags, setTags] = useState(TAGS);
+  const [fridgeItems, setFridgeItems] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Update the URL with your API's URL
+        const response = await fetch(endpoint+"fridge-items");
+        const json = await response.json();
+        setFridgeItems(json);
+      } catch (error) {
+        setError('Failed to fetch data.');
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  const handlePressItem = (item) => {
+    const daysUntilExpiration = calculateDaysUntilExpiration(item);
+    const formattedItem = {
+      name: item.name,
+      days: daysUntilExpiration + ' days',
+      completed: item.percentage_left,
+    };
+  
+    console.log("Formatted ITEM ", formattedItem);
+    navigation.navigate('GroceryItemScreen', { item: formattedItem });
+  };
+
+  
+  // Get today's date (with time set to 00:00:00 for accurate day difference calculation)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  // Function to calculate days until expiration for an item
+  function calculateDaysUntilExpiration(item) {
+    const dayAdded = new Date(item.day_added);
+    const expirationDate = new Date(dayAdded);
+    expirationDate.setDate(dayAdded.getDate() + item.expiration_time);
+    
+    const differenceInTime = expirationDate.getTime() - today.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+    
+    return Math.round(differenceInDays);
+  }
+  
+  // Map over each item, calculate the days until expiration, and store the result in a new array
+  const daysUntilExpirationArray = fridgeItems ? fridgeItems.map(calculateDaysUntilExpiration) : [];
 
   const handleTagPress = (index) => {
     const updatedTags = tags.map((tag, i) => ({
@@ -79,18 +148,6 @@ const GroceriesList = () => {
     }));
     setTags(updatedTags);
   };
-
-  const groceries = [
-    { name: "Salad 🥗", days: "02 days", completed: 20 },
-    { name: "Milk 🥛", days: "04 days", completed: 40 },
-    { name: "Carrot 🥕", days: "05 days", completed: 60 },
-    { name: "Avocado 🥑", days: "7 days", completed: 80 },
-    { name: "Corn 🌽", days: "7 days", completed: 30 },
-    { name: "Bacon 🥓", days: "7 days", completed: 50 },
-    { name: "Beans 🍲", days: "7 days", completed: 70 },
-    { name: "Eggplant 🍆", days: "10 days", completed: 90 },
-    { name: "Bread 🍞", days: "30 days", completed: 10 },
-  ];
 
   return (
     <View style={styles.container}>
@@ -112,13 +169,19 @@ const GroceriesList = () => {
       </ScrollView>
 
       <ScrollView>
-        {groceries.map((item, index) => (
-          <View key={index} style={styles.item}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Progress.Bar progress={item.completed / 100} width={200} />
-            <Text style={styles.days}>{item.days}</Text>
-          </View>
-        ))}
+      {fridgeItems.map((item, index) => {
+        const progress = item.percentage_left / 100;
+        console.log(`Progress for ${item.name}:`, progress);
+        return (
+            <Pressable key={index} onPress={() => handlePressItem(item)}>
+                <View style={styles.item}>
+                    <Text style={styles.itemName}>{item.name}</Text>
+                     <Progress.Bar progress={progress} width={200} />
+                    <Text style={styles.days}>{daysUntilExpirationArray[index] + " days"}</Text>
+                </View>
+            </Pressable>
+            );
+        })}
       </ScrollView>
     </View>
   );

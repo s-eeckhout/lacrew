@@ -1,6 +1,6 @@
 // RecipeDetailsScreen.js
 import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
+import { View, Text, Image, ScrollView, StyleSheet ,TouchableOpacity} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const recipeImages = {
@@ -25,7 +25,7 @@ const RecipeDetailsScreen = ({ route }) => {
    const BackButton = () => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("FridgeContent")}
+        onPress={() => navigation.navigate("Home")}
         style={styles.backButton}
       >
         <Image

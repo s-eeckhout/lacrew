@@ -21,14 +21,12 @@ class RecipeById(Resource):
 class RecipeByIngredient(Resource):
     def get(self, ingredient):
         data = load_recipes()
-        matching_recipes = []
-        for recipe in data.values():
-            print(recipe)
-            print(666)
+        matching_recipes = {}
+        for recipe_id, recipe in data.items():
             if ingredient.lower() in [ing.lower() for ing in recipe.get('ingredients', [])]:
-                matching_recipes.append(recipe)
+                matching_recipes[f"{recipe_id}"] = recipe
         if matching_recipes:
-            return matching_recipes
+            return jsonify(matching_recipes)
         return {'message': f'No recipes found containing the ingredient {ingredient}.'}, 404
 
 # Path: backend/app/resources/recipe.py

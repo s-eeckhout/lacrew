@@ -92,11 +92,19 @@ const recipeImages = {
   Ramen: require("../assets/imgs/Ramen.jpg"),
   Pancakes: require("../assets/imgs/Pancakes.jpg"),
   Tacos: require("../assets/imgs/Tacos.jpg"),
+  Goulash: require("../assets/imgs/Goulash.jpg"),
 };
 
 const Recipe = ({ recipe }) => {
+  const navigation = useNavigation();
+
+  const handleRecipePress = () => {
+    // console.log('Recipe clicked:', recipe.recipe_name);
+    navigation.navigate('RecipeDetails', { recipe });
+  };
   const imageSource = recipeImages[recipe.recipe_name];
   return (
+    <TouchableOpacity onPress={handleRecipePress}>
     <View style={[styles.ShadowBox]}>
       <Image
         style={styles.highlightRecipe1}
@@ -124,12 +132,12 @@ const Recipe = ({ recipe }) => {
         </Text>
       </View>
       <View style={[styles.RecipeRow1, styles.RecipeRow1Position]}>
-        <Text style={[styles.recipeDuration]}>{recipe.time}</Text>
+        <Text style={[styles.recipeDuration]}>{recipe.time+" mins"}</Text>
         <View style={[styles.recipeTagDays, styles.tagLayout]}>
-          <Text style={[styles.whiteText]}>{recipe.recipe_id}</Text>
+          <Text style={[styles.whiteText]}>{recipe.recipe_id +" days"}</Text>
         </View>
       </View>
-      {/* <View style={[styles.ingredients, styles.ingredientsPosition]}>
+      <View style={[styles.ingredients, styles.ingredientsPosition]}>
         {recipe.ingredients.map((ingredient, index) => (
           <Image
             key={index}
@@ -138,36 +146,12 @@ const Recipe = ({ recipe }) => {
             source={ingredient}
           />
         ))}
-      </View> */}
+      </View>
     </View>
+    </TouchableOpacity>
   );
 };
 // TODO: Make recipe clickable and towards new screen that loads recipe data
-
-// const Recipe1 = {
-//   name: "Fall Veloutè",
-//   imageSource: require("../assets/fall_veloute.png"),
-//   duration: "105 min",
-//   tagRedText: "Meal prep!",
-//   tagGreenText: "Easy",
-//   tagDaysText: "2 days",
-//   ingredients: [
-//     require("../assets/icon--beet.png"),
-//     require("../assets/icon--carrot.png"),
-//     require("../assets/icon--onion.png"),
-//     require("../assets/icon--lemon.png"),
-//   ],
-// };
-
-// const Recipe2 = {
-//   name: "Bún Chả",
-//   imageSource: require("../assets/bun_cha.png"),
-//   duration: "35 min",
-//   tagRedText: "Meal prep!",
-//   tagGreenText: "Easy",
-//   tagDaysText: "2 days",
-//   ingredients: [require("../assets/icon--onion.png")],
-// };
 
 const Home = () => {
   const navigation = useNavigation();
@@ -179,11 +163,12 @@ const Home = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch(`${endpoint}recipes/ingredient/carrot`);
+        const response = await fetch(endpoint+"recipes/ingredient/tomato");
         const data = await response.json();
         // Convert the recipes object into an array
         const recipesArray = Object.values(data);
         setRecipes(recipesArray);
+        console.log(recipesArray);
       } catch (error) {
         setError('Failed to fetch recipes.');
         console.error(error);
@@ -237,7 +222,7 @@ const Home = () => {
       />
       <View style={[styles.titleGroup, styles.contentSpaceBlock]}>
         <Text style={[styles.titleRecipesIdeas, styles.titleTypo1]}>
-          Recipes with Carrot{" "}
+          Recipes with Tomato{" "}
           {/* // TODO Change for top of stack of FridgeItems */}
         </Text>
         <TouchableOpacity onPress={() => handlePress("FridgeContent")}>
@@ -252,7 +237,7 @@ const Home = () => {
       {/* RECIPE IDEAS CONTENT */}
       <ScrollView horizontal>
         {/* <View style={[styles.RecipessParent, styles.HeadersPosition]}> */}
-        <View style={[styles.RecipesParent]}>
+        <View style={[styles.container, styles.RecipesParent]}>
           {recipes.map((recipe, index) => (
             <Recipe key={index} recipe={recipe} />
           ))}

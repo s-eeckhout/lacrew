@@ -52,6 +52,19 @@
   - `store`: For state management, contains files related to Redux or any other state management library being used.
   - `utils`: Utility functions and classes that provide common functionality used in multiple places across the application.
 
+ ### How to start
+ In the Backend you need to run 
+ ```bash
+python backend/app.py
+```
+ In the Frontend you need to run
+ ```bash
+cd frontend
+npx expo start
+```
+
+ On your phone you need than the "expo go" app which opens our application on the phone that you can interact with
+
 
 ### General Files
 

@@ -3,6 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Button,
   ActivityIndicator,
   Pressable,
 } from "react-native";
@@ -21,20 +22,27 @@ const FloatingSheet = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonAction}>
-        <Pressable
-          style={[styles.scanButton, styles.iconFlexBox]}
-          onPress={() => {
-            navigation.navigate("Camera");
-          }}
-        >
-          <View style={[styles.icon, styles.iconFlexBox]}>
-            <Text style={[styles.sfSymbol, styles.titleFlexBox]}>􀈠</Text>
-          </View>
-          <Text style={[styles.label, styles.labelTypo, styles.scanButtonText]}>
-            Scan Receipt
-          </Text>
-        </Pressable>
-        <Text style={[styles.secAction, styles.labelTypo2]}>Add Manually</Text>
+        <View style={styles.scanButton}>
+          <Button style
+            title="Scan Receipt"
+            color={"white"}
+            onPress={() => {
+              navigation.navigate("Camera");
+            }}
+          />
+        </View>
+        <View>
+          <Button
+            title="Add manually"
+            onPress={() => {
+              navigation.navigate("AddForm");
+            }}
+            color= {Color.colorDarkorange}
+            accessibilityLabel="Learn more about this button"
+          />
+        </View>
+        
+        
       </View>
     </View>
   );
@@ -125,6 +133,7 @@ const styles = StyleSheet.create({
   },
   buttonAction: {
     zIndex: 2,
+    paddingTop: 20,
     justifyContent: "center",
     alignSelf: "stretch",
     alignItems: "center",
@@ -149,7 +158,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   scanButton: {
-    position: "absolute",
     alignSelf: "center",
     backgroundColor: "rgb(68, 163, 248)",
     paddingVertical: 10,

@@ -27,12 +27,56 @@ const AddCameraScreen = ({ navigation }) => {
     );
   };
 
+  //const takePicture = async () => {
+  //  if (cameraRef.current) {
+  //    const { uri } = await cameraRef.current.takePictureAsync();
+  //    //TODO: sent a post to endpoint/fridge-items with uri as image      
+  //    setModalVisible(true);
+  //  }
+  //};
+
   const takePicture = async () => {
     if (cameraRef.current) {
-      const { uri } = await cameraRef.current.takePictureAsync();
+      const photo = await cameraRef.current.takePictureAsync({
+        quality: 0.5,  // Adjust quality as needed
+        base64: true,
+        exif: false
+      });
+  
+      const formData = new FormData();
+      formData.append('image', {
+        uri: photo.uri,
+        type: 'image/jpeg', // Assuming JPEG, change accordingly if needed
+        name: 'upload.jpg' // This name can be dynamic or a static string
+      });
+      setModalVisible(true);
+
+      try {
+        const response = await fetch(endpoint+'process-image', {
+          method: 'POST',
+          body: formData,
+          headers: {
+          'Content-Type': 'multipart/form-data', // This header is usually set automatically
+          },
+        });
+  
+        const jsonResponse = await response.json();
+        if (response.ok) {
+          console.log('Image processed successfully:', jsonResponse);
+          setModalVisible(true); // Optionally show a modal on successful processing
+        } else {
+          console.error('Failed to process image:', jsonResponse);
+          alert('Failed to process image: ' + jsonResponse.message);
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        alert('Upload error: ' + error.message);
+      }
       setModalVisible(true);
     }
   };
+  
+  
 
   const savePictureToGallery = async (uri) => {
     if (Platform.OS === "ios") {

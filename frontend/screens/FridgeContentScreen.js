@@ -105,6 +105,7 @@ const GroceriesList = () => {
         // Update the URL with your API's URL
         const response = await fetch(endpoint + "fridge-items");
         const json = await response.json();
+        console.log("json ",json)
         setFridgeItems(json);
       } catch (error) {
         setError("Failed to fetch data.");

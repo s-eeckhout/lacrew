@@ -16,7 +16,8 @@ update with CURL:
 curl -X PATCH -H "Content-Type: application/json" -d '{"percentage_left": 75}' http://localhost:5001/fridge-items/Butter
 
 delete with CURL:
-curl -X DELETE http://localhost:5001/fridge-item/Minced%20Meat
+curl -X DELETE http://localhost:5001/fridge-items/Minced%20Meat
+curl -X DELETE http://localhost:5001/fridge-items/OriginalThick%20Bleach
 '''
 
 parser = reqparse.RequestParser()

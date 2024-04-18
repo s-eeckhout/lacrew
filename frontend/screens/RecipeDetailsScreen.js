@@ -1,6 +1,7 @@
 // RecipeDetailsScreen.js
 import React from 'react';
 import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const recipeImages = {
   Pasta: require("../assets/imgs/Pasta.jpg"),
@@ -15,11 +16,28 @@ const recipeImages = {
   Goulash: require("../assets/imgs/Goulash.jpg"),
 };
 
+ 
+
 const RecipeDetailsScreen = ({ route }) => {
   const { recipe } = route.params;
-
+  const navigation = useNavigation();
+   // Custom Back Button component
+   const BackButton = () => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate("FridgeContent")}
+        style={styles.backButton}
+      >
+        <Image
+          source={require("../assets/iconBack.png")}
+          style={styles.backImage}
+        />
+      </TouchableOpacity>
+    );
+  };
   return (
     <ScrollView style={styles.container}>
+      <BackButton />
       <Image
         style={styles.image}
         source={recipeImages[recipe.recipe_name]}
@@ -73,6 +91,13 @@ const styles = StyleSheet.create({
   },
   preparation: {
     fontSize: 16,
+  },
+  backButton: {
+    // Adjust style as needed
+    position: "absolute",
+    top: 50, // Adjust top as necessary
+    left: 10, // Adjust left as necessary
+    zIndex: 10, // Ensure button is clickable over other elements
   },
   // Add styles for other elements
 });

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 
 
 
 const AddForm = ({navigation}) => {
+
+    const [isModalVisible, setModalVisible] = useState(false);
 
     const BackButton = () => {
         return (
@@ -32,27 +34,39 @@ const AddForm = ({navigation}) => {
   const handleInputChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
   };
+  
 
   const handleSubmit = () => {
     // Handle form submission (e.g., send data to an API)
     console.log('Form data submitted:', formData);
+    // Validate input fields (e.g., check if they are not empty)
+    if (!formData.name || !formData.quantity || !formData.category) {
+      alert('Please fill in all required fields.');
+    } else {
+        setModalVisible(true);
+
+        // Hide the modal after 3 seconds
+        setTimeout(() => {
+        setModalVisible(false);
+        }, 2000);
+    }
   };
 
   return (
     <View>
         <BackButton />
         <View style={styles.container}>
-            <Text style={styles.title}>Insert grocery</Text>
+            <Text style={styles.title1}>Insert new element</Text>
 
             <Text style={styles.label}>Name:</Text>
-            <TextInput
+            <TextInput clearButtonMode="always"
                 style={styles.input}
                 placeholder="Enter name"
                 onChangeText={(text) => handleInputChange('name', text)}
             />
 
             <Text style={styles.label}>Quantity:</Text>
-            <TextInput
+            <TextInput clearButtonMode="always"
                 style={styles.input}
                 placeholder="Enter quantity"
                 onChangeText={(text) => handleInputChange('quantity', text)}
@@ -60,7 +74,7 @@ const AddForm = ({navigation}) => {
             />
 
             <Text style={styles.label}>Category:</Text>
-            <TextInput
+            <TextInput clearButtonMode="always"
                 style={styles.input}
                 placeholder="Enter category"
                 onChangeText={(text) => handleInputChange('category', text)}
@@ -68,13 +82,24 @@ const AddForm = ({navigation}) => {
 
             <Button title="Submit" onPress={handleSubmit} />
         </View>
+
+        <Modal
+            visible={isModalVisible}
+            animationType="fade"
+            transparent={true}
+            onRequestClose={() => setModalVisible(false)}
+            >
+            <View style={styles.modalContainer}>
+                <Text style={styles.modalText}>Element added</Text>
+            </View>
+        </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
     backButton: {
-        // Adjust style as needed
+    // Adjust style as needed
         position: "absolute",
         display: "flex",
         flexDirection: "row",
@@ -83,14 +108,16 @@ const styles = StyleSheet.create({
         top: 50, // Adjust top as necessary
         left: 10, // Adjust left as necessary
         zIndex: 10, // Ensure button is clickable over other elements
-      },
+    },
 
-      title: {
+    title1: {
         fontWeight: 'bold',
         textAlign: 'center',
-      },
+        fontSize: 20,
+    },
 
   container: {
+    display: 'flex',
     marginTop: 90,
     padding: 20,
   },
@@ -108,6 +135,18 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal: 8,
   },
+  modalContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: '80%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  modalText: {
+    padding: 10,
+    borderRadius: 20,
+    fontSize: 25,
+    backgroundColor: 'white',
+  }
 });
 
 export default AddForm;

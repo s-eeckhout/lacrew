@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator , ScrollView , Pressable} from 'react-native';
 import { DataContext } from '../App'; // Import the DataContext if you are using it
-import {endpoint} from 'utils/endpoint'
+import {endpoint} from '../utils/endpoint'
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";

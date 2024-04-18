@@ -11,7 +11,7 @@ import {
 import { Padding, Border, FontFamily, Color, FontSize } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 import { DataContext } from "../App"; // Import the DataContext if you are using it
-import { endpoint } from "utils/endpoint";
+import { endpoint } from "../utils/endpoint";
 import * as Progress from "react-native-progress";
 
 const GroceriesList = () => {
@@ -82,14 +82,28 @@ const GroceriesList = () => {
   );
 };
 
+const recipeImages = {
+  Pasta: require("../assets/imgs/Pasta.jpg"),
+  Burger: require("../assets/imgs/Burger.jpg"),
+  Sushi: require("../assets/imgs/Sushi.jpg"),
+  Paella: require("../assets/imgs/Paella.jpg"),
+  Couscous: require("../assets/imgs/Couscous.jpg"),
+  Curry: require("../assets/imgs/Curry.jpg"),
+  Ramen: require("../assets/imgs/Ramen.jpg"),
+  Pancakes: require("../assets/imgs/Pancakes.jpg"),
+  Tacos: require("../assets/imgs/Tacos.jpg"),
+};
+
 const Recipe = ({ recipe }) => {
+  const imageSource = recipeImages[recipe.recipe_name];
   return (
     <View style={[styles.ShadowBox]}>
       <Image
         style={styles.highlightRecipe1}
         contentFit="cover"
-        source={recipe.imageSource}
-      />
+        //get image by recipe name in folder ../assets/recipe_images
+        source={imageSource}
+      />  
       <Image
         style={styles.unionIcon}
         contentFit="cover"
@@ -97,25 +111,25 @@ const Recipe = ({ recipe }) => {
       />
       <View style={[styles.tagsPosition]}>
         <View style={[styles.tagLayout, styles.recipeTagRed]}>
-          <Text style={[styles.whiteText]}>{recipe.tagRedText}</Text>
+          <Text style={[styles.whiteText]}>{recipe.from}</Text>
         </View>
 
         <View style={[styles.tagLayout, styles.recipeTagGreen]}>
-          <Text style={[styles.whiteText]}>{recipe.tagGreenText}</Text>
+          <Text style={[styles.whiteText]}>{recipe.level}</Text>
         </View>
       </View>
       <View style={[styles.content, styles.contentSpaceBlock]}>
         <Text style={[styles.titleRecipe, styles.titleTypo]}>
-          {recipe.name}
+          {recipe.recipe_name}
         </Text>
       </View>
       <View style={[styles.RecipeRow1, styles.RecipeRow1Position]}>
-        <Text style={[styles.recipeDuration]}>{recipe.duration}</Text>
+        <Text style={[styles.recipeDuration]}>{recipe.time}</Text>
         <View style={[styles.recipeTagDays, styles.tagLayout]}>
-          <Text style={[styles.whiteText]}>{recipe.tagDaysText}</Text>
+          <Text style={[styles.whiteText]}>{recipe.recipe_id}</Text>
         </View>
       </View>
-      <View style={[styles.ingredients, styles.ingredientsPosition]}>
+      {/* <View style={[styles.ingredients, styles.ingredientsPosition]}>
         {recipe.ingredients.map((ingredient, index) => (
           <Image
             key={index}
@@ -124,44 +138,70 @@ const Recipe = ({ recipe }) => {
             source={ingredient}
           />
         ))}
-      </View>
+      </View> */}
     </View>
   );
 };
 // TODO: Make recipe clickable and towards new screen that loads recipe data
 
-const Recipe1 = {
-  name: "Fall Veloutè",
-  imageSource: require("../assets/fall_veloute.png"),
-  duration: "105 min",
-  tagRedText: "Meal prep!",
-  tagGreenText: "Easy",
-  tagDaysText: "2 days",
-  ingredients: [
-    require("../assets/icon--beet.png"),
-    require("../assets/icon--carrot.png"),
-    require("../assets/icon--onion.png"),
-    require("../assets/icon--lemon.png"),
-  ],
-};
+// const Recipe1 = {
+//   name: "Fall Veloutè",
+//   imageSource: require("../assets/fall_veloute.png"),
+//   duration: "105 min",
+//   tagRedText: "Meal prep!",
+//   tagGreenText: "Easy",
+//   tagDaysText: "2 days",
+//   ingredients: [
+//     require("../assets/icon--beet.png"),
+//     require("../assets/icon--carrot.png"),
+//     require("../assets/icon--onion.png"),
+//     require("../assets/icon--lemon.png"),
+//   ],
+// };
 
-const Recipe2 = {
-  name: "Bún Chả",
-  imageSource: require("../assets/bun_cha.png"),
-  duration: "35 min",
-  tagRedText: "Meal prep!",
-  tagGreenText: "Easy",
-  tagDaysText: "2 days",
-  ingredients: [require("../assets/icon--onion.png")],
-};
+// const Recipe2 = {
+//   name: "Bún Chả",
+//   imageSource: require("../assets/bun_cha.png"),
+//   duration: "35 min",
+//   tagRedText: "Meal prep!",
+//   tagGreenText: "Easy",
+//   tagDaysText: "2 days",
+//   ingredients: [require("../assets/icon--onion.png")],
+// };
 
 const Home = () => {
   const navigation = useNavigation();
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  // Fetch recipes that include 'carrot' in their ingredients
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch(`${endpoint}recipes/ingredient/carrot`);
+        const data = await response.json();
+        // Convert the recipes object into an array
+        const recipesArray = Object.values(data);
+        setRecipes(recipesArray);
+      } catch (error) {
+        setError('Failed to fetch recipes.');
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipes();
+  }, []);
 
   const handlePress = (screenName) => {
     // Navigate to the screen you want
     navigation.navigate(screenName);
   };
+
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error: {error}</Text>;
   // TODO: navigation to another screen (does not work yet)
 
   return (
@@ -212,9 +252,10 @@ const Home = () => {
       {/* RECIPE IDEAS CONTENT */}
       <ScrollView horizontal>
         {/* <View style={[styles.RecipessParent, styles.HeadersPosition]}> */}
-        <View style={[styles.container, styles.RecipesParent]}>
-          <Recipe recipe={Recipe1} />
-          <Recipe recipe={Recipe2} />
+        <View style={[styles.RecipesParent]}>
+          {recipes.map((recipe, index) => (
+            <Recipe key={index} recipe={recipe} />
+          ))}
         </View>
       </ScrollView>
     </View>

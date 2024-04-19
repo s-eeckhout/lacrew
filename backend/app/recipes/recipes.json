@@ -1,112 +1,122 @@
 {
-    "recipe_1" : {
-    "recipe_id" : 1,
-    "recipe_name" : "Pasta",
-    "recipe_description" : "Pasta with tomato sauce",
-    "level" : "easy",
-    "from" : "Italy",
-    "ingredients" : ["pasta", "tomato", "onion", "garlic", "olive oil"],
-    "preparation" : "Boil the pasta, fry the onion and garlic, add the tomato and cook for 10 minutes, add the pasta and mix",
-    "image" : "./imgs/pasta.jpg",
-    "time" : 20
+    "recipe_1": {
+        "recipe_id": 1,
+        "recipe_name": "Pasta",
+        "recipe_description": "Delight in the classic pasta with flavour-rich tomato sauce",
+        "level": "Easy",
+        "from": "Italy",
+        "ingredients": ["pasta", "tomato", "onion", "garlic", "olive oil"],
+        "preparation": "Boil the pasta, fry the onion and garlic, add the tomato and cook for 10 minutes, add the pasta and mix",
+        "image": "./imgs/pasta.jpg",
+        "time": 20,
+        "saved": false
     },
-    "recipe_2" : {
-        "recipe_id" : 2,
-        "recipe_name" : "Burger",
-        "recipe_description" : "Burger with fries",
-        "level" : "easy",
-        "from" : "USA",
-        "ingredients" : ["beef", "bread", "lettuce", "tomato", "onion", "cheese", "potato"],
-        "preparation" : "Cook the beef, fry the potato, put the beef in the bread with the lettuce, tomato, onion and cheese, serve with the fries",
-        "image" : "./imgs/burger.jpg",
-        "time" : 30
+    "recipe_2": {
+        "recipe_id": 2,
+        "recipe_name": "Burger",
+        "recipe_description": "Savor the classic American Burger with fries",
+        "level": "Easy",
+        "from": "USA",
+        "ingredients": ["beef", "bread", "lettuce", "tomato", "onion", "cheese", "potato"],
+        "preparation": "Cook the beef, fry the potato, put the beef in the bread with the lettuce, tomato, onion and cheese, serve with the fries",
+        "image": "./imgs/burger.jpg",
+        "time": 30,
+        "saved": false
     },
-    "recipe_3" : {
-        "recipe_id" : 3,
-        "recipe_name" : "Sushi",
-        "recipe_description" : "Sushi with soy sauce",
-        "level" : "medium",
-        "from" : "Japan",
-        "ingredients" : ["rice", "fish", "seaweed", "soy sauce", "wasabi", "ginger"],
-        "preparation" : "Cook the rice, cut the fish, put the rice in the seaweed, add the fish, roll it, cut it, serve with the soy sauce, wasabi and ginger",
-        "image" : "./imgs/sushi.jpg",
-        "time" : 40
+    "recipe_3": {
+        "recipe_id": 3,
+        "recipe_name": "Sushi",
+        "recipe_description": "Experience the art of sushi dipped in soy sauce",
+        "level": "Medium",
+        "from": "Japan",
+        "ingredients": ["rice", "fish", "seaweed", "soy sauce", "wasabi", "ginger"],
+        "preparation": "Cook the rice, cut the fish, put the rice in the seaweed, add the fish, roll it, cut it, serve with the soy sauce, wasabi and ginger",
+        "image": "./imgs/sushi.jpg",
+        "time": 40,
+        "saved": false
     },
-    "recipe_4" : {
-        "recipe_id" : 4,
-        "recipe_name" : "Paella",
-        "recipe_description" : "Paella with seafood",
-        "level" : "hard",
-        "from" : "Spain",
-        "ingredients" : ["rice", "seafood", "onion", "pepper", "tomato", "garlic", "olive oil"],
-        "preparation" : "Fry the onion, pepper and garlic, add the tomato, add the rice, add the seafood, cook for 20 minutes",
-        "image" : "./imgs/paella.jpg",
-        "time" : 60
+    "recipe_4": {
+        "recipe_id": 4,
+        "recipe_name": "Paella",
+        "recipe_description": "Treat yourself to the authentic paella with seafood from Spain",
+        "level": "Difficult",
+        "from": "Spain",
+        "ingredients": ["rice", "seafood", "onion", "pepper", "tomato", "garlic", "olive oil"],
+        "preparation": "Fry the onion, pepper and garlic, add the tomato, add the rice, add the seafood, cook for 20 minutes",
+        "image": "./imgs/paella.jpg",
+        "time": 60,
+        "saved": false
     },
-    "recipe_5" : {
-        "recipe_id" : 5,
-        "recipe_name" : "Tacos",
-        "recipe_description" : "Tacos with guacamole",
-        "level" : "medium",
-        "from" : "Mexico",
-        "ingredients" : ["beef", "tortilla", "lettuce", "tomato", "onion", "cheese", "avocado"],
-        "preparation" : "Cook the beef, fry the tortilla, put the beef in the tortilla with the lettuce, tomato, onion, cheese and avocado",
-        "image" : "./imgs/tacos.jpg",
-        "time" : 30
+    "recipe_5": {
+        "recipe_id": 5,
+        "recipe_name": "Tacos",
+        "recipe_description": "Enjoy the vibrant tacos with home-made guacamole",
+        "level": "Medium",
+        "from": "Mexico",
+        "ingredients": ["beef", "tortilla", "lettuce", "tomato", "onion", "cheese", "avocado"],
+        "preparation": "Cook the beef, fry the tortilla, put the beef in the tortilla with the lettuce, tomato, onion, cheese and avocado",
+        "image": "./imgs/tacos.jpg",
+        "time": 30,
+        "saved": false
     },
-    "recipe_6" : {
-        "recipe_id" : 6,
-        "recipe_name" : "Ramen",
-        "recipe_description" : "Ramen with egg",
-        "level" : "medium",
-        "from" : "Japan",
-        "ingredients" : ["noodles", "egg", "soy sauce", "miso", "onion", "garlic", "ginger"],
-        "preparation" : "Cook the noodles, fry the onion, garlic and ginger, add the soy sauce and miso, add the noodles, add the egg",
-        "image" : "./imgs/ramen.jpg",
-        "time" : 30
+    "recipe_6": {
+        "recipe_id": 6,
+        "recipe_name": "Ramen",
+        "recipe_description": "Savor the flavorful miso ramen with egg",
+        "level": "Medium",
+        "from": "Japan",
+        "ingredients": ["noodles", "egg", "soy sauce", "miso", "onion", "garlic", "ginger"],
+        "preparation": "Cook the noodles, fry the onion, garlic and ginger, add the soy sauce and miso, add the noodles, add the egg",
+        "image": "./imgs/ramen.jpg",
+        "time": 30,
+        "saved": false
     },
-    "recipe_7" : {
-        "recipe_id" : 7,
-        "recipe_name" : "Couscous",
-        "recipe_description" : "Couscous with vegetables",
-        "level" : "easy",
-        "from" : "Morocco",
-        "ingredients" : ["couscous", "vegetables", "onion", "garlic", "olive oil"],
-        "preparation" : "Cook the couscous, fry the onion and garlic, add the vegetables, cook for 10 minutes",
-        "image" : "./imgs/couscous.jpg",
-        "time" : 30
+    "recipe_7": {
+        "recipe_id": 7,
+        "recipe_name": "Couscous",
+        "recipe_description": "Experience the exotic couscous with different vegetables",
+        "level": "Easy",
+        "from": "Morocco",
+        "ingredients": ["couscous", "vegetables", "onion", "garlic", "olive oil"],
+        "preparation": "Cook the couscous, fry the onion and garlic, add the vegetables, cook for 10 minutes",
+        "image": "./imgs/couscous.jpg",
+        "time": 30,
+        "saved": false
     },
-    "recipe_8" : {
-        "recipe_id" : 8,
-        "recipe_name" : "Pancakes",
-        "recipe_description" : "Pancakes with syrup",
-        "level" : "easy",
-        "from" : "USA",
-        "ingredients" : ["flour", "milk", "egg", "sugar", "butter", "syrup"],
-        "preparation" : "Mix the flour, milk, egg and sugar, fry the pancakes, serve with the butter and syrup",
-        "image" : "./imgs/pancakes.jpg",
-        "time" : 20
+    "recipe_8": {
+        "recipe_id": 8,
+        "recipe_name": "Pancakes",
+        "recipe_description": "Delight in fluffy American pancakes with syrup",
+        "level": "Easy",
+        "from": "USA",
+        "ingredients": ["flour", "milk", "egg", "sugar", "butter", "syrup"],
+        "preparation": "Mix the flour, milk, egg and sugar, fry the pancakes, serve with the butter and syrup",
+        "image": "./imgs/pancakes.jpg",
+        "time": 20,
+        "saved": false
     },
-    "recipe_9" : {
-        "recipe_id" : 9,
-        "recipe_name" : "Curry",
-        "recipe_description" : "Curry with rice",
-        "level" : "medium",
-        "from" : "India",
-        "ingredients" : ["rice", "chicken", "onion", "garlic", "ginger", "curry", "coconut milk"],
-        "preparation" : "Cook the rice, fry the onion, garlic and ginger, add the chicken, add the curry and coconut milk, cook for 20 minutes",
-        "image" : "./imgs/curry.jpg",
-        "time" : 40
+    "recipe_9": {
+        "recipe_id": 9,
+        "recipe_name": "Curry",
+        "recipe_description": "Savor the aromatic rice curry with chicken and coconut milk",
+        "level": "Medium",
+        "from": "India",
+        "ingredients": ["rice", "chicken", "onion", "garlic", "ginger", "curry", "coconut milk"],
+        "preparation": "Cook the rice, fry the onion, garlic and ginger, add the chicken, add the curry and coconut milk, cook for 20 minutes",
+        "image": "./imgs/curry.jpg",
+        "time": 40,
+        "saved": false
     },
-    "recipe_10" : {
-        "recipe_id" : 10,
-        "recipe_name" : "Goulash",
-        "recipe_description" : "Goulash with bread",
-        "level" : "hard",
-        "from" : "Hungary",
-        "ingredients" : ["beef", "onion", "pepper", "tomato", "paprika", "potato", "bread"],
-        "preparation" : "Cook the beef, fry the onion, pepper and tomato, add the paprika, add the potato, cook for 30 minutes",
-        "image" : "./imgs/goulash.jpg",
-        "time" : 60
+    "recipe_10": {
+        "recipe_id": 10,
+        "recipe_name": "Goulash",
+        "recipe_description": "Indulge in hearty goulash with bread",
+        "level": "Difficult",
+        "from": "Hungary",
+        "ingredients": ["beef", "onion", "pepper", "tomato", "paprika", "potato", "bread"],
+        "preparation": "Cook the beef, fry the onion, pepper and tomato, add the paprika, add the potato, cook for 30 minutes",
+        "image": "./imgs/goulash.jpg",
+        "time": 60,
+        "saved": false
     }
 }

@@ -6,105 +6,7 @@ import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-
-const recipes = {
-  "recipe_1": {
-    "recipe_id": 1,
-    "recipe_name": "Fall Veloutè",
-    "recipe_description": "Indulge in the creamy, comforting warmth of Fall Velouté soup",
-    "level": "Medium",
-    "from": "Italy",
-    "ingredients": [
-      "butternut squash",
-      "sweet potato",
-      "celery",
-      "carrot",
-      "onion",
-      "leek",
-      "garlic",
-      "vegetable broth",
-      "cream",
-      "nutmeg",
-      "thyme",
-      "bay leaf"
-    ],
-    "preparation": "",
-    "image": require("../assets/fall_veloute.png"),
-    "time": 105,
-    "saved": false
-  },
-  "recipe_2": {
-    "recipe_id": 2,
-    "recipe_name": "Bún Chả",
-    "recipe_description": "Savor the grilled pork and herb-infused delight of this Vietnamese delight",
-    "level": "Easy",
-    "from": "Vietnam",
-    "ingredients": [
-      "grilled pork",
-      "rice vermicelli",
-      "lettuce",
-      "fresh herbs",
-      "salad",
-      "carrot",
-      "fish sauce",
-      "sugar",
-      "lime juice",
-      "garlic",
-      "chili"
-    ],
-    "preparation": "",
-    "image": require("../assets/bun_cha.png"),
-    "time": 35,
-    "saved": true
-  }
-};
-
-const GROCERIES = [
-  { 
-      "id": 1,
-      "name": "Salad",
-      "day_added": "2024-04-11",
-      "expiration_time": 2,
-      "quantity": 1,
-      "category": "",
-      "link": "",
-      "percentage_left": 20,
-      "selected": false
-  },
-  { 
-      "id": 2,
-      "name": "Milk",
-      "day_added": "2024-04-11",
-      "expiration_time": 4,
-      "quantity": 1,
-      "category": "",
-      "link": "",
-      "percentage_left": 40,
-      "selected": false
-  },
-  { 
-      "id": 3,
-      "name": "Carrot",
-      "day_added": "2024-04-11",
-      "expiration_time": 5,
-      "quantity": 1,
-      "category": "",
-      "link": "",
-      "percentage_left": 60,
-      "selected": true
-  },
-  { 
-      "id": 4,
-      "name": "Avocado",
-      "day_added": "2024-04-11",
-      "expiration_time": 7,
-      "quantity": 1,
-      "category": "",
-      "link": "",
-      "percentage_left": 80,
-      "selected": false
-  }
-];
+import flags from '../assets/imgs/flags.json'; // Importing the flags data
 
 
 const BlueHeader = () => {
@@ -117,57 +19,78 @@ const BlueHeader = () => {
   );
 };
 
+const recipeImages = {
+  Pasta: require("../assets/imgs/Pasta.jpg"),
+  Burger: require("../assets/imgs/Burger.jpg"),
+  Sushi: require("../assets/imgs/Sushi.jpg"),
+  Paella: require("../assets/imgs/Paella.jpg"),
+  Couscous: require("../assets/imgs/Couscous.jpg"),
+  Curry: require("../assets/imgs/Curry.jpg"),
+  Ramen: require("../assets/imgs/Ramen.jpg"),
+  Pancakes: require("../assets/imgs/Pancakes.jpg"),
+  Tacos: require("../assets/imgs/Tacos.jpg"),
+  Goulash: require("../assets/imgs/Goulash.jpg"),
+};
 
-const RecipeItem = ({ recipe, lastItem }) => {
+const RecipeItem = ({ recipe , fridgeItems}) => {
   // Count the total number of ingredients
   const totalIngredients = recipe.ingredients.length;
-  
+  const imageSource = recipeImages[recipe.recipe_name];
+  const navigation = useNavigation();
+  const handleRecipePress = () => {
+    // console.log('Recipe clicked:', recipe.recipe_name);
+    navigation.navigate('RecipeDetails', { recipe });
+  };
 
   // Count the number of matching ingredients from groceries
   const matchingIngredients = recipe.ingredients.filter(ingredient =>
-    GROCERIES.some(item => item.name.toLowerCase() === ingredient.toLowerCase())
+    fridgeItems.some(item => item.name.toLowerCase() === ingredient.toLowerCase())
   ).length;
 
   let difficultyColor = '';
 
   switch (recipe.level) {
-    case 'Easy':
+    case 'easy':
       difficultyColor = '#34C759'; // Green
       break;
-    case 'Medium':
+    case 'medium':
       difficultyColor = 'darkorange'; // Dark orange
       break;
-    case 'Difficult':
-      difficultyColor = 'red'; // Red
+    case 'hard':
+      difficultyColor = '#FF3B30'; // Red
       break;
     default:
       difficultyColor = '#34C759'; // Green (default to Easy)
   }
 
   return (
+    <TouchableOpacity onPress={handleRecipePress}>
     <View style={[styles.recipeItemLayout]}>
-      <Image style={styles.recipeImage} source={recipe.image} />
+      <Image style={styles.recipeImage} source={imageSource} />
       <View>
         <View style={styles.recipeNameAndDuration}>
           <Text style={styles.recipeName}>{recipe.recipe_name}</Text>
           <Text style={styles.recipeDuration}>{recipe.time} min</Text>
+          
         </View>
+        <Text style={styles.recipeFlag}> {flags[recipe.from]} </Text>
 
         <Text style={styles.recipeDescription}>{recipe.recipe_description}</Text>
         
         <ScrollView horizontal>
           <View>
             <View style={[styles.tagLayout, { backgroundColor: difficultyColor }]}>
-              <Text>{recipe.level}</Text>
+              <Text style={[styles.whiteText]}>{recipe.level}</Text>
             </View>
             <View style={[styles.tagLayout, styles.recipeTagIngredients]}>
-              <Text style={[styles.whiteText]}>{`${matchingIngredients}/${totalIngredients}`}</Text>
+              <Text style={[styles.whiteText, {color: 'black'}]}>{`${matchingIngredients}/${totalIngredients}`}</Text>
             </View>
           </View>
         </ScrollView>
         
       </View>
     </View>
+    </TouchableOpacity>
   );
 };
 
@@ -179,8 +102,6 @@ const TAGS = [
 ];
 
 const Tag = ({ label, selected, onPress , containerStyles , colors}) => {
-  const { color1 } = containerStyles;
-  const { color2 } = containerStyles;
   const labelStyles = {
     fontFamily: FontFamily.sFPro,
     fontSize: FontSize.size_mini,
@@ -205,38 +126,60 @@ const Tag = ({ label, selected, onPress , containerStyles , colors}) => {
           </View>
         )}
       </Pressable>
-      {/* // TODO: Make toggle on/off for 'selected' that it only shows those categories*/}
     </>
   );
 };
 
 
 const RecipeList = ({  }) => {
-  // Use DataContext if you are passing the API data through context
-  // const data = useContext(DataContext);
-
-  // Local state for API data if you're fetching it in the component
-  const [data, setData] = useState(null);
+  const [recipes, setRecipes] = useState([])
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Update the URL with your API's URL
-        const response = await fetch(endpoint);
+        const response = await fetch(endpoint+"recipes");
         const json = await response.json();
-        setData(json);
+        setRecipes(json);
       } catch (error) {
         setError('Failed to fetch data.');
         console.error(error);
       } finally {
-        // setLoading(false);
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+
+  const [fridgeItems_, setFridgeItems] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Update the URL with your API's URL
+        const response = await fetch(endpoint+"fridge-items");
+        const json = await response.json();
+
+        // Add 'selected' property to each fridge item and set it to false
+        const fridgeItemsWithSelected = json.map(item => ({
+          ...item,
+          selected: false
+        }));
+
+        setFridgeItems(fridgeItemsWithSelected);
+      } catch (error) {
+        setError('Failed to fetch data.');
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+
   const [tags, setTags] = useState(TAGS);
-  const [groceries, selectGroceries] = useState(GROCERIES);
   const handleTagPress = (index , tags_ , set) => {
     const updatedTags = tags_.map((tag_, i) => ({
       ...tag_,
@@ -245,6 +188,8 @@ const RecipeList = ({  }) => {
     }));
     set(updatedTags);
   };
+
+  
 
   const navigation = useNavigation();
   const handlePress = (screenName) => {
@@ -256,18 +201,9 @@ const RecipeList = ({  }) => {
     setSAVED(!SAVED); // Toggle the SAVED state
   };
 
-  return (
-    // <View style={styles.container}>
-    //   {loading ? (
-    //     <ActivityIndicator size="large" color="#0000ff" />
-    //   ) : error ? (
-    //     <Text>{error}</Text>
-    //   ) : (
-    //     // Render your screen's content with the fetched data
-    //     // <Text style={styles.text}>{data.message ? data.message : 'No data fetched'}</Text>
-    //   )}
-    // </View>
+  const sortedfridgeItems = Object.values(fridgeItems_).sort((a, b) => a.expiration_time - b.expiration_time)
 
+  return (
     <View style={styles.container}>
       <BlueHeader />
       <Text style={styles.headerText}>Recipes</Text>
@@ -286,26 +222,30 @@ const RecipeList = ({  }) => {
       </View>
 
       <ScrollView horizontal>
-        <View style={styles.filterContainer}>
-          {tags.map((tag, index) => (
+      <View style={styles.filterContainer}>
+        {tags.map((tag, index) => (
+          <Tag
+            key={index}
+            label={tag.label}
+            selected={tag.selected}
+            onPress={() => handleTagPress(index, tags, setTags)}
+            containerStyles={[styles.filterDifficulty]}
+            colors={["#7375c0", "#00a3ff"]}
+          />
+        ))}
+        
+        {sortedfridgeItems // Sort groceries by expiration_time
+          .map((item, i) => (
             <Tag
-              key={index}
-              label={tag.label}
-              selected={tag.selected}
-              onPress={() => handleTagPress(index, tags, setTags)}
-              containerStyles={[styles.filterDifficulty]}
-              colors = {["#7375c0", "#00a3ff"]}
-            />
-          ))}
-
-          {Object.values(groceries).map((item, i) => (
-              <Tag key={i} label={item.name} selected={item.selected} 
-              onPress={() => handleTagPress(i, Object.values(groceries), selectGroceries)} 
+              key={i}
+              label={item.name}
+              selected={item.selected} 
+              onPress={() => handleTagPress(i, Object.values(sortedfridgeItems), setFridgeItems)} 
               containerStyles={[styles.filterIngredients]}
-              colors = {["darkorange", "darkorange"]}
+              colors={["darkorange", "darkorange"]}
             />
           ))}
-        </View>
+      </View>
       </ScrollView>
 
       <ScrollView>
@@ -318,9 +258,9 @@ const RecipeList = ({  }) => {
               if (tags.some(tag => tag.selected && tag.label !== 'All')) {
                 // If any tag other than 'All' is selected, filter recipes based on the selected tag
                 return tags.some(tag => tag.selected && recipe.level === tag.label);
-              } else if (groceries.some(ingredient => ingredient.selected)) {
+              } else if (fridgeItems_.some(ingredient => ingredient.selected)) {
                 // If any ingredient is selected, filter recipes based on selected ingredients
-                const selectedIngredients = groceries
+                const selectedIngredients = fridgeItems_
                   .filter(ingredient => ingredient.selected)
                   .map(ingredient => ingredient.name.toLowerCase());
                 return selectedIngredients.every(selectedIngredient =>
@@ -334,7 +274,7 @@ const RecipeList = ({  }) => {
             })
             .map((recipe, index) => (
               <View style={styles.recipeContainer} key={index}>
-                <RecipeItem recipe={recipe} lastItem={index === Object.values(recipes).length - 1} />
+                <RecipeItem recipe={recipe} fridgeItems = {fridgeItems_}/>
               </View>
             ))}
         </View>
@@ -369,7 +309,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    // marginBottom: -25,
+    marginBottom: 5,
     left: 10
   },
   filterDifficulty: {
@@ -394,11 +334,13 @@ const styles = StyleSheet.create({
   },
   recipeItemLayout: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 80,
+    // alignItems: 'left',
+    // marginRight: -200,
+    // width: 350,
   },
   recipeContainer: {
     marginTop: 5,
+    // alignItems: "center",
     width: 350,
     left:20,
     backgroundColor: 'white',
@@ -411,7 +353,8 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   recipesContainer: {
-    marginTop: 5
+    marginTop: 20,
+    // marginBottom: -50,
   },
   recipeImage: {
     borderRadius: Border.br_xl,
@@ -431,11 +374,19 @@ const styles = StyleSheet.create({
     marginBottom: -2,
     left: 5
   },
+  recipeFlag: {
+    // marginBottom: -2,
+    // left: 5
+    marginLeft:230,
+    marginTop:-18,
+  },
   recipeDescription: {
     fontFamily: FontFamily.asapRegular,
     fontSize: FontSize.size_sm,
     color: Color.colorDarkslategray,
-    marginBottom: 5,
+    marginTop:2,
+    marginBottom: 15,
+    marginRight: 150
   },
   tagLayout: {
     justifyContent: "center",
@@ -446,20 +397,21 @@ const styles = StyleSheet.create({
     position: "absolute",
     // marginTop: 50,
   },
-  daysTag: {
-    backgroundColor: 'blue',
+  whiteText: {
+    fontFamily: FontFamily.asapRegular,
+    fontSize: FontSize.size_sm,
     color: Color.trueWhite,
   },
   recipeTagIngredients: {
-    width: 73,
+    width: 63,
     backgroundColor: Color.trueWhite,
     left: 80,
-    borderColor: 'red',
+    borderColor: 'gray',
     borderWidth: 1,
   },
   recipeTagDifficulty: {
     left: 0,
-    backgroundColor: "#34C759",
+    // backgroundColor: "#34C759",
     width: 54,
   },
   iconContainer: {

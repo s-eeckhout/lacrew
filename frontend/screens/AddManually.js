@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import RNPickerSelect from 'react-native-picker-select';
@@ -8,7 +8,7 @@ const BlueHeader = () => {
     <Image
       style={styles.BlueHeader}
       contentFit="cover"
-      source={require("../assets/BlueHeader.png")}
+      source={require("../assets/BlueHeader.png")} 
     />
   );
 }
@@ -45,6 +45,9 @@ const AddForm = ({navigation}) => {
   };
 
   const [category, setCategory] = useState('');
+
+  const inputRef1 = useRef(null);
+  const inputRef2 = useRef(null);
   
 
   const handleSubmit = () => {
@@ -64,8 +67,9 @@ const AddForm = ({navigation}) => {
         }, 2000);
 
         setCategory('');
-        handleInputChange('quantity', '');
-        handleInputChange('name', '');
+
+        inputRef1.current.clear();
+        inputRef2.current.clear();
     }
   };
 
@@ -89,14 +93,14 @@ const AddForm = ({navigation}) => {
             <Text style={styles.title1}>Insert new element</Text>
 
             <Text style={styles.label}>Name:</Text>
-            <TextInput clearButtonMode="always"
+            <TextInput ref={inputRef1} clearButtonMode="always"
                 style={styles.input}
                 placeholder="Enter name"
                 onChangeText={(text) => handleInputChange('name', text)}
             />
 
             <Text style={styles.label}>Quantity:</Text>
-            <TextInput clearButtonMode="always"
+            <TextInput ref={inputRef2} clearButtonMode="always"
                 style={styles.input}
                 placeholder="Enter quantity"
                 onChangeText={(text) => handleInputChange('quantity', text)}

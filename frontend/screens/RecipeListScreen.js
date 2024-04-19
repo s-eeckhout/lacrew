@@ -6,7 +6,7 @@ import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import flags from '../assets/imgs/flags.json'; // Importing the flags data
+//import flags from '../assets/imgs/flags.json'; // Importing the flags data
 
 
 const BlueHeader = () => {

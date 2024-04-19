@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
+import RNPickerSelect from 'react-native-picker-select';
 
-
+const BlueHeader = () => {
+  return (
+    <Image
+      style={styles.BlueHeader}
+      contentFit="cover"
+      source={require("../assets/BlueHeader.png")}
+    />
+  );
+}
 
 const AddForm = ({navigation}) => {
 
@@ -34,26 +43,47 @@ const AddForm = ({navigation}) => {
   const handleInputChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
   };
+
+  const [category, setCategory] = useState('');
   
 
   const handleSubmit = () => {
+    formData.category = category;
     // Handle form submission (e.g., send data to an API)
-    console.log('Form data submitted:', formData);
+    
     // Validate input fields (e.g., check if they are not empty)
     if (!formData.name || !formData.quantity || !formData.category) {
       alert('Please fill in all required fields.');
     } else {
+      console.log('Form data submitted:', formData);
         setModalVisible(true);
 
         // Hide the modal after 3 seconds
         setTimeout(() => {
         setModalVisible(false);
         }, 2000);
+
+        setCategory('');
+        handleInputChange('quantity', '');
+        handleInputChange('name', '');
     }
   };
 
+  const categoryOptions = [
+    { label: "Vegetables", value: "vegetables"},
+    { label: "Fruit", value: "fruit"},
+    { label: "Dairy", value: "dairy"},
+    { label: "Meat", value: "Meat"},
+    { label: "Pasta", value: "Pasta"},
+    { label: "Herbs & Spices", value: "HerbsSpices"},
+    { label: "Bread", value: "Bread"},
+    { label: "Alcohol", value: "Alcohol"},
+    // Add more options here
+  ];
+
   return (
     <View>
+        <BlueHeader />
         <BackButton />
         <View style={styles.container}>
             <Text style={styles.title1}>Insert new element</Text>
@@ -73,12 +103,16 @@ const AddForm = ({navigation}) => {
                 keyboardType="numeric"
             />
 
-            <Text style={styles.label}>Category:</Text>
-            <TextInput clearButtonMode="always"
-                style={styles.input}
-                placeholder="Enter category"
-                onChangeText={(text) => handleInputChange('category', text)}
-            />
+            <Text style={styles.label}>Category:</Text>    
+            <View style={styles.category}>
+              <RNPickerSelect
+                  placeholder={{ label: 'Select a category', value: null }}
+                  items={categoryOptions}
+                  onValueChange={(value) => setCategory(value)}
+                  value={category}
+              />
+            </View>       
+            
 
             <Button title="Submit" onPress={handleSubmit} />
         </View>
@@ -98,6 +132,18 @@ const AddForm = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  BlueHeader: {
+    marginTop: -40,
+    height: 180,
+    width: "100%",
+    overflow: "hidden",
+  },
+  category: {
+    borderWidth: 1,
+    padding: 10,
+    borderColor: 'gray',
+    borderRadius: 15,
+  },
     backButton: {
     // Adjust style as needed
         position: "absolute",
@@ -113,12 +159,14 @@ const styles = StyleSheet.create({
     title1: {
         fontWeight: 'bold',
         textAlign: 'center',
-        fontSize: 20,
+        color: 'white',
+        fontSize: 22,
+        marginBottom: 50,
     },
 
   container: {
     display: 'flex',
-    marginTop: 90,
+    marginTop: -80,
     padding: 20,
   },
   label: {

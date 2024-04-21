@@ -142,6 +142,7 @@ const Tag = ({ label, selected, onPress , containerStyles , colors}) => {
 
 const RecipeList = ({  }) => {
   const [recipes, setRecipes] = useState([])
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {

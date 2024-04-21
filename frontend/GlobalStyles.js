@@ -23,11 +23,10 @@ export const loadFonts = async () => {
 
 /* fonts */
 export const FontFamily = {
-  asapMedium: "Asap_500Medium",
-  asapItalic: "Asap_400Regular_Italic",
-  asapRegular: "Asap_400Regular",
-  asapSemiBold: "Asap_600SemiBold",
-  asapBold: "Asap_700Bold",
+  asapMedium: "Futura-Medium",
+  asapRegular: "System",
+  asapSemiBold: "Futura-Medium",
+  asapBold: "Futura-Bold",
 };
 /* font sizes */
 export const FontSize = {

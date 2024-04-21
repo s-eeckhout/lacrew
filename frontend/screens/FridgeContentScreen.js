@@ -94,6 +94,7 @@ const GroceriesList = () => {
   const navigation = useNavigation(); // This line should be inside your component
   const [tags, setTags] = useState(TAGS);
   const [fridgeItems, setFridgeItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   // State to hold the slider value
 
   const isFocused = useIsFocused();
@@ -188,18 +189,24 @@ const GroceriesList = () => {
         </View>
       </ScrollView>
 
-      <ScrollView>
+      <ScrollView style={styles.fridgeItemsContainer}>
         {displayItems.map((item, index) => {
           const progress = item.percentage_left / 100;
           console.log(`Progress for ${item.name}:`, progress);
           return (
             <Pressable key={index} onPress={() => handlePressItem(item)}>
               <View style={styles.item}>
-                <Text style={styles.itemName}>{item.name}</Text>
-                <Progress.Bar progress={progress} width={200} />
-                <Text style={styles.days}>
-                  {daysUntilExpirationArray[index] + " days"}
-                </Text>
+                <View style={[{flexDirection: "row"}]}>
+                  <Text style={styles.itemName}>{item.name}</Text>
+                  <Text style={styles.daysLeft}> {daysUntilExpirationArray[index] + " days"} </Text>
+                </View>
+
+                <View style={[{flexDirection: "row"}]}>
+                  <View style={styles.progress}> 
+                    <Progress.Bar progress={progress} width={310} color="#ef8313" borderWidth="0" unfilledColor="#E1DFDF"/>
+                  </View>
+                  <Text style={styles.percentageLeft}>{item.percentage_left + " %"}</Text>
+                </View>
               </View>
             </Pressable>
           );
@@ -229,28 +236,39 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    top: -2,
-    flexDirection: "row",
+    top: 15,
     justifyContent: "space-between",
-    alignItems: "center",
     backgroundColor: Color.colorWhite,
     borderRadius: Border.br_base,
     paddingHorizontal: Padding.p_base,
     paddingVertical: Padding.p_3xs,
   },
   itemName: {
-    fontFamily: FontFamily.asapRegular,
+    fontFamily: FontFamily.asapSemiBold,
     fontSize: FontSize.calloutBold_size,
+    marginBottom: 3,
   },
-  days: {
-    fontFamily: FontFamily.asapRegular,
-    fontSize: FontSize.size_sm,
-    color: Color.labelColorLightPrimary,
+  daysLeft:{
+    top:1,
+    left:5,
+    color: "#7A8994",
+  },
+  percentageLeft:{
+    top:-6,
+    left:5,
+    color: "#e57909",
+  },
+  progress:{
+    justifyContent: "space-between",
+    height: 8,
   },
   tagsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: -25,
+    top:-80,
+  },
+  fridgeItemsContainer: {
+    top:-180
   },
   label: {
     fontFamily: FontFamily.sFPro,

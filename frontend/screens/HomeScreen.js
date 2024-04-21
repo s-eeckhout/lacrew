@@ -14,13 +14,18 @@ import { DataContext } from "../App"; // Import the DataContext if you are using
 import { endpoint } from "../utils/endpoint";
 import * as Progress from "react-native-progress";
 
+const flags = {
+  "Italy": "🇮🇹",
+  "USA": "🇺🇸", 
+  "Japan": "🇯🇵",
+  "Spain": "🇪🇸",
+  "Mexico": "🇲🇽",
+  "Morocco": "🇲🇦",
+  "India": "🇮🇳",
+  "Hungary": "🇭🇺"
+}
+
 const GroceriesList = () => {
-  const groceries = [
-    { name: "Salad 🥗", days: "02 days", completed: 20 },
-    { name: "Milk 🥛", days: "04 days", completed: 40 },
-    { name: "Carrot 🥕", days: "05 days", completed: 60 },
-    { name: "Avocado 🥑", days: "7 days", completed: 80 },
-  ];
   const [fridgeItems, setFridgeItems] = useState([])
   
   //Fetch Data
@@ -57,27 +62,36 @@ const GroceriesList = () => {
       
       return Math.round(differenceInDays);
     }
+
+    const sortedfridgeItems = Object.values(fridgeItems).sort((a, b) => a.expiration_time - b.expiration_time)
     
     // Map over each item, calculate the days until expiration, and store the result in a new array
-    const daysUntilExpirationArray = fridgeItems ? fridgeItems.map(calculateDaysUntilExpiration) : [];
+    const daysUntilExpirationArray = sortedfridgeItems ? sortedfridgeItems.map(calculateDaysUntilExpiration) : [];
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        {fridgeItems.map((item, index) => (
+      {/* <ScrollView> */}
+        {sortedfridgeItems.map((item, index) => (
           <View key={index} style={styles.item}>
+            <View style={[{flexDirection: "row"}]}>
             <Text style={styles.itemName}>{item.name}</Text>
+            <Text style={styles.daysLeft}>{daysUntilExpirationArray[index] + " days left"}</Text>
+            </View>
+            <View style={[{flexDirection: "row"}]}>
+            <View style={styles.progress}>
             <Progress.Bar
               progress={item.percentage_left / 100}
-              width={200}
-              color="#e69138"
+              width={303}
+              color="#ef8313"
               borderWidth="0"
-              unfilledColor="#fce5cd"
+              unfilledColor="#E1DFDF"
             />
-            <Text style={styles.days}>{daysUntilExpirationArray[index] + " days"}</Text>
+            </View>
+            <Text style={styles.percentageLeft}>{item.percentage_left + " %"}</Text>
+            </View>
           </View>
         ))}
-      </ScrollView>
+      {/* </ScrollView> */}
     </View>
   );
 };
@@ -103,6 +117,21 @@ const Recipe = ({ recipe }) => {
     navigation.navigate('RecipeDetails', { recipe });
   };
   const imageSource = recipeImages[recipe.recipe_name];
+
+  switch (recipe.level) {
+    case 'easy':
+      difficultyColor = '#34C759'; // Green
+      break;
+    case 'medium':
+      difficultyColor = 'darkorange'; // Dark orange
+      break;
+    case 'hard':
+      difficultyColor = '#FF3B30'; // Red
+      break;
+    default:
+      difficultyColor = '#34C759'; // Green (default to Easy)
+  }
+
   return (
     <TouchableOpacity onPress={handleRecipePress}>
     <View style={[styles.ShadowBox]}>
@@ -122,16 +151,18 @@ const Recipe = ({ recipe }) => {
           <Text style={[styles.whiteText]}>{recipe.from}</Text>
         </View>
 
-        <View style={[styles.tagLayout, styles.recipeTagGreen]}>
+        <View style={[styles.tagLayout, styles.recipeTagGreen, , { backgroundColor: difficultyColor }]}>
           <Text style={[styles.whiteText]}>{recipe.level}</Text>
         </View>
       </View>
       <View style={[styles.content, styles.contentSpaceBlock]}>
-        <Text style={[styles.titleRecipe, styles.titleTypo]}>
-          {recipe.recipe_name}
-        </Text>
+        <View style={[{flexDirection: "row"}]}> 
+        <Text style={[styles.titleRecipe, styles.titleTypo]}> {recipe.recipe_name} </Text>
+        <Text style={styles.recipeFlag}> {flags[recipe.from]} </Text>
+        </View>
+
       </View>
-      <View style={[styles.RecipeRow1, styles.RecipeRow1Position]}>
+      <View style={[styles.RecipeRow1]}>
         <Text style={[styles.recipeDuration]}>{recipe.time+" mins"}</Text>
         <View style={[styles.recipeTagDays, styles.tagLayout]}>
           <Text style={[styles.whiteText]}>{recipe.recipe_id +" days"}</Text>
@@ -151,7 +182,6 @@ const Recipe = ({ recipe }) => {
     </TouchableOpacity>
   );
 };
-// TODO: Make recipe clickable and towards new screen that loads recipe data
 
 const Home = () => {
   const navigation = useNavigation();
@@ -187,7 +217,6 @@ const Home = () => {
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error}</Text>;
-  // TODO: navigation to another screen (does not work yet)
 
   return (
     <View>
@@ -210,7 +239,7 @@ const Home = () => {
       </View>
 
       <View style={[styles.titleParent, styles.contentSpaceBlock]}>
-        <Text style={styles.title}>Expiring Soon</Text>
+        <Text style={styles.expiringSoon}>Expiring Soon</Text>
         <GroceriesList />
       </View>
 
@@ -221,7 +250,7 @@ const Home = () => {
         source={require("../assets/BlueMiddle.png")}
       />
       <View style={[styles.titleGroup, styles.contentSpaceBlock]}>
-        <Text style={[styles.titleRecipesIdeas, styles.titleTypo1]}>
+        <Text style={[styles.titleRecipesIdeas]}>
           Recipes with Tomato{" "}
           {/* // TODO Change for top of stack of FridgeItems */}
         </Text>
@@ -274,6 +303,7 @@ const styles = StyleSheet.create({
   },
   tagsPosition: {
     left: 10,
+    top:-5,
     position: "absolute",
     zIndex: 3,
   },
@@ -289,7 +319,12 @@ const styles = StyleSheet.create({
     // left: 5,
     zIndex: 4,
   },
-
+  recipeFlag:{
+      // marginBottom: -2,
+      // left: 5
+      marginLeft:-35,
+      // marginTop:-18,
+  },
   titleTypo: {
     width: 194,
     color: Color.trueWhite,
@@ -297,29 +332,9 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "left",
   },
-  RecipeRow1Position: {
-    zIndex: 1,
-    alignItems: "center",
-  },
   ingredientsPosition: {
     zIndex: 1,
     alignItems: "center",
-  },
-  ShadowwBox: {
-    height: 197,
-    shadowOpacity: 1,
-    elevation: 20,
-    shadowRadius: 20,
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowColor: "rgba(0, 0, 0, 0.5)",
-    backgroundColor: Color.colorDarkslategray,
-    borderRadius: Border.br_xl,
-    width: 208,
-    alignItems: "center",
-    overflow: "hidden",
   },
   tagRedLayout: {
     padding: Padding.p_xs,
@@ -329,11 +344,14 @@ const styles = StyleSheet.create({
   },
   recipeTagRed: {
     width: 73,
-    backgroundColor: Color.colorRed,
     // padding: Padding.p_xs,
     borderRadius: Border.br_xl,
     alignItems: "center",
     left: 0,
+    borderStyle: "solid",
+    borderColor: Color.trueWhite,
+    borderWidth: 1,
+    alignItems: "center",
     height: 26,
     position: "absolute",
     top: 168,
@@ -348,7 +366,7 @@ const styles = StyleSheet.create({
   },
   recipeTagGreen: {
     left: 83,
-    backgroundColor: Color.colorLimegreen,
+    // backgroundColor: Color.colorLimegreen,
     width: 54,
     alignItems: "center",
     top: 168,
@@ -374,7 +392,7 @@ const styles = StyleSheet.create({
     top: -20,
     overflow: "hidden",
   },
-  title: {
+  expiringSoon: {
     fontWeight: "600",
     fontFamily: FontFamily.asapSemiBold,
     color: "#4286c6",
@@ -384,12 +402,12 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_lg,
   },
   headerText: {
-    fontWeight: "700",
+    // fontWeight: "00",
     // position: "absolute",
     top: 30, // Adjust this value as per your requirement
-    left: 20, // Adjust this value as per your requirement
+    left: 10, // Adjust this value as per your requirement
     color: "white",
-    fontFamily: FontFamily.asapSemiBold,
+    fontFamily: FontFamily.asapMedium,
     fontSize: FontSize.size_3xl,
   },
   icon: {
@@ -462,23 +480,26 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderColor: Color.trueWhite,
     borderWidth: 1,
+    left:-10,
     alignItems: "center",
   },
   RecipeRow1: {
-    top: 126,
+    top: 130,
     justifyContent: "space-between",
     width: 208,
     paddingVertical: 0,
     position: "absolute",
     flexDirection: "row",
     paddingHorizontal: Padding.p_3xs,
-    left: 0,
+    left: 6,
+    zIndex: 1,
+    alignItems: "center",
   },
   iconEdit: {
-    top: -17,
+    top: -22,
     width: 50,
     height: 50,
-    marginLeft: 310,
+    marginLeft: 290,
   },
   ingredients: {
     top: 148,
@@ -506,27 +527,37 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: Padding.p_xs,
-    top: -2,
-    flexDirection: "row",
+    marginTop: 6,
     justifyContent: "space-between",
-    alignItems: "center",
+    // marginLeft:-103,
     marginBottom: 10,
     backgroundColor: Color.colorWhite,
     borderRadius: Border.br_base,
     paddingHorizontal: Padding.p_base,
     paddingVertical: Padding.p_sm,
-    shadowColor: Color.colorBlack,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
   },
   itemContent: {
     flex: 1,
   },
+  progress:{
+    // flexDirection: "row",
+    justifyContent: "space-between",
+    height: 8,
+  },
+  daysLeft:{
+    top:1,
+    left:5,
+    color: "#7A8994",
+  },
+  percentageLeft:{
+    top:-6,
+    left:5,
+    color: "#e57909",
+  },
   itemName: {
-    fontFamily: FontFamily.asapRegular,
+    fontFamily: FontFamily.asapSemiBold,
     fontSize: FontSize.calloutBold_size,
+    marginBottom: 3,
   },
   tagsContainer: {
     flexDirection: "row",

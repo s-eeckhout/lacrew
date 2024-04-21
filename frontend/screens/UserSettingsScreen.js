@@ -43,15 +43,16 @@ const SettingItem = ({ title, lastItem }) => {
 
 const styles = StyleSheet.create({
   BlueHeader: {
-    top: -50, 
-    height: 152,
-    width: 390,
+    marginTop: -50,
+    height: 180,
+    width: "100%",
     overflow: "hidden",
   },
   headerText: {
+    padding: 20,
     fontWeight: "700",
-    top: -110, 
-    left: 20, 
+    marginTop: -80,
+    left: 20,
     color: "white",
     fontFamily: FontFamily.asapSemiBold,
     fontSize: FontSize.size_3xl,
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.colorWhite,
   },
   section: {
-    marginTop: -70,
+    marginTop: 50,
     width: 350,
     left:20,
     backgroundColor: 'white',

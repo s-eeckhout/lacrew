@@ -5,6 +5,7 @@ import {endpoint} from '../utils/endpoint'
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
 const flags = {
@@ -47,7 +48,6 @@ const RecipeItem = ({ recipe , fridgeItems}) => {
   const imageSource = recipeImages[recipe.recipe_name];
   const navigation = useNavigation();
   const handleRecipePress = () => {
-    // console.log('Recipe clicked:', recipe.recipe_name);
     navigation.navigate('RecipeDetails', { recipe });
   };
 
@@ -57,19 +57,16 @@ const RecipeItem = ({ recipe , fridgeItems}) => {
   ).length;
 
   let difficultyColor = '';
-
   switch (recipe.level) {
     case 'easy':
-      difficultyColor = '#34C759'; // Green
+      difficultyColor = Color.green;
       break;
     case 'medium':
-      difficultyColor = 'darkorange'; // Dark orange
+      difficultyColor = Color.darkOrange;
       break;
     case 'hard':
-      difficultyColor = '#FF3B30'; // Red
+      difficultyColor = Color.red;
       break;
-    default:
-      difficultyColor = '#34C759'; // Green (default to Easy)
   }
 
   return (
@@ -141,6 +138,7 @@ const Tag = ({ label, selected, onPress , containerStyles , colors}) => {
 
 
 const RecipeList = ({  }) => {
+  const route = useRoute();
   const [recipes, setRecipes] = useState([])
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -176,7 +174,9 @@ const RecipeList = ({  }) => {
           selected: false
         }));
 
-        setFridgeItems(fridgeItemsWithSelected);
+        const sortedfridgeItemsWithSelected = Object.values(fridgeItemsWithSelected).sort((a, b) => a.expiration_time - b.expiration_time)
+
+        setFridgeItems(sortedfridgeItemsWithSelected);
       } catch (error) {
         setError('Failed to fetch data.');
         console.error(error);
@@ -185,8 +185,17 @@ const RecipeList = ({  }) => {
       }
     };
 
-    fetchData();
-  }, []);
+    console.log("Route params:", route.params); // Log route params
+
+    if (route.params?.fridgeItems) {
+      setFridgeItems(route.params.fridgeItems);
+      console.log("set items from back button")
+      console.log("newfridge!", fridgeItems_)
+    } else {
+      console.log("fetching items")
+      fetchData();
+    }
+  }, [route.params?.fridgeItems]);
   
 
   const [tags, setTags] = useState(TAGS);
@@ -211,12 +220,15 @@ const RecipeList = ({  }) => {
     setSAVED(!SAVED); // Toggle the SAVED state
   };
 
-  const sortedfridgeItems = Object.values(fridgeItems_).sort((a, b) => a.expiration_time - b.expiration_time)
+  // const sortedfridgeItems = Object.values(fridgeItems_).sort((a, b) => a.expiration_time - b.expiration_time)
+  // setFridgeItems(sortedfridgeItems)
 
   return (
     <View style={styles.container}>
       <BlueHeader />
       <Text style={styles.headerText}>Recipes</Text>
+
+      
 
       <View style={styles.iconContainer}>
         <Pressable onPress={savedPress}>
@@ -225,14 +237,18 @@ const RecipeList = ({  }) => {
           )}
         </Pressable>
 
+        
         <TouchableOpacity onPress={() => handlePress( )}>
+        
           <Image style={styles.iconBullet} contentFit="cover" source={require('../assets/iconBulletCircleFill.png')} />
         </TouchableOpacity>
         {/* // TODO: If we want the tinder thing do it here */}
       </View>
 
-      <ScrollView horizontal>
+      {/* <Filters tags={tags} sortedfridgeItems={sortedfridgeItems} handleTagPress={handleTagPress}/> */}
       <View style={styles.filterContainer}>
+      <ScrollView horizontal>
+      
         {tags.map((tag, index) => (
           <Tag
             key={index}
@@ -244,19 +260,26 @@ const RecipeList = ({  }) => {
           />
         ))}
         
-        {sortedfridgeItems // Sort groceries by expiration_time
+        {fridgeItems_ // Sort groceries by expiration_time
           .map((item, i) => (
             <Tag
               key={i}
               label={item.name}
               selected={item.selected} 
-              onPress={() => handleTagPress(i, Object.values(sortedfridgeItems), setFridgeItems)} 
+              onPress={() => handleTagPress(i, Object.values(fridgeItems_), setFridgeItems)} 
               containerStyles={[styles.filterIngredients]}
               colors={["darkorange", "darkorange"]}
             />
           ))}
-      </View>
+      
       </ScrollView>
+      
+      <View style={styles.rectangle} />
+      <TouchableOpacity onPress={() => navigation.navigate('RecipeFilterScreen', { sortedfridgeItems: fridgeItems_ })}>
+          <Image style={styles.filterButton} contentFit="cover" source={require('../assets/iconFilter.png')} />
+      </TouchableOpacity>
+      </View>
+      
 
       <ScrollView>
         <View style={styles.recipesContainer}> 
@@ -307,7 +330,7 @@ const styles = StyleSheet.create({
     marginTop: -80,
     left: 20,
     color: "white",
-    fontFamily: FontFamily.asapSemiBold,
+    fontFamily: FontFamily.futuraMedium,
     fontSize: FontSize.size_3xl,
   },
   container: {
@@ -320,6 +343,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 20,
     marginBottom: 5,
+    marginRight: -10,
     left: 10
   },
   filterDifficulty: {
@@ -373,12 +397,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   recipeName: {
-    fontFamily: FontFamily.asapSemiBold,
+    fontFamily: FontFamily.futuraMedium,
     fontSize: FontSize.size_lg,
     color: Color.colorDarkslategray,
   },
   recipeDuration: {
-    fontFamily: FontFamily.asapRegular,
+    fontFamily: FontFamily.sfRegular,
     fontSize: FontSize.size_sm,
     color: Color.colorDarkslategray,
     marginBottom: -2,
@@ -391,9 +415,9 @@ const styles = StyleSheet.create({
     marginTop:-18,
   },
   recipeDescription: {
-    fontFamily: FontFamily.asapRegular,
+    fontFamily: FontFamily.sfRegular,
     fontSize: FontSize.size_sm,
-    color: Color.colorDarkslategray,
+    color: Color.gray,
     marginTop:2,
     marginBottom: 15,
     marginRight: 150
@@ -408,20 +432,19 @@ const styles = StyleSheet.create({
     // marginTop: 50,
   },
   whiteText: {
-    fontFamily: FontFamily.asapRegular,
+    fontFamily: FontFamily.sfRegular,
     fontSize: FontSize.size_sm,
-    color: Color.trueWhite,
+    color: Color.white,
   },
   recipeTagIngredients: {
     width: 63,
-    backgroundColor: Color.trueWhite,
+    backgroundColor: Color.white,
     left: 80,
     borderColor: 'gray',
     borderWidth: 1,
   },
   recipeTagDifficulty: {
     left: 0,
-    // backgroundColor: "#34C759",
     width: 54,
   },
   iconContainer: {
@@ -444,6 +467,19 @@ const styles = StyleSheet.create({
   iconBullet: {
     width: 30,
     height: 30,
+  },
+  filterButton: {
+    marginLeft:-65, 
+    backgroundColor:Color.backgroundGray,
+    width:23, 
+    height:18, 
+  },
+  rectangle: {
+    width: 80,
+    height: 40,
+    // position: "absolute",
+    // marginTop:20,
+    backgroundColor: Color.backgroundGray,
   },
 });
 

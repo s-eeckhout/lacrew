@@ -11,6 +11,7 @@ import CameraScreen from "../screens/CameraScreen";
 import AddCameraScreen from "../screens/AddCameraScreen";
 import GroceryItemScreen from "../screens/GroceryItemScreen";
 import RecipeDetailsScreen from "../screens/RecipeDetailsScreen";
+import RecipeFilterScreen from "../screens/RecipeFilterScreen";
 import AddForm from "../screens/AddManually";
 
 const Tab = createBottomTabNavigator();
@@ -33,6 +34,7 @@ export default function BottomTabNavigator() {
       <Stack.Screen name="GroceryItemScreen" component={GroceryItemScreen} />
       <Stack.Screen name="RecipeDetails" component={RecipeDetailsScreen} />
       <Stack.Screen name="AddForm" component={AddForm} />
+      <Stack.Screen name="RecipeFilterScreen" component={RecipeFilterScreen} />
     </Stack.Navigator>
   );
 }

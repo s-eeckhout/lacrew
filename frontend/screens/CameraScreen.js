@@ -31,13 +31,13 @@ const FloatingSheet = ({ navigation }) => {
             }}
           />
         </View>
-        <View>
+        <View style={[{top:10}]}>
           <Button
             title="Add manually"
             onPress={() => {
               navigation.navigate("AddForm");
             }}
-            color= {Color.colorDarkorange}
+            color= {Color.darkOrange}
             accessibilityLabel="Learn more about this button"
           />
         </View>

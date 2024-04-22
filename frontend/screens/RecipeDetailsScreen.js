@@ -4,6 +4,7 @@ import { View, Text, Image, ScrollView, StyleSheet ,TouchableOpacity} from "reac
 import { useNavigation } from "@react-navigation/native";
 import { Divider } from '@rneui/themed';
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
+import { Ionicons , AntDesign} from "@expo/vector-icons";
 
 const updateBackend = async (newValue) => {
   const response = await fetch(endpoint + `fridge-items/${item.name}`, {
@@ -41,7 +42,6 @@ const SaveIcon = (recipe) => {
     setSAVED(!SAVED); // Toggle the SAVED state
     // updateBackend(!recipe.saved)
   };
-
   return (
     // <View style={styles.iconContainer}>
         <TouchableOpacity onPress={savedPress} style={[styles.backButton]}>
@@ -62,12 +62,10 @@ const RecipeDetailsScreen = ({ route }) => {
    const BackButton = () => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("RecipeList")}
         style={styles.backButton}
       >
-        <Image
-          source={require("../assets/iconBack.png")}
-        />
+        <AntDesign name="left" size={27} color={Color.white} />
       </TouchableOpacity>
     );
   };
@@ -75,7 +73,7 @@ const RecipeDetailsScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-    <BackButton />
+    
     <SaveIcon recipe = {recipe}/>
     
     <ScrollView >
@@ -85,6 +83,7 @@ const RecipeDetailsScreen = ({ route }) => {
         source={recipeImages[recipe.recipe_name]}
         resizeMode="cover"
       />
+      <BackButton />
       <Text style={styles.title}>{recipe.recipe_name}</Text>
       <Text style={styles.description}>{recipe.recipe_description}</Text>
 
@@ -191,17 +190,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconSaved: {
-    width:16,
-    height:24,
-    marginLeft:330,
-    marginTop:5,
+    width:25,
+    height:35,
+    marginLeft:331,
+    marginTop:2,
     position: "absolute",
     alignItems: 'center',
     // zIndex: 10, // Ensure button is clickable over other elements
   },
   iconToSave: {
-    width:27,
-    height:27,
+    width:35,
+    height:35,
     marginLeft:325,
     marginTop:2,
     alignItems: 'center',

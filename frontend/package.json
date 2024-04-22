@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/asap": "^0.2.3",
+    "@expo/vector-icons": "^14.0.0",
     "@react-native-community/slider": "4.4.2",
     "@react-native-masked-view/masked-view": "react-native-masked-view/masked-view",
     "@react-navigation/bottom-tabs": "^6.5.20",

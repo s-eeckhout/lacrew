@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
-import { Ionicons } from "@expo/vector-icons";
+import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
+import { Ionicons , AntDesign} from "@expo/vector-icons";
 import RNPickerSelect from 'react-native-picker-select';
 
 const BlueHeader = () => {
@@ -8,10 +9,10 @@ const BlueHeader = () => {
     <Image
       style={styles.BlueHeader}
       contentFit="cover"
-      source={require("../assets/BlueHeader.png")} 
+      source={require("../assets/BlueHeader.png")}
     />
   );
-}
+};
 
 const AddForm = ({navigation}) => {
 
@@ -23,8 +24,8 @@ const AddForm = ({navigation}) => {
             onPress={() => navigation.goBack()}
             style={styles.backButton}
           >
-            <Ionicons name="arrow-back" size={24} color="black" />
-            <Text style={[styles.title, { color: "black" }]}>go Back</Text>
+            <AntDesign name="left" size={20} color={Color.white} />
+            {/* <Text style={[styles.title, { color: "black" }]}>go Back</Text> */}
     
             {/* <Image
               source={require("../assets/iconBack.png")}
@@ -86,11 +87,11 @@ const AddForm = ({navigation}) => {
   ];
 
   return (
-    <View>
+    <View style={styles.headContainer}>
         <BlueHeader />
         <BackButton />
         <View style={styles.container}>
-            <Text style={styles.title1}>Insert new element</Text>
+            <Text style={styles.title1}>Add New Groceries</Text>
 
             <Text style={styles.label}>Name:</Text>
             <TextInput ref={inputRef1} clearButtonMode="always"
@@ -137,10 +138,12 @@ const AddForm = ({navigation}) => {
 
 const styles = StyleSheet.create({
   BlueHeader: {
-    marginTop: -40,
-    height: 180,
-    width: "100%",
+    marginTop: -30,
+    marginLeft:-580,
+    // height: 180,
+    // width: "100%",
     overflow: "hidden",
+    position: "absolute",
   },
   category: {
     borderWidth: 1,
@@ -155,23 +158,28 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: "5",
         alignItems: "center",
-        top: 50, // Adjust top as necessary
-        left: 10, // Adjust left as necessary
+        top: 72, // Adjust top as necessary
+        left: 20, // Adjust left as necessary
         zIndex: 10, // Ensure button is clickable over other elements
     },
 
     title1: {
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         textAlign: 'center',
         color: 'white',
-        fontSize: 22,
+        fontFamily: FontFamily.futuraBold,
+        fontSize: 20,
         marginBottom: 50,
     },
 
   container: {
-    display: 'flex',
-    marginTop: -80,
+    flex: 1,
+    marginTop: 50,
     padding: 20,
+  },
+  headContainer: {
+    flex: 1,
+    backgroundColor: Color.colorWhite,
   },
   label: {
     fontSize: 16,

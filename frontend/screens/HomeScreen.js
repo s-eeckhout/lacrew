@@ -142,7 +142,7 @@ const Recipe = ({ recipe }) => {
 
   return (
     <TouchableOpacity onPress={handleRecipePress}>
-    <View style={[styles.ShadowBox]}>
+    <View>
       <Image
         style={styles.highlightRecipe1}
         contentFit="cover"
@@ -231,7 +231,7 @@ const Home = () => {
       <Image
         style={[styles.OrangeHeader, styles.HeaderPosition]}
         contentFit="cover"
-        source={require("../assets/OrangeHeader.png")}
+        source={require("../assets/OrangeHeader.svg")}
       />
       <View style={{ padding: 20 }}>
         <Text style={styles.headerText}>
@@ -239,9 +239,14 @@ const Home = () => {
         </Text>
         <TouchableOpacity onPress={() => handlePress("FridgeContent")}>
           <Image
+            style={styles.iconBlue}
+            contentFit="cover"
+            source={require("../assets/blueIcon.svg")}
+          />
+          <Image
             style={styles.iconEdit}
             contentFit="cover"
-            source={require("../assets/edit.png")}
+            source={require("../assets/edit.svg")}
           />
         </TouchableOpacity>
       </View>
@@ -397,7 +402,7 @@ const styles = StyleSheet.create({
   OrangeHeader: {
     height: 170,
     width: "100%",
-    top: -20,
+    top: 0,
     overflow: "hidden",
   },
   expiringSoon: {
@@ -412,7 +417,7 @@ const styles = StyleSheet.create({
   headerText: {
     // fontWeight: "00",
     // position: "absolute",
-    top: 30, // Adjust this value as per your requirement
+    top: 45, // Adjust this value as per your requirement
     left: 10, // Adjust this value as per your requirement
     color: "white",
     fontFamily: FontFamily.futuraMedium,
@@ -504,9 +509,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   iconEdit: {
-    top: -22,
+    top: -44,
+    width: 20,
+    height: 20,
+    marginLeft: 304,
+  },
+  iconBlue: {
+    top: -8,
     width: 50,
-    height: 50,
+    height: 51,
     marginLeft: 290,
   },
   ingredients: {
@@ -518,7 +529,7 @@ const styles = StyleSheet.create({
   },
   RecipesParent: {
     // top: 451,
-    marginTop: 360,
+    marginTop: 335,
     padding: Padding.p_3xs,
     flexDirection: "row",
     gap: 10,

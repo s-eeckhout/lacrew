@@ -24,7 +24,7 @@ const BlueHeader = () => {
     <Image
       style={styles.BlueHeader}
       contentFit="cover"
-      source={require("../assets/BlueHeader.png")}
+      source={require("../assets/BlueHeader.svg")}
     />
   );
 };
@@ -240,7 +240,7 @@ const RecipeList = ({  }) => {
         
         <TouchableOpacity onPress={() => handlePress( )}>
         
-          <Image style={styles.iconBullet} contentFit="cover" source={require('../assets/iconBulletCircleFill.png')} />
+          <Image style={styles.iconBullet} contentFit="cover" source={require('../assets/iconBulletCircleFill.svg')} />
         </TouchableOpacity>
         {/* // TODO: If we want the tinder thing do it here */}
       </View>
@@ -276,7 +276,7 @@ const RecipeList = ({  }) => {
       
       <View style={styles.rectangle} />
       <TouchableOpacity onPress={() => navigation.navigate('RecipeFilterScreen', { sortedfridgeItems: fridgeItems_ })}>
-          <Image style={styles.filterButton} contentFit="cover" source={require('../assets/iconFilter.png')} />
+          <Image style={styles.filterButton} contentFit="cover" source={require('../assets/iconFilter.svg')} />
       </TouchableOpacity>
       </View>
       
@@ -455,14 +455,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconSaved: {
-    width:11,
-    height:17,
+    width:20,
+    height:28,
     marginRight: 10,
   },
   iconToSave: {
     width:20,
-    height:20,
-    marginRight: 5,
+    height:25,
+    marginRight: 10,
   },
   iconBullet: {
     width: 30,
@@ -471,7 +471,7 @@ const styles = StyleSheet.create({
   filterButton: {
     marginLeft:-65, 
     backgroundColor:Color.backgroundGray,
-    width:23, 
+    width:29, 
     height:18, 
   },
   rectangle: {

@@ -8,7 +8,7 @@ const BlueHeader = () => {
     <Image
       style={styles.BlueHeader}
       contentFit="cover"
-      source={require("../assets/BlueHeader.png")}
+      source={require("../assets/BlueHeader.svg")}
     />
   );
 };
@@ -34,7 +34,7 @@ const SettingItem = ({ title, lastItem }) => {
       <Image
         style={styles.arrowIcon}
         contentFit="cover"
-        source={require("../assets/chevronright.png")}
+        source={require("../assets/iconChevronRight.svg")}
       />
     </View>
   );

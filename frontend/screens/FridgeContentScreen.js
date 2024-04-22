@@ -31,7 +31,7 @@ const BlueHeader = () => {
     <Image
       style={styles.BlueHeader}
       contentFit="cover"
-      source={require("../assets/BlueHeader.png")}
+      source={require("../assets/BlueHeader.svg")}
     />
   );
 };

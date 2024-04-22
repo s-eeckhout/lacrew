@@ -7,6 +7,7 @@ import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import Slider from "@react-native-community/slider";
 import { endpoint } from "../utils/endpoint";
+import { Ionicons , AntDesign} from "@expo/vector-icons";
 import { DataContext } from "../App";
 
 const GroceryItem = () => {
@@ -44,10 +45,7 @@ const GroceryItem = () => {
         onPress={() => navigation.navigate("FridgeContent")}
         style={styles.backButton}
       >
-        <Image
-          source={require("../assets/iconBack.png")}
-          style={styles.backImage}
-        />
+        <AntDesign name="left" size={20} color={Color.blue} />
       </TouchableOpacity>
     );
   };
@@ -83,7 +81,7 @@ const GroceryItem = () => {
         <Progress.Bar
           progress={item.completed / 100}
           width={300}
-          color="#eb6e1b"
+          color={Color.orange}
         />
         {/* </View> */}
         {/* <Text>Value: {value}</Text> */}
@@ -95,10 +93,9 @@ const GroceryItem = () => {
 const styles = StyleSheet.create({
   headerText: {
     fontWeight: "700",
-    marginTop: 30,
-    left: 20,
+    marginTop: 70,
     color: "black",
-    // textAlign: 'left',
+    textAlign: 'center',
     fontSize: 20,
   },
   sliderLayout: {
@@ -112,9 +109,8 @@ const styles = StyleSheet.create({
     top: 80,
   },
   text: {
-    fontFamily: FontFamily.sFPro,
+    fontFamily: FontFamily.futuraBold,
     fontSize: FontSize.size_mini,
-    color: "black", // Text color based on selected state
     textAlign: "left",
   },
   textLayout: {
@@ -130,8 +126,8 @@ const styles = StyleSheet.create({
   backButton: {
     // Adjust style as needed
     position: "absolute",
-    top: 50, // Adjust top as necessary
-    left: 10, // Adjust left as necessary
+    top: 70, // Adjust top as necessary
+    left: 20, // Adjust left as necessary
     zIndex: 10, // Ensure button is clickable over other elements
   },
   backImage: {

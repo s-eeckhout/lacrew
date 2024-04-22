@@ -7,6 +7,7 @@ import { Image } from "expo-image";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons , AntDesign} from "@expo/vector-icons";
 
 const flags = {
   "Italy": "🇮🇹",
@@ -87,9 +88,7 @@ const FilterList = ({ }) => {
       <TouchableOpacity
         onPress={() => navigation.navigate("RecipeList", { fridgeItems })}
         style={styles.backButton}>
-        <Image
-          source={require("../assets/iconBack.png")}
-        />
+        <AntDesign name="left" size={20} color={Color.blue} />
       </TouchableOpacity>
     //   </View>
     );
@@ -106,9 +105,6 @@ const FilterList = ({ }) => {
   return (
     <View style={styles.container}>
       <BackButton />
-      <View style={styles.iconContainer}>
-        <Image style={[styles.iconSaved]} contentFit="cover" source={require("../assets/iconBack.png")} />
-      </View>
 
       <Text style={styles.headerText}>Select Filters</Text>
       

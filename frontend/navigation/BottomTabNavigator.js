@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Image, View } from "react-native";
 import HomeScreen from "../screens/HomeScreen";
 import FridgeContentScreen from "../screens/FridgeContentScreen";
+import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
 import MatchmakingScreen from "../screens/MatchmakingScreen";
 import RecipeListScreen from "../screens/RecipeListScreen";
 import UserSettingsScreen from "../screens/UserSettingsScreen";
@@ -45,7 +46,7 @@ function Navbar() {
         initialRouteName="Home"
         tabBarOptions={{
           style: {
-            borderTopWidth: 0, // Remove top border
+            borderTopWidth: 4, // Remove top border
             elevation: 0, // Remove shadow on Android
           },
           showLabel: false,
@@ -61,7 +62,7 @@ function Navbar() {
             tabBarIcon: ({ color, size }) => (
               <Image
                 source={require("../assets/Home.png")}
-                style={{ width: size, height: size, tintColor: color }}
+                style={{ width: size, height: size, tintColor: color}}
               />
             ),
           }}
@@ -86,19 +87,25 @@ function Navbar() {
               <View
                 style={{ position: "absolute", top: -20, alignItems: "center" }}
               >
+                <Image
+                source={require("../assets/semicircle.png")}
+                style={{ width: 60, height: 40, top:15, tintColor: Color.backgroundGray }}
+              />
                 <View
                   style={{
-                    backgroundColor: "#fff",
+                    backgroundColor: "#00A3FF",
                     borderRadius: 30,
-                    padding: 5,
+                    padding: 10,
+                    top:-43
                   }}
                 >
                   <Image
-                    source={require("../assets/Plus.png")}
-                    style={{ width: size, height: size, tintColor: color }}
+                    source={require("../assets/plus.png")}
+                    style={{ width: size, height: size, tintColor: Color.white }}
                   />
                 </View>
-                <View
+                
+                {/* <View
                   style={{
                     position: "absolute",
                     bottom: -5,
@@ -107,7 +114,7 @@ function Navbar() {
                     backgroundColor: "#2e78b7",
                     borderRadius: 5,
                   }}
-                />
+                /> */}
               </View>
             ),
           }}
@@ -118,7 +125,7 @@ function Navbar() {
           options={{
             tabBarIcon: ({ color, size }) => (
               <Image
-                source={require("../assets/Cards.png")}
+                source={require("../assets/Recipes.png")}
                 style={{ width: size, height: size, tintColor: color }}
               />
             ),

@@ -51,7 +51,7 @@ const TAGS = [
 const Tag = ({ label, colors, selected, onPress }) => {
   const containerStyles = {
     borderWidth: selected ? 0 : 1, // Add border if not selected
-    borderColor: selected ? "white" : colors[0], // Border color same as gradient color
+    borderColor: selected ? "white" : "#7375c0", // Border color same as gradient color
     paddingHorizontal: Padding.p_xs,
     borderRadius: Border.br_xl,
     height: 32,
@@ -74,7 +74,7 @@ const Tag = ({ label, colors, selected, onPress }) => {
           <LinearGradient
             style={[containerStyles]}
             locations={[0, 1]}
-            colors={colors}
+            colors={["#7375c0", "#00a3ff"]}
           >
             <Text style={labelStyles}>{label}</Text>
           </LinearGradient>
@@ -173,8 +173,9 @@ const GroceriesList = () => {
       <BlueHeader />
       <Text style={styles.headerText}>Fridge Content</Text>
 
-      <ScrollView horizontal>
+      
         <View style={styles.tagsContainer}>
+        <ScrollView horizontal>
           {tags.map((tag, index) => (
             <Tag
               key={index}
@@ -184,8 +185,9 @@ const GroceriesList = () => {
               onPress={() => handleTagPress(index)}
             />
           ))}
+          </ScrollView>
         </View>
-      </ScrollView>
+      
 
       <ScrollView style={styles.fridgeItemsContainer}>
         {displayItems.map((item, index) => {
@@ -263,10 +265,11 @@ const styles = StyleSheet.create({
   tagsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    top:-80,
+    top:140,
+    position: "absolute",
   },
   fridgeItemsContainer: {
-    top:-180
+    top:60
   },
   label: {
     fontFamily: FontFamily.sFPro,

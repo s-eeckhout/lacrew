@@ -37,18 +37,24 @@ const BlueHeader = () => {
 };
 
 const TAGS = [
-  { label: "All", colors: ["#7375c0", "#00a3ff"], selected: true },
-  { label: "Vegetables", colors: ["#7375c0", "#00a3ff"], selected: false },
-  { label: "Fruit", colors: ["#7375c0", "#00a3ff"], selected: false },
-  { label: "Dairy", colors: ["#7375c0", "#00a3ff"], selected: false },
-  { label: "Meat", colors: ["#7375c0", "#00a3ff"], selected: false },
-  { label: "Pasta", colors: ["#7375c0", "#00a3ff"], selected: false },
-  { label: "Herbs & Spices", colors: ["#7375c0", "#00a3ff"], selected: false },
-  { label: "Bread", colors: ["#7375c0", "#00a3ff"], selected: false },
-  { label: "Alcohol", colors: ["#7375c0", "#00a3ff"], selected: false },
+  { label: "All", selected: true },
+  { label: "Vegetables", selected: false },
+  { label: "Fruit", selected: false },
+  { label: "Dairy", selected: false },
+  { label: "Eggs", selected: false },
+  { label: "Meat", selected: false },
+  { label: "Fish", selected: false },
+  { label: "Pasta/Rice", selected: false },
+  { label: "Potatoes", selected: false },
+  { label: "Bread", selected: false },
+  { label: "Beverages", selected: false },
+  { label: "Canned", selected: false },
+  { label: "Frozen", selected: false },
+  { label: "Herbs/Spices", selected: false },
+  { label: "Others", selected: false },
 ];
 
-const Tag = ({ label, colors, selected, onPress }) => {
+const Tag = ({ label, selected, onPress }) => {
   const containerStyles = {
     borderWidth: selected ? 0 : 1, // Add border if not selected
     borderColor: selected ? "white" : "#7375c0", // Border color same as gradient color
@@ -180,7 +186,6 @@ const GroceriesList = () => {
             <Tag
               key={index}
               label={tag.label}
-              colors={tag.colors}
               selected={tag.selected}
               onPress={() => handleTagPress(index)}
             />
@@ -198,7 +203,17 @@ const GroceriesList = () => {
               <View style={styles.item}>
                 <View style={[{flexDirection: "row"}]}>
                   <Text style={styles.itemName}>{item.name}</Text>
-                  <Text style={styles.daysLeft}> {daysUntilExpirationArray[index] + " days"} </Text>
+                  <Text style={styles.daysLeft}>
+                    {daysUntilExpirationArray[index] < 0
+                    ? 'Expired'
+                    : daysUntilExpirationArray[index] === 0
+                    ? 'Expires Today!'
+                    : daysUntilExpirationArray[index] === 1
+                    ? `${daysUntilExpirationArray[index]} day left`
+                    : daysUntilExpirationArray[index] > 30
+                    ? '> month left'
+                    : `${daysUntilExpirationArray[index]} days left`}
+                </Text>
                 </View>
 
                 <View style={[{flexDirection: "row"}]}>

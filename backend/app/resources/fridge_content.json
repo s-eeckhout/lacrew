@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "Milk",
-        "day_added": "2024-03-22",
+        "day_added": "2024-04-01",
         "expiration_time": 14,
         "quantity": 1,
         "category": "Dairy",
@@ -11,32 +11,182 @@
     },
     {
         "id": 2,
-        "name": "Minced Meat",
-        "day_added": "2024-03-18",
+        "name": "Bananas",
+        "day_added": "2024-04-01",
         "expiration_time": 5,
-        "quantity": 3,
-        "category": "Meat",
-        "link": "https://iconscout.com/3d-illustration/grocery-basket-5293484",
+        "quantity": 6,
+        "category": "Fruit",
+        "link": "",
         "percentage_left": 100
     },
     {
         "id": 3,
-        "name": "Butter",
-        "day_added": "2024-03-12",
-        "expiration_time": 30,
+        "name": "Eggs",
+        "day_added": "2024-03-25",
+        "expiration_time": 28,
+        "quantity": 12,
+        "category": "Eggs",
+        "link": "",
+        "percentage_left": 100
+    },
+    {
+        "id": 4,
+        "name": "Chicken",
+        "day_added": "2024-04-01",
+        "expiration_time": 7,
         "quantity": 2,
-        "category": "Dairy",
+        "category": "Meat",
         "link": "https://iconscout.com/3d-illustration/grocery-basket-5293484",
         "percentage_left": 75
     },
     {
-        "id": 4,
+        "id": 5,
+        "name": "Salmon",
+        "day_added": "2024-04-01",
+        "expiration_time": 3,
+        "quantity": 1,
+        "category": "Fish",
+        "link": "",
+        "percentage_left": 50
+    },
+    {
+        "id": 6,
+        "name": "Spaghetti",
+        "day_added": "2024-04-01",
+        "expiration_time": 730,
+        "quantity": 1,
+        "category": "Pasta/Rice",
+        "link": "",
+        "percentage_left": 25
+    },
+    {
+        "id": 7,
+        "name": "Basil",
+        "day_added": "2024-04-01",
+        "expiration_time": 365,
+        "quantity": 1,
+        "category": "Herbs/Spices",
+        "link": "",
+        "percentage_left": 100
+    },
+    {
+        "id": 8,
+        "name": "Bread",
+        "day_added": "2024-04-01",
+        "expiration_time": 7,
+        "quantity": 1,
+        "category": "Bread",
+        "link": "",
+        "percentage_left": 75
+    },
+    {
+        "id": 9,
+        "name": "Canned Beans",
+        "day_added": "2024-04-01",
+        "expiration_time": 365,
+        "quantity": 2,
+        "category": "Canned",
+        "link": "",
+        "percentage_left": 25
+    },
+    {
+        "id": 10,
+        "name": "Tomato",
+        "day_added": "2024-04-17",
+        "expiration_time": 5,
+        "quantity": 3,
+        "category": "Vegetables",
+        "link": "",
+        "percentage_left": 100
+    },
+    {
+        "id": 11,
+        "name": "Butter",
+        "day_added": "2024-04-01",
+        "expiration_time": 60,
+        "quantity": 1,
+        "category": "Dairy",
+        "link": "",
+        "percentage_left": 100
+    },
+    {
+        "id": 12,
         "name": "Onion",
-        "day_added": "2024-03-16",
-        "expiration_time": 15,
-        "quantity": 6,
-        "category": "Vegtable",
+        "day_added": "2024-04-01",
+        "expiration_time": 30,
+        "quantity": 3,
+        "category": "Vegetables",
         "link": "https://iconscout.com/3d-illustration/onion-7034913",
+        "percentage_left": 50
+    },
+    {
+        "id": 13,
+        "name": "Carrot",
+        "day_added": "2024-04-01",
+        "expiration_time": 5,
+        "quantity": 4,
+        "category": "Vegetables",
+        "link": "",
+        "percentage_left": 75
+    },
+    {
+        "id": 14,
+        "name": "Salt",
+        "day_added": "2024-04-01",
+        "expiration_time": null,
+        "quantity": 1,
+        "category": "Herbs/Spices",
+        "link": "",
+        "percentage_left": 100
+    },
+    {
+        "id": 15,
+        "name": "Pepper",
+        "day_added": "2024-04-01",
+        "expiration_time": null,
+        "quantity": 1,
+        "category": "Herbs/Spices",
+        "link": "",
+        "percentage_left": 100
+    },
+    {
+        "id": 16,
+        "name": "Iced Tea",
+        "day_added": "2024-04-01",
+        "expiration_time": 180,
+        "quantity": 1,
+        "category": "Beverages",
+        "link": "",
+        "percentage_left": 100
+    },
+    {
+        "id": 17,
+        "name": "Olive Oil",
+        "day_added": "2024-04-01",
+        "expiration_time": 730,
+        "quantity": 1,
+        "category": "Other",
+        "link": "",
+        "percentage_left": 100
+    },
+    {
+        "id": 18,
+        "name": "Rice",
+        "day_added": "2024-04-01",
+        "expiration_time": 730,
+        "quantity": 1,
+        "category": "Pasta/Rice",
+        "link": "",
+        "percentage_left": 100
+    },
+    {
+        "id": 19,
+        "name": "Lettuce",
+        "day_added": "2024-04-01",
+        "expiration_time": 5,
+        "quantity": 1,
+        "category": "Vegetables",
+        "link": "",
         "percentage_left": 100
     }
 ]

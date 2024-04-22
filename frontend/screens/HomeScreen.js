@@ -75,7 +75,17 @@ const GroceriesList = () => {
           <View key={index} style={styles.item}>
             <View style={[{flexDirection: "row"}]}>
             <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.daysLeft}>{daysUntilExpirationArray[index] + " days left"}</Text>
+            <Text style={styles.daysLeft}>
+                {daysUntilExpirationArray[index] < 0
+                ? 'Expired'
+                : daysUntilExpirationArray[index] === 0
+                ? 'Expires Today!'
+                : daysUntilExpirationArray[index] === 1
+                ? `${daysUntilExpirationArray[index]} day left`
+                : daysUntilExpirationArray[index] > 30
+                ? '> month left'
+                : `${daysUntilExpirationArray[index]} days left`}
+                </Text>
             </View>
             <View style={[{flexDirection: "row"}]}>
             <View style={styles.progress}>

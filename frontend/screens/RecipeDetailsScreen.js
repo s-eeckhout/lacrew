@@ -1,7 +1,25 @@
 // RecipeDetailsScreen.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, ScrollView, StyleSheet ,TouchableOpacity} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Divider } from '@rneui/themed';
+import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
+
+const updateBackend = async (newValue) => {
+  const response = await fetch(endpoint + `fridge-items/${item.name}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ saved: newValue }),
+  });
+
+  if (response.ok) {
+    console.log("Update successful");
+  } else {
+    console.error("Failed to update");
+  }
+};
 
 const recipeImages = {
   Pasta: require("../assets/imgs/Pasta.jpg"),
@@ -16,6 +34,25 @@ const recipeImages = {
   Goulash: require("../assets/imgs/Goulash.jpg"),
 };
 
+const SaveIcon = (recipe) => {
+
+  const [SAVED, setSAVED] = useState(false);
+  const savedPress = () => {
+    setSAVED(!SAVED); // Toggle the SAVED state
+    // updateBackend(!recipe.saved)
+  };
+
+  return (
+    // <View style={styles.iconContainer}>
+        <TouchableOpacity onPress={savedPress} style={[styles.backButton]}>
+          {/* recipe.saved */}
+          {SAVED ? (<Image style={[styles.iconSaved]} contentFit="cover" source={require("../assets/iconSaved.png")} />) 
+          : (<Image style={[styles.iconToSave]} contentFit="cover" source={require("../assets/iconToSave.png")} />
+          )}
+        </TouchableOpacity>
+    // </View>
+  );
+};
  
 
 const RecipeDetailsScreen = ({ route }) => {
@@ -30,14 +67,19 @@ const RecipeDetailsScreen = ({ route }) => {
       >
         <Image
           source={require("../assets/iconBack.png")}
-          style={styles.backImage}
         />
       </TouchableOpacity>
     );
   };
+
+
   return (
-    <ScrollView style={styles.container}>
-      <BackButton />
+    <View style={styles.container}>
+    <BackButton />
+    <SaveIcon recipe = {recipe}/>
+    
+    <ScrollView >
+      
       <Image
         style={styles.image}
         source={recipeImages[recipe.recipe_name]}
@@ -45,45 +87,87 @@ const RecipeDetailsScreen = ({ route }) => {
       />
       <Text style={styles.title}>{recipe.recipe_name}</Text>
       <Text style={styles.description}>{recipe.recipe_description}</Text>
+
+      {/* <Divider inset={true} insetType="middle"/> */}
+      <View style={styles.information}>
+        <Text style={styles.duration}>  <Text style={styles.subTitle}> DURATION {"\n"} </Text> {recipe.time} min  </Text>
+        <Divider orientation="vertical"/>
+        <Text style={styles.duration}>  <Text style={styles.subTitle}> FROM {"\n"} </Text> {recipe.from}  </Text>
+        
+        <Divider orientation="vertical"/>
+        <Text style={styles.duration}>  <Text style={styles.subTitle}> SERVINGS {"\n"} </Text> 4 </Text>
+      </View>
+      
+
       <View style={styles.detailSection}>
-        <Text style={styles.label}>Ingredients:</Text>
+        
+        <Text style={styles.label}>Ingredients</Text>
         {recipe.ingredients.map((ingredient, index) => (
           <Text key={index} style={styles.ingredient}>{ingredient}</Text>
         ))}
       </View>
+      <Divider inset={true} insetType="middle" color={Color.gray} margin={20}/>
       <View style={styles.detailSection}>
-        <Text style={styles.label}>Preparation:</Text>
+      
+        <Text style={styles.label}>Preparation</Text>
         <Text style={styles.preparation}>{recipe.preparation}</Text>
       </View>
       {/* Other details like duration, level, etc. */}
     </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Color.white,
   },
   image: {
     width: '100%',
     height: 300,
+    borderRadius: 25,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: FontFamily.futuraBold,
+    fontSize: 25,
+    textAlign: "center",
     margin: 10,
   },
   description: {
+    fontFamily: FontFamily.sfRegular,
+    textAlign: "center",
     fontSize: 16,
-    margin: 10,
+    marginBottom: 15,
+    color: Color.darkGray,
+  },
+  duration: {
+    textAlign: "center",
+    marginTop:10,
+    marginBottom: 10,
+    marginRight: 15,
+    marginLeft:15,
+  },
+  information: {
+    marginTop:5,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  subTitle: {
+    fontFamily: FontFamily.futuraCondensed,
+    color: Color.darkGray
   },
   detailSection: {
     margin: 10,
   },
   label: {
-    fontSize: 18,
+    fontFamily: FontFamily.futuraMedium,
     fontWeight: 'bold',
+    color: Color.blue,
+    marginTop:5,
+    marginLeft:5,
+    marginBottom: 10,
   },
   ingredient: {
     fontSize: 16,
@@ -91,6 +175,7 @@ const styles = StyleSheet.create({
   },
   preparation: {
     fontSize: 16,
+    marginLeft:5,
   },
   backButton: {
     // Adjust style as needed
@@ -99,7 +184,30 @@ const styles = StyleSheet.create({
     left: 10, // Adjust left as necessary
     zIndex: 10, // Ensure button is clickable over other elements
   },
-  // Add styles for other elements
+  iconContainer: {
+    position: 'absolute',
+    top: 5,
+    right: 30,
+    alignItems: 'center',
+  },
+  iconSaved: {
+    width:16,
+    height:24,
+    marginLeft:330,
+    marginTop:5,
+    position: "absolute",
+    alignItems: 'center',
+    // zIndex: 10, // Ensure button is clickable over other elements
+  },
+  iconToSave: {
+    width:27,
+    height:27,
+    marginLeft:325,
+    marginTop:2,
+    alignItems: 'center',
+    position: "absolute",
+    // zIndex: 10, // Ensure button is clickable over other elements
+  },
 });
 
 export default RecipeDetailsScreen;

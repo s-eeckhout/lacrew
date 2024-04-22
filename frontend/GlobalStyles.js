@@ -1,32 +1,14 @@
 // import { Asap_400Regular , Asap_500Medium , Asap_600SemiBold , Asap_400Regular_Italic } from "@expo-google-fonts/asap";
 
 import { useFonts } from "expo-font";
-import {
-  Asap_400Regular,
-  Asap_500Medium,
-  Asap_600SemiBold,
-  Asap_400Regular_Italic,
-  Asap_700Bold,
-} from "@expo-google-fonts/asap";
-
-export const loadFonts = async () => {
-  await useFonts({
-    Asap_400Regular,
-    Asap_500Medium,
-    Asap_600SemiBold,
-    Asap_400Regular_Italic,
-    Asap_700Bold,
-  });
-};
-
-// TODO: Fix fonts??
 
 /* fonts */
 export const FontFamily = {
-  asapMedium: "Futura-Medium",
-  asapRegular: "System",
-  asapSemiBold: "Futura-Medium",
-  asapBold: "Futura-Bold",
+  futuraMedium: "Futura-Medium",
+  sfRegular: "System",
+  // asapSemiBold: "Futura-Medium",
+  futuraBold: "Futura-Bold",
+  futuraCondensed: "Futura-CondensedMedium"
 };
 /* font sizes */
 export const FontSize = {
@@ -39,16 +21,18 @@ export const FontSize = {
 };
 /* Colors */
 export const Color = {
-  trueWhite: "#fff",
-  colorDarkslategray: "#2c2f48",
-  colorOlive: "#ac9f27",
-  colorLimegreen: "#5ded46",
-  labelColorLightPrimary: "#000",
-  colorRed: "#de1717",
-  colorPeru: "#c2742c",
-  colorForestgreen: "#419f21",
-  colorGainsboro: "#e1dfdf",
-  colorDarkorange: "#ff890e",
+  white: "#fff",
+  // colorDarkslategray: "#2c2f48",
+  // colorOlive: "#ac9f27",
+  blue: "#4286c6",
+  lightgray: "#E1DFDF",
+  backgroundGray: "#F2F2F2",
+  red: "#FF3B30",
+  green: "#34C759",
+  gray: "#7A8994",
+  darkGray: "#2B2F38",
+  orange: "#ff890e",
+  darkOrange: "#e57909",
 };
 /* Paddings */
 export const Padding = {

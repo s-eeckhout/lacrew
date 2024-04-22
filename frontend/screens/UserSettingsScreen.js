@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     marginTop: -80,
     left: 20,
     color: "white",
-    fontFamily: FontFamily.asapSemiBold,
+    fontFamily: FontFamily.futuraMedium,
     fontSize: FontSize.size_3xl,
   },
   container: {
@@ -77,12 +77,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: Color.colorGainsboro,
+    borderBottomColor: Color.lightgray,
   },
   settingText: {
-    fontFamily: FontFamily.asapRegular,
+    fontFamily: FontFamily.sfRegular,
     fontSize: FontSize.size_sm,
-    color: Color.colorDarkslategray,
+    color: Color.darkGray,
   },
   arrowIcon: {
     width: 10, // Adjust size as needed

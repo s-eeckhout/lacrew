@@ -82,9 +82,9 @@ const GroceriesList = () => {
             <Progress.Bar
               progress={item.percentage_left / 100}
               width={303}
-              color="#ef8313"
-              borderWidth="0"
-              unfilledColor="#E1DFDF"
+              color={Color.orange}
+              borderWidth={0}
+              unfilledColor={Color.lightgray}
             />
             </View>
             <Text style={styles.percentageLeft}>{item.percentage_left + " %"}</Text>
@@ -120,16 +120,14 @@ const Recipe = ({ recipe }) => {
 
   switch (recipe.level) {
     case 'easy':
-      difficultyColor = '#34C759'; // Green
+      difficultyColor = Color.green; // Green
       break;
     case 'medium':
-      difficultyColor = 'darkorange'; // Dark orange
+      difficultyColor = Color.darkOrange; // Dark orange
       break;
     case 'hard':
-      difficultyColor = '#FF3B30'; // Red
+      difficultyColor = Color.red; // Red
       break;
-    default:
-      difficultyColor = '#34C759'; // Green (default to Easy)
   }
 
   return (
@@ -286,9 +284,9 @@ const styles = StyleSheet.create({
     left: 0,
   },
   titleRecipesIdeas: {
-    fontFamily: FontFamily.asapBold,
+    fontFamily: FontFamily.futuraBold,
     fontWeight: "700",
-    color: Color.trueWhite,
+    color: Color.white,
     textAlign: "left",
     width: 305,
     fontSize: FontSize.size_lg,
@@ -308,8 +306,8 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   whiteText: {
-    fontFamily: FontFamily.asapMedium,
-    color: "white",
+    fontFamily: FontFamily.futuraMedium,
+    color: Color.white,
     fontWeight: "500",
     lineHeight: 14,
     fontSize: FontSize.size_xs,
@@ -327,8 +325,8 @@ const styles = StyleSheet.create({
   },
   titleTypo: {
     width: 194,
-    color: Color.trueWhite,
-    fontFamily: FontFamily.asapBold,
+    color: Color.white,
+    fontFamily: FontFamily.futuraBold,
     fontWeight: "700",
     textAlign: "left",
   },
@@ -349,7 +347,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     left: 0,
     borderStyle: "solid",
-    borderColor: Color.trueWhite,
+    borderColor: Color.white,
     borderWidth: 1,
     alignItems: "center",
     height: 26,
@@ -360,7 +358,7 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: FontFamily.sFPro,
     fontSize: FontSize.size_xs,
-    color: "white",
+    color: Color.white,
     textAlign: "center",
     top: 6,
   },
@@ -394,8 +392,8 @@ const styles = StyleSheet.create({
   },
   expiringSoon: {
     fontWeight: "600",
-    fontFamily: FontFamily.asapSemiBold,
-    color: "#4286c6",
+    fontFamily: FontFamily.futuraMedium,
+    color: Color.blue,
     width: 346,
     height: 23,
     textAlign: "left",
@@ -407,7 +405,7 @@ const styles = StyleSheet.create({
     top: 30, // Adjust this value as per your requirement
     left: 10, // Adjust this value as per your requirement
     color: "white",
-    fontFamily: FontFamily.asapMedium,
+    fontFamily: FontFamily.futuraMedium,
     fontSize: FontSize.size_3xl,
   },
   icon: {
@@ -472,13 +470,13 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     fontFamily: FontFamily.asapItalic,
     width: 132,
-    color: Color.trueWhite,
+    color: Color.white,
     fontSize: FontSize.size_sm,
     textAlign: "left",
   },
   recipeTagDays: {
     borderStyle: "solid",
-    borderColor: Color.trueWhite,
+    borderColor: Color.white,
     borderWidth: 1,
     left:-10,
     alignItems: "center",
@@ -547,15 +545,15 @@ const styles = StyleSheet.create({
   daysLeft:{
     top:1,
     left:5,
-    color: "#7A8994",
+    color: Color.gray,
   },
   percentageLeft:{
     top:-6,
     left:5,
-    color: "#e57909",
+    color: Color.darkOrange,
   },
   itemName: {
-    fontFamily: FontFamily.asapSemiBold,
+    fontFamily: FontFamily.futuraMedium,
     fontSize: FontSize.calloutBold_size,
     marginBottom: 3,
   },

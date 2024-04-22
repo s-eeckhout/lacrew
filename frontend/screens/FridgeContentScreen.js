@@ -50,7 +50,6 @@ const TAGS = [
 
 const Tag = ({ label, colors, selected, onPress }) => {
   const containerStyles = {
-    // backgroundColor: selected ? colors[0] : 'white',
     borderWidth: selected ? 0 : 1, // Add border if not selected
     borderColor: selected ? "white" : colors[0], // Border color same as gradient color
     paddingHorizontal: Padding.p_xs,
@@ -85,7 +84,6 @@ const Tag = ({ label, colors, selected, onPress }) => {
           </View>
         )}
       </Pressable>
-      {/* // TODO: Make toggle on/off for 'selected' that it only shows those categories*/}
     </>
   );
 };
@@ -203,7 +201,7 @@ const GroceriesList = () => {
 
                 <View style={[{flexDirection: "row"}]}>
                   <View style={styles.progress}> 
-                    <Progress.Bar progress={progress} width={310} color="#ef8313" borderWidth="0" unfilledColor="#E1DFDF"/>
+                    <Progress.Bar progress={progress} width={310} color={Color.orange} borderWidth={0} unfilledColor={Color.lightgray}/>
                   </View>
                   <Text style={styles.percentageLeft}>{item.percentage_left + " %"}</Text>
                 </View>
@@ -229,7 +227,7 @@ const styles = StyleSheet.create({
     marginTop: -80,
     left: 20,
     color: "white",
-    fontFamily: FontFamily.asapSemiBold,
+    fontFamily: FontFamily.futuraMedium,
     fontSize: FontSize.size_3xl,
   },
   container: {
@@ -244,19 +242,19 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_3xs,
   },
   itemName: {
-    fontFamily: FontFamily.asapSemiBold,
+    fontFamily: FontFamily.futuraMedium,
     fontSize: FontSize.calloutBold_size,
     marginBottom: 3,
   },
   daysLeft:{
     top:1,
     left:5,
-    color: "#7A8994",
+    color: Color.gray,
   },
   percentageLeft:{
     top:-6,
     left:5,
-    color: "#e57909",
+    color: Color.darkOrange,
   },
   progress:{
     justifyContent: "space-between",

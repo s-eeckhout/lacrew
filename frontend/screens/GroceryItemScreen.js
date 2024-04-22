@@ -55,34 +55,33 @@ const GroceryItem = () => {
       <BackButton />
       <Text style={styles.headerText}>{item.name}</Text>
 
-      <Text style={[styles.text, styles.textLayout]}> Leftover Amount </Text>
+        <View style={[{flexDirection:"row"}]}>
+      <Text style={[styles.text, styles.textLayout, {color:Color.blue}]}> Leftover Amount </Text>
+      <Text style={[styles.textLayout, styles.sliderValueText]}>{`${sliderValue}%`}</Text>
+      </View>
       <View style={styles.sliderLayout}>
         <Slider
-          style={{ width: 300, height: 40 }}
+          style={{ width: 300, height: 0 }}
           minimumValue={0}
           maximumValue={100}
           step={25}
           value={sliderValue}
           onValueChange={(newValue) => setSliderValue(newValue)}
           onSlidingComplete={handleValueChangeComplete}
-          minimumTrackTintColor="#7375c0"
-          maximumTrackTintColor="#00a3ff"
-          thumbTintColor="#7375c0"
+          minimumTrackTintColor="#00a3ff"
+          maximumTrackTintColor={Color.lightgray}
+          thumbTintColor={Color.white}
         />
-        <Text style={styles.sliderValueText}>{`${sliderValue}%`}</Text>
+        
       </View>
 
-      <Text style={[styles.text, styles.textLayoutExpiration]}>
-        {" "}
-        Expiration Date{" "}
-      </Text>
+      <View style={[{flexDirection:"row"}]}>
+      <Text style={[styles.text, styles.textLayoutExpiration, {color:Color.orange}]}> Expiration Date </Text>
+      <Text style={[styles.sliderValueText,styles.textLayoutExpiration]}>{`${sliderValue} days left`}</Text>
+      </View>
       {/* <View style={styles.sliderLayout}> */}
       <View style={styles.progressLayout}>
-        <Progress.Bar
-          progress={item.completed / 100}
-          width={300}
-          color={Color.orange}
-        />
+        <Progress.Bar progress={item.completed / 100} width={300} color={Color.orange} borderWidth={0} unfilledColor={Color.lightgray}/>
         {/* </View> */}
         {/* <Text>Value: {value}</Text> */}
       </View>
@@ -102,6 +101,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     top: 40,
+  },
+  sliderValueText:{
+    marginTop:1,
+    color:Color.darkGray,
+    marginLeft:5,
   },
   progressLayout: {
     justifyContent: "center",

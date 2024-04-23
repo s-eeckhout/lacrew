@@ -100,7 +100,7 @@ function Navbar() {
                   }}
                 >
                   <Image
-                    source={require("../assets/plus.png")}
+                    source={require("../assets/Plus.png")}
                     style={{ width: size, height: size, tintColor: Color.white }}
                   />
                 </View>

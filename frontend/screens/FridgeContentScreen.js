@@ -7,7 +7,7 @@ import * as Progress from "react-native-progress";
 import { LinearGradient } from "expo-linear-gradient";
 import { endpoint } from "../utils/endpoint";
 import { createStackNavigator } from "@react-navigation/stack";
-import FridgeContentScreen from "./FridgeContentScreen";
+// import FridgeContentScreen from "./FridgeContentScreen";
 import GroceryItemScreen from "./GroceryItemScreen";
 import { useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
@@ -155,6 +155,19 @@ const GroceriesList = () => {
     ? fridgeItems.map(calculateDaysUntilExpiration)
     : [];
 
+  // const indices = Array.from({ length: fridgeItems.length }, (_, index) => index);
+  // indices.sort((a, b) => daysUntilExpirationArray[a] - daysUntilExpirationArray[b]);
+  // const sortedFridgeItems = indices.map(index => fridgeItems[index]);
+  // setFridgeItems(sortedFridgeItems);
+  // const sortedDaysUntilExpirationArray = indices.map(index => daysUntilExpirationArray[index]);
+
+  // Sort displayItems based on daysUntilExpirationArray
+  // fridgeItems.sort((a, b) => {
+  //   const indexA = displayItems.indexOf(a);
+  //   const indexB = displayItems.indexOf(b);
+  //   return daysUntilExpirationArray[indexA] - daysUntilExpirationArray[indexB];
+  // });
+
   // Handle the pressing of tags
   const handleTagPress = (index) => {
     const updatedTags = tags.map((tag, i) => ({
@@ -173,6 +186,7 @@ const GroceriesList = () => {
   };
   // Get the filtered items to display
   const displayItems = getFilteredItems();
+  console.log(daysUntilExpirationArray)
 
   return (
     <View style={styles.container}>
@@ -197,7 +211,7 @@ const GroceriesList = () => {
       <ScrollView style={styles.fridgeItemsContainer}>
         {displayItems.map((item, index) => {
           const progress = item.percentage_left / 100;
-          console.log(`Progress for ${item.name}:`, progress);
+          // console.log(`Progress for ${item.name}:`, progress);
           return (
             <Pressable key={index} onPress={() => handlePressItem(item)}>
               <View style={styles.item}>

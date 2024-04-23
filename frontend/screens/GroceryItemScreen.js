@@ -77,7 +77,7 @@ const GroceryItem = () => {
 
       <View style={[{flexDirection:"row"}]}>
       <Text style={[styles.text, styles.textLayoutExpiration, {color:Color.orange}]}> Expiration Date </Text>
-      <Text style={[styles.sliderValueText,styles.textLayoutExpiration]}>{`${sliderValue} days left`}</Text>
+      <Text style={[styles.sliderValueText,styles.textLayoutExpiration]}>{`${item.days} left`}</Text>
       </View>
       {/* <View style={styles.sliderLayout}> */}
       <View style={styles.progressLayout}>

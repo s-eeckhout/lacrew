@@ -21,7 +21,7 @@
         "preparation": "Cook the beef, fry the potato, put the beef in the bread with the lettuce, tomato, onion and cheese, serve with the fries",
         "image": "./imgs/burger.jpg",
         "time": 30,
-        "saved": false
+        "saved": true
     },
     "recipe_3": {
         "recipe_id": 3,
@@ -57,19 +57,19 @@
         "preparation": "Cook the beef, fry the tortilla, put the beef in the tortilla with the lettuce, tomato, onion, cheese and avocado",
         "image": "./imgs/tacos.jpg",
         "time": 30,
-        "saved": false
+        "saved": true
     },
     "recipe_6": {
         "recipe_id": 6,
         "recipe_name": "Ramen",
-        "recipe_description": "Savor the flavorful miso ramen with egg",
+        "recipe_description": "Savor the flavorful miso ramen with egg and ginger",
         "level": "Medium",
         "from": "Japan",
         "ingredients": ["noodles", "egg", "soy sauce", "miso", "onion", "garlic", "ginger"],
         "preparation": "Cook the noodles, fry the onion, garlic and ginger, add the soy sauce and miso, add the noodles, add the egg",
         "image": "./imgs/ramen.jpg",
         "time": 30,
-        "saved": false
+        "saved": true
     },
     "recipe_7": {
         "recipe_id": 7,

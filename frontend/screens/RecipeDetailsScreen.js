@@ -5,22 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Divider } from '@rneui/themed';
 import { Color, FontFamily, FontSize, Padding, Border } from "../GlobalStyles";
 import { Ionicons , AntDesign} from "@expo/vector-icons";
+import { endpoint } from "../utils/endpoint";
 
-const updateBackend = async (newValue) => {
-  const response = await fetch(endpoint + `fridge-items/${item.name}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ saved: newValue }),
-  });
 
-  if (response.ok) {
-    console.log("Update successful");
-  } else {
-    console.error("Failed to update");
-  }
-};
 
 const recipeImages = {
   Pasta: require("../assets/imgs/Pasta.jpg"),
@@ -35,29 +22,50 @@ const recipeImages = {
   Goulash: require("../assets/imgs/Goulash.jpg"),
 };
 
-const SaveIcon = (recipe) => {
 
-  const [SAVED, setSAVED] = useState(false);
-  const savedPress = () => {
-    setSAVED(!SAVED); // Toggle the SAVED state
-    // updateBackend(!recipe.saved)
-  };
-  return (
-    // <View style={styles.iconContainer}>
-        <TouchableOpacity onPress={savedPress} style={[styles.backButton]}>
-          {/* recipe.saved */}
-          {SAVED ? (<Image style={[styles.iconSaved]} contentFit="cover" source={require("../assets/iconSaved.png")} />) 
-          : (<Image style={[styles.iconToSave]} contentFit="cover" source={require("../assets/iconToSave.png")} />
-          )}
-        </TouchableOpacity>
-    // </View>
-  );
-};
  
 
 const RecipeDetailsScreen = ({ route }) => {
   const { recipe } = route.params;
   const navigation = useNavigation();
+
+  const updateBackend = async (newValue) => {
+    const response = await fetch(endpoint + `recipes/${recipe.recipe.recipe_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ saved: newValue }),
+    });
+  
+    if (response.ok) {
+      console.log("Update successful");
+    } else {
+      console.error("Failed to update");
+    }
+  };
+
+  const SaveIcon = (recipe) => {
+
+    const [SAVED, setSAVED] = useState(false);
+    const savedPress = () => {
+      // setSAVED(!SAVED); // Toggle the SAVED state
+      console.log("Saving recipe",recipe.recipe.recipe_id,  "- before: ", recipe.recipe.saved)
+      updateBackend(!recipe.recipe.saved)
+      console.log("Saving recipe",recipe.recipe.recipe_id,  "- after: ", recipe.recipe.saved)
+    };
+    return (
+      // <View style={styles.iconContainer}>
+          <TouchableOpacity onPress={savedPress} style={[styles.backButton]}>
+            {/* recipe.saved */}
+            {recipe.recipe.saved ? (<Image style={[styles.iconSaved]} contentFit="cover" source={require("../assets/iconSaved.png")} />) 
+            : (<Image style={[styles.iconToSave]} contentFit="cover" source={require("../assets/iconToSave.png")} />
+            )}
+          </TouchableOpacity>
+      // </View>
+    );
+  };
+
    // Custom Back Button component
    const BackButton = () => {
     return (

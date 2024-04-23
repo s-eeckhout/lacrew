@@ -20,6 +20,9 @@ const recipeImages = {
   Pancakes: require("../assets/imgs/Pancakes.jpg"),
   Tacos: require("../assets/imgs/Tacos.jpg"),
   Goulash: require("../assets/imgs/Goulash.jpg"),
+  Dumplings: require("../assets/imgs/Dumplings.jpg"),
+  Schweinshaxe: require("../assets/imgs/Schweinshaxe.jpg"),
+  Meatballs: require("../assets/imgs/Meatballs.jpg")
 };
 
 

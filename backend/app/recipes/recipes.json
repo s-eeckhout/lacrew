@@ -118,5 +118,41 @@
         "image": "./imgs/goulash.jpg",
         "time": 60,
         "saved": false
+    },
+    "recipe_11": {
+        "recipe_id": 11,
+        "recipe_name": "Dumplings",
+        "recipe_description": "Experience the delicate dumplings with soy sauce",
+        "level": "Medium",
+        "from": "China",
+        "ingredients": ["flour", "pork", "onion", "garlic", "ginger", "soy sauce"],
+        "preparation": "Mix the flour, water, pork, onion, garlic and ginger, form the dumplings, cook for 10 minutes, serve with the soy sauce",
+        "image": "./imgs/dumplings.jpg",
+        "time": 30,
+        "saved": false
+    },
+    "recipe_12": {
+        "recipe_id": 12,
+        "recipe_name": "Schweinshaxe",
+        "recipe_description": "Treat yourself to the crispy Schweinshaxe with sauerkraut",
+        "level": "Difficult",
+        "from": "Germany",
+        "ingredients": ["pork", "onion", "garlic", "beer", "sauerkraut", "potato"],
+        "preparation": "Cook the pork, fry the onion and garlic, add the beer, cook for 1 hour, serve with the sauerkraut and potato",
+        "image": "./imgs/schweinshaxe.jpg",
+        "time": 90,
+        "saved": false
+    },
+    "recipe_13":{
+        "recipe_id": 13,
+        "recipe_name": "Meatballs",
+        "recipe_description": "Enjoy the tender Sweden meatballs with lingonberry jam",
+        "level": "Medium",
+        "from": "Sweden",
+        "ingredients": ["beef", "onion", "garlic", "bread", "milk", "lingonberry jam"],
+        "preparation": "Mix the beef, onion, garlic, bread and milk, form the meatballs, fry the meatballs, serve with the lingonberry jam",
+        "image": "./imgs/sweden_meatballs.jpg",
+        "time": 40,
+        "saved": false
     }
 }

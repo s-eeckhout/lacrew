@@ -12,6 +12,7 @@ import { Padding, Border, FontFamily, Color, FontSize } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 import { DataContext } from "../App"; // Import the DataContext if you are using it
 import { endpoint } from "../utils/endpoint";
+import { AntDesign} from "@expo/vector-icons";
 import * as Progress from "react-native-progress";
 
 const flags = {
@@ -241,18 +242,16 @@ const Home = () => {
           <Image
             style={styles.iconBlue}
             contentFit="cover"
-            source={require("../assets/blueIcon.svg")}
-          />
-          <Image
-            style={styles.iconEdit}
-            contentFit="cover"
-            source={require("../assets/edit.svg")}
+            source={require("../assets/iconEditGroceries.svg")}
           />
         </TouchableOpacity>
       </View>
 
-      <View style={[styles.titleParent, styles.contentSpaceBlock]}>
+      <View style={[styles.titleParent]}>
         <Text style={styles.expiringSoon}>Expiring Soon</Text>
+        <TouchableOpacity onPress={() => handlePress("FridgeContent")} style={styles.arrowRightIcon}>
+          <AntDesign name="rightcircleo" size={20} color={Color.blue} />
+        </TouchableOpacity>
         <GroceriesList />
       </View>
 
@@ -267,13 +266,6 @@ const Home = () => {
           Recipes with Tomato{" "}
           {/* // TODO Change for top of stack of FridgeItems */}
         </Text>
-        <TouchableOpacity onPress={() => handlePress("FridgeContent")}>
-          <Image
-            style={styles.arrowsarrowRightIcon}
-            contentFit="cover"
-            source={require("../assets/arrowsarrowright.png")}
-          />
-        </TouchableOpacity>
       </View>
 
       {/* RECIPE IDEAS CONTENT */}
@@ -295,8 +287,8 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   contentSpaceBlock: {
-    paddingHorizontal: Padding.p_3xs,
-    left: 0,
+    // paddingHorizontal: Padding.p_3xs,
+    // left: 0,
   },
   titleRecipesIdeas: {
     fontFamily: FontFamily.futuraBold,
@@ -311,7 +303,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   contentSpaceBlock: {
-    paddingVertical: 0,
+    // paddingVertical: 0,
     position: "absolute",
   },
   tagsPosition: {
@@ -411,6 +403,8 @@ const styles = StyleSheet.create({
     color: Color.blue,
     width: 346,
     height: 23,
+    marginTop: 8,
+    marginBottom: 5,
     textAlign: "left",
     fontSize: FontSize.size_lg,
   },
@@ -420,7 +414,7 @@ const styles = StyleSheet.create({
     top: 45, // Adjust this value as per your requirement
     left: 10, // Adjust this value as per your requirement
     color: "white",
-    fontFamily: FontFamily.futuraMedium,
+    fontFamily: FontFamily.futuraBold,
     fontSize: FontSize.size_3xl,
   },
   icon: {
@@ -430,7 +424,7 @@ const styles = StyleSheet.create({
   },
   titleParent: {
     top: 168,
-    paddingBottom: Padding.p_3xs,
+    // paddingBottom: Padding.p_3xs,
     alignItems: "center",
     height: 258,
     position: "absolute",
@@ -442,17 +436,16 @@ const styles = StyleSheet.create({
     left: -51,
     width: 541,
   },
-  arrowsarrowRightIcon: {
-    width: 24,
-    height: 24,
-    marginLeft: 10,
+  arrowRightIcon: {
+    marginLeft: -70,
+    marginTop: -25,
     overflow: "hidden",
   },
   titleGroup: {
     top: 475,
     paddingHorizontal: 25,
     left: "50%",
-    marginLeft: -195,
+    marginLeft: -210,
     width: 390,
     justifyContent: "center",
     flexDirection: "row",
@@ -515,10 +508,10 @@ const styles = StyleSheet.create({
     marginLeft: 304,
   },
   iconBlue: {
-    top: -8,
-    width: 50,
-    height: 51,
-    marginLeft: 290,
+    top: 24,
+    width: 100,
+    height: 48,
+    marginLeft: 240,
   },
   ingredients: {
     top: 148,
@@ -529,7 +522,7 @@ const styles = StyleSheet.create({
   },
   RecipesParent: {
     // top: 451,
-    marginTop: 335,
+    marginTop: 355,
     padding: Padding.p_3xs,
     flexDirection: "row",
     gap: 10,
@@ -539,7 +532,7 @@ const styles = StyleSheet.create({
     // position: "absolute",
   },
   container: {
-    flex: 1,
+    // flex: 1,
     // zIndex:0
     // backgroundColor: Color.colorWhite,
     // padding: Padding.p_3xs,
@@ -549,7 +542,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
     justifyContent: "space-between",
     // marginLeft:-103,
-    marginBottom: 10,
+    // marginBottom: 10,
     backgroundColor: Color.colorWhite,
     borderRadius: Border.br_base,
     paddingHorizontal: Padding.p_base,

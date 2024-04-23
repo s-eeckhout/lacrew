@@ -209,7 +209,6 @@ const RecipeList = ({  }) => {
     const updatedTags = tags_.map((tag_, i) => ({
       ...tag_,
       selected: i === index ? !tag_.selected : tag_.selected,
-      // selected: i === index ? true : false,
     }));
     set(updatedTags);
   };
@@ -222,8 +221,17 @@ const RecipeList = ({  }) => {
   };
 
   const [SAVED, setSAVED] = useState(false);
-  const savedPress = () => {
+  const savedPress = async () => {
     setSAVED(!SAVED); // Toggle the SAVED state
+
+    try {
+      const response = await fetch(endpoint + "recipes");
+      const json = await response.json();
+      setRecipes(json);
+    } catch (error) {
+      setError('Failed to fetch data.');
+      console.error(error);
+    }
   };
 
   // const sortedfridgeItems = Object.values(fridgeItems_).sort((a, b) => a.expiration_time - b.expiration_time)
@@ -393,7 +401,8 @@ const styles = StyleSheet.create({
   },
   recipesContainer: {
     marginTop: 20,
-    // marginBottom: -50,
+    // position: "absolute",
+    marginBottom: 200, 
   },
   recipeImage: {
     borderRadius: Border.br_xl,

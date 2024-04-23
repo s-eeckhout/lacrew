@@ -187,11 +187,11 @@ const GroceriesList = () => {
     ? displayItems.map(calculateDaysUntilExpiration) 
     : [];
   
-    // displayItems.sort((a, b) => {
+    // displayItems.sort((a, b) => { 
     //   const indexA = displayItems.indexOf(a);
     //   const indexB = displayItems.indexOf(b);
     //   return daysUntilExpirationArray[indexA] - daysUntilExpirationArray[indexB];});
-    // daysUntilExpirationArray.sort(function(a, b){return a - b});
+    // // daysUntilExpirationArray.sort(function(a, b){return a - b});
     
     // console.log(fridgeItems.map(item => item.name).join(','));
     // console.log(displayItems.map(it => it.name).join(','));

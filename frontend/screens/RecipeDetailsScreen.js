@@ -31,41 +31,43 @@ const recipeImages = {
 const RecipeDetailsScreen = ({ route }) => {
   const { recipe } = route.params;
   const navigation = useNavigation();
+  const [RecipeSaved, saveRecipe] = useState(recipe.saved);
+  // console.log(RecipeItem)
+  // saveRecipe()
+  
 
-  const updateBackend = async (newValue) => {
-    const response = await fetch(endpoint + `recipes/${recipe.recipe.recipe_id}`, {
+  const updateBackend = async (newValue, id) => {
+    
+    // console.log("endpoint test!", endpoint, "recipes", id)
+
+    const response = await fetch(endpoint + `recipes/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ saved: newValue }),
     });
-  
+    
     if (response.ok) {
-      console.log("Update successful");
+      console.log("Update successful"); //Saving recipe",id,  "- after: ", newValue);
     } else {
       console.error("Failed to update");
     }
+    // console.log("Saving recipe",id,  "- after: ", newValue)
   };
 
-  const SaveIcon = (recipe) => {
-
-    const [SAVED, setSAVED] = useState(false);
-    const savedPress = () => {
-      // setSAVED(!SAVED); // Toggle the SAVED state
-      console.log("Saving recipe",recipe.recipe.recipe_id,  "- before: ", recipe.recipe.saved)
-      updateBackend(!recipe.recipe.saved)
-      console.log("Saving recipe",recipe.recipe.recipe_id,  "- after: ", recipe.recipe.saved)
+  const SaveIcon = (RecipeToSave) => {
+    const savedPress = async () => {
+      // console.log(RecipeToSave.recipe.saved)
+      await updateBackend(!RecipeSaved, RecipeToSave.recipe.recipe_id)
+      saveRecipe(!RecipeSaved)
     };
     return (
-      // <View style={styles.iconContainer}>
           <TouchableOpacity onPress={savedPress} style={[styles.backButton]}>
-            {/* recipe.saved */}
-            {recipe.recipe.saved ? (<Image style={[styles.iconSaved]} contentFit="cover" source={require("../assets/iconSaved.png")} />) 
+            {RecipeSaved ? (<Image style={[styles.iconSaved]} contentFit="cover" source={require("../assets/iconSaved.png")} />) 
             : (<Image style={[styles.iconToSave]} contentFit="cover" source={require("../assets/iconToSave.png")} />
             )}
           </TouchableOpacity>
-      // </View>
     );
   };
 

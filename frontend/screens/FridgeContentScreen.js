@@ -307,7 +307,8 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   fridgeItemsContainer: {
-    top:60
+    top:60,
+    marginBottom:90
   },
   label: {
     fontFamily: FontFamily.sFPro,

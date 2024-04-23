@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal, Ima
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
 import { Ionicons , AntDesign} from "@expo/vector-icons";
 import RNPickerSelect from 'react-native-picker-select';
+import { endpoint } from "../utils/endpoint";
 
 const BlueHeader = () => {
   return (
@@ -35,11 +36,70 @@ const AddForm = ({navigation}) => {
         );
       };
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    // today.slice(0, 10);
+    // console.log(today)
+
+    function formatDate(date) {
+      let month = '' + (date.getMonth() + 1); // Months start at 0
+      let day = '' + date.getDate();
+      let year = date.getFullYear();
+  
+      // Add leading zeros if needed
+      if (month.length < 2) 
+          month = '0' + month;
+      if (day.length < 2) 
+          day = '0' + day;
+  
+      return [year, month, day].join('-');
+  }
+  
+  const formattedDate = formatDate(today);
+  // console.log(formattedDate); // Outputs: "YYYY-MM-DD"
+
   const [formData, setFormData] = useState({
     name: '',
-    quantity: '',
+    quantity: 1,
     category: '',
+    day_added: formattedDate,
+    expiration_time: '',
   });
+
+  const food_categories = {
+    'Milk': 7,
+    'Yoghurt': 14,
+    'Cheese': 30,
+    'Dairy': 14,
+    'Butter': 60,
+    'Eggs': 30,
+    'Vegetables': 5,
+    'Fruit': 5,
+    'Onion/Garlic': 30,
+    'Potatoes': 21,
+    'Meat': 7,
+    'Fish': 3,
+    'Frozen': 180,
+    'Bread': 7,
+    'Beverages': 180,
+    'Juice': 14,
+    'Snacks': 180, 
+    'Canned': 365,
+    'Pasta': 730,
+    'Rice': 730,
+    'Condiments/Spices': 365,
+    'Non-Food': null,
+    'Other': null
+}
+  const [expirationTime, setExpirationTime] = useState(null)
+  const addExpirationTime = async () => {
+    if (category in food_categories) {
+      setExpirationTime(food_categories[category])
+      console.log(expirationTime)
+      await handleInputChange('expiration_time', expirationTime)
+    }
+
+  };
 
   const handleInputChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
@@ -49,17 +109,46 @@ const AddForm = ({navigation}) => {
 
   const inputRef1 = useRef(null);
   const inputRef2 = useRef(null);
-  
+
+  const handlePost = async (postContent) => {
+    // try {
+      const response = await fetch(endpoint + "fridge-items", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+          postContent
+        ),
+      });
+      // const json = await response.json();
+      if (response.ok) {
+        console.log("Update successful"); //Saving recipe",id,  "- after: ", newValue);
+      } else {
+        console.error("Failed to update");
+      }
+
+
+      // console.log("Update successful");
+    // } catch (error) {
+    //   console.log("Failed to update");
+    // }
+  };
 
   const handleSubmit = () => {
     formData.category = category;
+    addExpirationTime();
+    console.log(formData)
     // Handle form submission (e.g., send data to an API)
     
     // Validate input fields (e.g., check if they are not empty)
     if (!formData.name || !formData.quantity || !formData.category) {
       alert('Please fill in all required fields.');
     } else {
+      handlePost(formData)
+
       console.log('Form data submitted:', formData);
+
         setModalVisible(true);
 
         // Hide the modal after 3 seconds
@@ -71,13 +160,14 @@ const AddForm = ({navigation}) => {
 
         inputRef1.current.clear();
         inputRef2.current.clear();
+    
     }
   };
 
   const categoryOptions = [
-    { label: "Vegetables", value: "vegetables"},
-    { label: "Fruit", value: "fruit"},
-    { label: "Dairy", value: "dairy"},
+    { label: "Vegetables", value: "Vegetables"},
+    { label: "Fruit", value: "Fruit"},
+    { label: "Dairy", value: "Dairy"},
     { label: "Meat", value: "Meat"},
     { label: "Pasta", value: "Pasta"},
     { label: "Herbs & Spices", value: "HerbsSpices"},
@@ -104,7 +194,7 @@ const AddForm = ({navigation}) => {
             <TextInput ref={inputRef2} clearButtonMode="always"
                 style={styles.input}
                 placeholder="Enter quantity"
-                onChangeText={(text) => handleInputChange('quantity', text)}
+                onChangeText={(text) => handleInputChange('quantity', parseInt(text))}
                 keyboardType="numeric"
             />
 

@@ -60,6 +60,7 @@ python backend/app.py
  In the Frontend you need to run
  ```bash
 cd frontend
+npm install
 npx expo start
 ```
 

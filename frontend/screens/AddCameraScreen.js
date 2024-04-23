@@ -10,8 +10,9 @@ import {
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { endpoint } from "../utils/endpoint";
+import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
 
 const AddCameraScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -122,8 +123,8 @@ const AddCameraScreen = ({ navigation }) => {
         onPress={() => navigation.goBack()}
         style={styles.backButton}
       >
-        <Ionicons name="arrow-back" size={24} color="white" />
-        <Text style={[styles.title, { color: "white" }]}>go Back</Text>
+        <AntDesign name="left" size={20} color={Color.white} />
+        {/* <Text style={[styles.title, { color: "white" }]}>go Back</Text> */}
 
         {/* <Image
           source={require("../assets/iconBack.png")}

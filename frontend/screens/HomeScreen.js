@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Image } from "expo-image";
 import {
+  RefreshControl,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -203,38 +204,58 @@ const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+  const [randomIngredient, setRandomIngredient] = useState('tomato');
 
-  // Fetch recipes that include 'carrot' in their ingredients
+  ingredientsList = ['potato', 'pork','tomato', 'onion','beef','pepper','bread']
+  
   useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await fetch(endpoint+"recipes/ingredient/tomato");
-        const data = await response.json();
-        // Convert the recipes object into an array
-        const recipesArray = Object.values(data);
-        setRecipes(recipesArray);
-        console.log(recipesArray);
-      } catch (error) {
-        setError('Failed to fetch recipes.');
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchRecipes(randomIngredient);  // 初始加载时使用默认的 randomIngredient
+  }, []);  // 空依赖数组意味着仅在组件挂载时运行一次
 
-    fetchRecipes();
-  }, []);
+  const fetchRecipes = async (ingredient) => {
+    try {
+      console.log('Fetching recipes for:', ingredient);
+      const response = await fetch(endpoint + "recipes/ingredient/" + ingredient);
+      const data = await response.json();
+      recipesArray = Object.values(data);
+      setRecipes(recipesArray);
+      console.log('Ingredient:', ingredient)
+      console.log('Recipes_length:', recipesArray.length);
+    } catch (error) {
+      setError('Failed to fetch recipes: ' + error.toString());
+      console.error(error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    const randomIndex = Math.floor(Math.random() * ingredientsList.length);
+    const selectedIngredient = ingredientsList[randomIndex];
+    setRandomIngredient(selectedIngredient);  // 更新成分状态
+    fetchRecipes(selectedIngredient);  // 使用新的成分重新获取数据
+  };
 
   const handlePress = (screenName) => {
     // Navigate to the screen you want
     navigation.navigate(screenName);
   };
 
+
+
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error}</Text>;
 
   return (
     <View>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
       <Image
         style={[styles.OrangeHeader, styles.HeaderPosition]}
         contentFit="cover"
@@ -269,7 +290,7 @@ const Home = () => {
       />
       <View style={[styles.titleGroup, styles.contentSpaceBlock]}>
         <Text style={[styles.titleRecipesIdeas]}>
-          Recipes with Tomato{" "}
+          Recipes with {randomIngredient+" "}
           {/* // TODO Change for top of stack of FridgeItems */}
         </Text>
       </View>
@@ -282,6 +303,7 @@ const Home = () => {
             <Recipe key={index} recipe={recipe} />
           ))}
         </View>
+      </ScrollView>
       </ScrollView>
     </View>
   );

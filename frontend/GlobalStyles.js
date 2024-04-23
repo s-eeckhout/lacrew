@@ -34,6 +34,8 @@ export const Color = {
   darkGray: "#2B2F38",
   orange: "#ff890e",
   darkOrange: "#e57909",
+  linearGradient1: "#7375c0",
+  linearGradient2: "#00a3ff",
 };
 /* Paddings */
 export const Padding = {

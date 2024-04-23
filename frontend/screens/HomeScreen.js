@@ -130,13 +130,13 @@ const Recipe = ({ recipe }) => {
   const imageSource = recipeImages[recipe.recipe_name];
 
   switch (recipe.level) {
-    case 'easy':
+    case 'Easy':
       difficultyColor = Color.green; // Green
       break;
-    case 'medium':
-      difficultyColor = Color.darkOrange; // Dark orange
+    case 'Medium':
+      difficultyColor = Color.yellow; // Dark orange
       break;
-    case 'hard':
+    case 'Difficult':
       difficultyColor = Color.red; // Red
       break;
   }

@@ -19,15 +19,12 @@ const flags = {
   "Hungary": "🇭🇺"
 }
 
-const BlueHeader = () => {
-  return (
-    <Image
-      style={styles.BlueHeader}
-      contentFit="cover"
-      source={require("../assets/BlueHeader.svg")}
-    />
-  );
-};
+const Difficulties = [
+  { label: "All", color: Color.darkGray, selected: true },
+  { label: "Easy", color: Color.green, selected: false },
+  { label: "Medium", color: Color.yellow, selected: false },
+  { label: "Difficult", color: Color.red, selected: false }
+];
 
 const recipeImages = {
   Pasta: require("../assets/imgs/Pasta.jpg"),
@@ -42,83 +39,29 @@ const recipeImages = {
   Goulash: require("../assets/imgs/Goulash.jpg"),
 };
 
-const RecipeItem = ({ recipe , fridgeItems}) => {
-  // Count the total number of ingredients
-  const totalIngredients = recipe.ingredients.length;
-  const imageSource = recipeImages[recipe.recipe_name];
-  const navigation = useNavigation();
-  const handleRecipePress = () => {
-    navigation.navigate('RecipeDetails', { recipe });
-  };
-
-  // Count the number of matching ingredients from groceries
-  const matchingIngredients = recipe.ingredients.filter(ingredient =>
-    fridgeItems.some(item => item.name.toLowerCase() === ingredient.toLowerCase())
-  ).length;
-
-  let difficultyColor = '';
-  switch (recipe.level) {
-    case 'easy':
-      difficultyColor = Color.green;
-      break;
-    case 'medium':
-      difficultyColor = Color.darkOrange;
-      break;
-    case 'hard':
-      difficultyColor = Color.red;
-      break;
-  }
-
+const BlueHeader = () => {
   return (
-    <TouchableOpacity onPress={handleRecipePress}>
-    <View style={[styles.recipeItemLayout]}>
-      <Image style={styles.recipeImage} source={imageSource} />
-      <View>
-        <View style={styles.recipeNameAndDuration}>
-          <Text style={styles.recipeName}>{recipe.recipe_name}</Text>
-          <Text style={styles.recipeDuration}>{recipe.time} min</Text>
-          
-        </View>
-        <Text style={styles.recipeFlag}> {flags[recipe.from]} </Text>
-
-        <Text style={styles.recipeDescription}>{recipe.recipe_description}</Text>
-        
-        <ScrollView horizontal>
-          <View>
-            <View style={[styles.tagLayout, { backgroundColor: difficultyColor }]}>
-              <Text style={[styles.whiteText]}>{recipe.level}</Text>
-            </View>
-            <View style={[styles.tagLayout, styles.recipeTagIngredients]}>
-              <Text style={[styles.whiteText, {color: 'black'}]}>{`${matchingIngredients}/${totalIngredients}`}</Text>
-            </View>
-          </View>
-        </ScrollView>
-        
-      </View>
-    </View>
-    </TouchableOpacity>
+    <Image
+      style={styles.BlueHeader}
+      contentFit="cover"
+      source={require("../assets/BlueHeader.svg")}
+    />
   );
 };
 
-const TAGS = [
-  { label: "All", selected: true },
-  { label: "Easy", selected: false },
-  { label: "Medium", selected: false },
-  { label: "Difficult", selected: false }
-];
-
-const Tag = ({ label, selected, onPress , containerStyles , colors}) => {
+const Tag = ({ label, filled, onPress , containerStyles , colors}) => {
   const labelStyles = {
     fontFamily: FontFamily.sFPro,
     fontSize: FontSize.size_mini,
-    color: selected ? "white" : "black", // Text color based on selected state
+    color: filled ? "white" : "black", // Text color based on selected state
     textAlign: "left",
+    top:1,
   };
 
   return (
     <>
       <Pressable onPress={onPress}>
-        {selected ? (
+        {filled ? (
           <LinearGradient
             style={[containerStyles]}
             locations={[0, 1]}
@@ -135,6 +78,63 @@ const Tag = ({ label, selected, onPress , containerStyles , colors}) => {
     </>
   );
 };
+
+const RecipeItem = ({ recipe , fridgeItems}) => {
+  // Count the total number of ingredients
+  const totalIngredients = recipe.ingredients.length;
+  const imageSource = recipeImages[recipe.recipe_name];
+  const navigation = useNavigation();
+  const handleRecipePress = () => {
+    navigation.navigate('RecipeDetails', { recipe });
+  };
+
+  // Count the number of matching ingredients from groceries
+  const matchingIngredients = recipe.ingredients.filter(ingredient =>
+    fridgeItems.some(item => item.name.toLowerCase() === ingredient.toLowerCase())
+  ).length;
+
+  return (
+    <TouchableOpacity onPress={handleRecipePress}>
+    <View style={[styles.recipeItemLayout]}>
+      <Image style={styles.recipeImage} source={imageSource} />
+      <View>
+        <View style={styles.recipeNameAndDuration}>
+          <Text style={styles.recipeName}>{recipe.recipe_name}</Text>
+          <Text style={styles.recipeDuration}>{recipe.time} min</Text>
+          
+        </View>
+        <Text style={styles.recipeFlag}> {flags[recipe.from]} </Text>
+
+        <Text style={styles.recipeDescription}>{recipe.recipe_description}</Text>
+        
+        {/* <ScrollView horizontal> */}
+          <View style={[{flexDirection: "row"}]}>
+            <View style={[styles.tagLayout, { backgroundColor: Difficulties.find(difficulty => difficulty.label === recipe.level).color }]}>
+              <Text style={[styles.whiteText]}>{recipe.level}</Text>
+            </View>
+            <View style={[styles.tagLayout, styles.recipeTagIngredients]}>
+              {/* <Text style={[styles.whiteText, {color: 'black'}]}>{`${matchingIngredients}/${totalIngredients}`}</Text> */}
+              <Tag
+                key={1}
+                label={`${matchingIngredients}/${totalIngredients}`}
+                filled={true}
+                onPress={null}
+                containerStyles={[styles.recipeTagIngredients, {borderColor: Color.linearGradient1, borderWidth:1}]}
+                colors={[Color.linearGradient1, Color.linearGradient2]}
+              />
+            </View>
+          </View>
+        {/* </ScrollView> */}
+        
+      </View>
+    </View>
+    </TouchableOpacity>
+  );
+};
+
+
+
+
 
 
 const RecipeList = ({  }) => {
@@ -198,7 +198,7 @@ const RecipeList = ({  }) => {
   }, [route.params?.fridgeItems]);
   
 
-  const [tags, setTags] = useState(TAGS);
+  const [difficulties, setDifficulties] = useState(Difficulties);
   const handleTagPress = (index , tags_ , set) => {
     const updatedTags = tags_.map((tag_, i) => ({
       ...tag_,
@@ -249,14 +249,14 @@ const RecipeList = ({  }) => {
       <View style={styles.filterContainer}>
       <ScrollView horizontal>
       
-        {tags.map((tag, index) => (
+        {difficulties.map((tag, index) => (
           <Tag
             key={index}
             label={tag.label}
-            selected={tag.selected}
-            onPress={() => handleTagPress(index, tags, setTags)}
-            containerStyles={[styles.filterDifficulty]}
-            colors={["#7375c0", "#00a3ff"]}
+            filled={tag.selected}
+            onPress={() => handleTagPress(index, difficulties, setDifficulties)}
+            containerStyles={[styles.filterDifficulty, {borderColor: tag.color}]}
+            colors={[tag.color, tag.color]}
           />
         ))}
         
@@ -265,10 +265,10 @@ const RecipeList = ({  }) => {
             <Tag
               key={i}
               label={item.name}
-              selected={item.selected} 
+              filled={item.selected} 
               onPress={() => handleTagPress(i, Object.values(fridgeItems_), setFridgeItems)} 
-              containerStyles={[styles.filterIngredients]}
-              colors={["darkorange", "darkorange"]}
+              containerStyles={[styles.filterIngredients, {borderColor: Color.linearGradient1}]}
+              colors={[Color.linearGradient1, Color.linearGradient2]}
             />
           ))}
       
@@ -288,9 +288,9 @@ const RecipeList = ({  }) => {
               if (SAVED && !recipe.saved) {
                 return false; // Filter out recipes if SAVED is true and recipe.saved is false
               }
-              if (tags.some(tag => tag.selected && tag.label !== 'All')) {
+              if (difficulties.some(tag => tag.selected && tag.label !== 'All')) {
                 // If any tag other than 'All' is selected, filter recipes based on the selected tag
-                return tags.some(tag => tag.selected && recipe.level === tag.label);
+                return difficulties.some(tag => tag.selected && recipe.level === tag.label);
               } else if (fridgeItems_.some(ingredient => ingredient.selected)) {
                 // If any ingredient is selected, filter recipes based on selected ingredients
                 const selectedIngredients = fridgeItems_
@@ -348,7 +348,6 @@ const styles = StyleSheet.create({
   },
   filterDifficulty: {
     borderWidth: 1, // Add border if not selected
-    borderColor: "#7375c0", // Border color same as gradient color
     paddingHorizontal: Padding.p_xs,
     borderRadius: Border.br_5xs,
     height: 32,
@@ -358,7 +357,7 @@ const styles = StyleSheet.create({
   },
   filterIngredients: {
     borderWidth: 1, // Add border if not selected
-    borderColor: "darkorange", // Border color same as gradient color
+    // borderColor: "darkorange", // Border color same as gradient color
     paddingHorizontal: Padding.p_xs,
     borderRadius: Border.br_lg,
     height: 32,
@@ -409,8 +408,6 @@ const styles = StyleSheet.create({
     left: 5
   },
   recipeFlag: {
-    // marginBottom: -2,
-    // left: 5
     marginLeft:230,
     marginTop:-18,
   },
@@ -420,16 +417,15 @@ const styles = StyleSheet.create({
     color: Color.gray,
     marginTop:2,
     marginBottom: 15,
-    marginRight: 150
+    marginRight: 70
   },
   tagLayout: {
     justifyContent: "center",
-    width: 73,
-    borderRadius: Border.br_xl,
+    marginTop:-10,
+    paddingHorizontal: Padding.p_xs,
+    borderRadius: Border.br_5xs,
     alignItems: "center",
-    height: 26,
-    position: "absolute",
-    // marginTop: 50,
+    height: 21,
   },
   whiteText: {
     fontFamily: FontFamily.sfRegular,
@@ -437,15 +433,13 @@ const styles = StyleSheet.create({
     color: Color.white,
   },
   recipeTagIngredients: {
-    width: 63,
-    backgroundColor: Color.white,
-    left: 80,
-    borderColor: 'gray',
-    borderWidth: 1,
-  },
-  recipeTagDifficulty: {
-    left: 0,
-    width: 54,
+    width: 50,
+    // top:1,
+    marginLeft: 5,
+    height:21,
+    paddingHorizontal: Padding.p_xs,
+    borderRadius: Border.br_5xs,
+    alignItems: "center",
   },
   iconContainer: {
     position: 'absolute',

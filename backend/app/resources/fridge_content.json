@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "Milk",
-        "day_added": "2024-04-01",
+        "day_added": "2024-04-22",
         "expiration_time": 14,
         "quantity": 1,
         "category": "Dairy",
@@ -12,7 +12,7 @@
     {
         "id": 2,
         "name": "Bananas",
-        "day_added": "2024-04-01",
+        "day_added": "2024-04-22",
         "expiration_time": 5,
         "quantity": 6,
         "category": "Fruit",
@@ -22,7 +22,7 @@
     {
         "id": 3,
         "name": "Eggs",
-        "day_added": "2024-03-25",
+        "day_added": "2024-03-30",
         "expiration_time": 28,
         "quantity": 12,
         "category": "Eggs",
@@ -32,7 +32,7 @@
     {
         "id": 4,
         "name": "Chicken",
-        "day_added": "2024-04-01",
+        "day_added": "2024-04-23",
         "expiration_time": 7,
         "quantity": 2,
         "category": "Meat",
@@ -42,8 +42,8 @@
     {
         "id": 5,
         "name": "Salmon",
-        "day_added": "2024-04-01",
-        "expiration_time": 3,
+        "day_added": "2024-04-23",
+        "expiration_time": 7,
         "quantity": 1,
         "category": "Fish",
         "link": "",
@@ -72,7 +72,7 @@
     {
         "id": 8,
         "name": "Bread",
-        "day_added": "2024-04-01",
+        "day_added": "2024-04-24",
         "expiration_time": 7,
         "quantity": 1,
         "category": "Bread",
@@ -92,7 +92,7 @@
     {
         "id": 10,
         "name": "Tomato",
-        "day_added": "2024-04-17",
+        "day_added": "2024-04-20",
         "expiration_time": 5,
         "quantity": 3,
         "category": "Vegetables",
@@ -122,7 +122,7 @@
     {
         "id": 13,
         "name": "Carrot",
-        "day_added": "2024-04-01",
+        "day_added": "2024-04-22",
         "expiration_time": 5,
         "quantity": 4,
         "category": "Vegetables",
@@ -133,7 +133,7 @@
         "id": 14,
         "name": "Salt",
         "day_added": "2024-04-01",
-        "expiration_time": null,
+        "expiration_time": 730,
         "quantity": 1,
         "category": "Herbs/Spices",
         "link": "",
@@ -143,7 +143,7 @@
         "id": 15,
         "name": "Pepper",
         "day_added": "2024-04-01",
-        "expiration_time": null,
+        "expiration_time": 730,
         "quantity": 1,
         "category": "Herbs/Spices",
         "link": "",

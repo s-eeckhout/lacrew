@@ -99,9 +99,23 @@ const GroceriesList = () => {
   const [tags, setTags] = useState(TAGS);
   const [fridgeItems, setFridgeItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const isFocused = useIsFocused();
   // State to hold the slider value
 
-  const isFocused = useIsFocused();
+  // Get today's date (with time set to 00:00:00 for accurate day difference calculation)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  // Function to calculate days until expiration for an item
+  function calculateDaysUntilExpiration(item) {
+    const dayAdded = new Date(item.day_added);
+    const expirationDate = new Date(dayAdded);
+    expirationDate.setDate(dayAdded.getDate() + item.expiration_time);
+
+    const differenceInTime = expirationDate.getTime() - today.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+    return Math.round(differenceInDays);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -135,38 +149,17 @@ const GroceriesList = () => {
     navigation.navigate("GroceryItemScreen", { item: formattedItem });
   };
 
-  // Get today's date (with time set to 00:00:00 for accurate day difference calculation)
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  // Function to calculate days until expiration for an item
-  function calculateDaysUntilExpiration(item) {
-    const dayAdded = new Date(item.day_added);
-    const expirationDate = new Date(dayAdded);
-    expirationDate.setDate(dayAdded.getDate() + item.expiration_time);
-
-    const differenceInTime = expirationDate.getTime() - today.getTime();
-    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-
-    return Math.round(differenceInDays);
-  }
-
-  // Map over each item, calculate the days until expiration, and store the result in a new array
-  const daysUntilExpirationArray = fridgeItems
-    ? fridgeItems.map(calculateDaysUntilExpiration)
-    : [];
-
-  // const indices = Array.from({ length: fridgeItems.length }, (_, index) => index);
-  // indices.sort((a, b) => daysUntilExpirationArray[a] - daysUntilExpirationArray[b]);
-  // const sortedFridgeItems = indices.map(index => fridgeItems[index]);
-  // setFridgeItems(sortedFridgeItems);
-  // const sortedDaysUntilExpirationArray = indices.map(index => daysUntilExpirationArray[index]);
-
+  // console.log(daysUntilExpirationArray)
+  // 
   // Sort displayItems based on daysUntilExpirationArray
   // fridgeItems.sort((a, b) => {
-  //   const indexA = displayItems.indexOf(a);
-  //   const indexB = displayItems.indexOf(b);
-  //   return daysUntilExpirationArray[indexA] - daysUntilExpirationArray[indexB];
-  // });
+  //   const indexA = fridgeItems.indexOf(a);
+  //   const indexB = fridgeItems.indexOf(b);
+  //   // console.log(a.name, indexA)
+  //   return daysUntilExpirationArray[indexA] - daysUntilExpirationArray[indexB];});
+  
+  //   // console.log(sorted)
+  //   daysUntilExpirationArray.sort();
 
   // Handle the pressing of tags
   const handleTagPress = (index) => {
@@ -181,12 +174,28 @@ const GroceriesList = () => {
     const selectedTags = tags.filter((t) => t.selected).map((t) => t.label);
     if (selectedTags.includes("All")) {
       return fridgeItems;
+      // .sort((a, b) => {return daysUntilExpirationArray[a.id-1] - daysUntilExpirationArray[b.id-1];});
     }
-    return fridgeItems.filter((item) => selectedTags.includes(item.category));
+    return fridgeItems.filter((item) => selectedTags.includes(item.category)); 
+    // .sort((a, b) => {return daysUntilExpirationArray[a.id-1] - daysUntilExpirationArray[b.id-1];});
   };
   // Get the filtered items to display
   const displayItems = getFilteredItems();
-  console.log(daysUntilExpirationArray)
+
+  // Map over each item, calculate the days until expiration, and store the result in a new array
+  const daysUntilExpirationArray = displayItems 
+    ? displayItems.map(calculateDaysUntilExpiration) 
+    : [];
+  
+    // displayItems.sort((a, b) => {
+    //   const indexA = displayItems.indexOf(a);
+    //   const indexB = displayItems.indexOf(b);
+    //   return daysUntilExpirationArray[indexA] - daysUntilExpirationArray[indexB];});
+    // daysUntilExpirationArray.sort(function(a, b){return a - b});
+    
+    // console.log(fridgeItems.map(item => item.name).join(','));
+    // console.log(displayItems.map(it => it.name).join(','));
+    // console.log(daysUntilExpirationArray);
 
   return (
     <View style={styles.container}>
